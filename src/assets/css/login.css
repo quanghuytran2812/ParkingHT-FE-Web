@@ -1,0 +1,144 @@
+.login{
+    margin: 0;
+    min-height: 100vh;
+}
+
+.loginBoxImg{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 100vh;
+}
+
+.loginBoxImg1{
+    background-image: 
+        linear-gradient(
+            to right, #b1443033, #1387a033, #1d1d2733
+        ),
+        url('https://www.jdmbuysell.com/wp-content/uploads/2023/02/IgniteMarketing_jdm_car_meetup_at_an_underground_parking_garage_f68fd05a-b304-4018-bc2c-60142fb0808f.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 50px 0 0;
+    margin-right: 10px;
+}
+
+.loginBoxImg2{
+    background-image: 
+        linear-gradient(
+            to right, #11151b33, #e9bd0233, #6f584a33
+        ),
+        url('https://i.pinimg.com/originals/57/e7/37/57e737d7c033eca3ab22ab0fe2329fad.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px 0 0 0;
+    margin-left: 10px;
+}
+.formLoginBox{
+    position: absolute;
+    left:50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.loginBox{
+    background: hsl(0 0% 100% / 0.1);
+    backdrop-filter: blur(5rem);
+    width: 320px; /*620px */
+    padding: 50px 30px;
+    box-shadow: 0 50px 150px #5553;
+    border-radius: 30px;
+}
+
+.loginBox .loginlogoTitle{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.loginBox .loginlogoTitle img{
+    width: 30px;
+    height: 30px;
+}
+
+.loginBox .loginlogoTitle p{
+    font-weight: bold;
+    color: #02aab0;
+}
+
+.loginBox .loginDes p{
+    font-weight: 500;
+    color: #fff;
+}
+.loginBox .loginDes span{
+    color: #fff;
+    font-size: small;
+    font-weight: 300;
+}
+.loginBox .loginDes{
+    margin-bottom: 20px;
+}
+
+.loginBox .group{
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 10px;
+    height: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBox .group input{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 20px;
+    color: #fff;
+}
+.loginBox .group .iconEye{
+    color: #777;
+    cursor: pointer;
+    margin-right: 15px;
+}
+.loginBox .forgotPass{
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: small;
+    transition: transform 0.5s;
+}
+
+.loginBox .forgotPass a{
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.loginBox .forgotPass:hover{
+    transform: translateY(5px);
+}
+
+.loginBox .signIn button{
+    background-color: #02aab0;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px #02aab0;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.loginBox .signIn button:active{
+    transform: translateY(5px);
+    box-shadow: none;
+}
