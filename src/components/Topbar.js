@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { logout } from '../store/user/authSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import path from "../ultils/path";
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Topbar() {
 
   const handleLogout = () =>{
     dispatch(logout());
-    navigate("/");
+    navigate(`${path.LOGIN}`);
     toast.success("Logout sucessful!");
   }
 
@@ -48,7 +49,7 @@ export default function Topbar() {
             <DropdownItem>
               <img className="topRightInfoImg" src="https://hdwallpaperim.com/wp-content/uploads/2017/08/22/103013-blue_hair-anime-748x421.jpg" alt="avatar" />
               <div className="topRightInfoUser">
-                <p className="topRightInfoUserName">{user.fullName}</p>
+                <p className="topRightInfoUserName">{user?.fullName}</p>
                 <span className="topRightInfoEmail">Welcome back!</span>
               </div>
             </DropdownItem>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import icons from '../../ultils/icons';
 import "../../assets/css/login.css";
 import path from "../../ultils/path"
@@ -22,9 +22,9 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await apiLogin(payload);
-      if (response && response.token) {
-        if (response.role === "ROLE_ADMIN" || response.role === "ROLE_MANAGER") {
-          dispatch(loginSuccess({ token: response.token, user: response }));
+      if (response.data && response.data.token) {
+        if (response.data.role === "ROLE_ADMIN" || response.data.role === "ROLE_MANAGER") {
+          dispatch(loginSuccess({ token: response.data.token, user: response.data }));
           navigate(`${path.DASHBOARD}`);
           // Redirect to the dashboard or other authorized route
         } else {
@@ -48,6 +48,13 @@ const Login = () => {
       }
     }
   };
+
+  // useEffect(() => {
+  //   let localStorageDataCurr = JSON.parse(localStorage.getItem('persist:root/user'));
+  //   if(localStorageDataCurr.isAuthenticated === 'true'){
+  //     navigate(`${path.DASHBOARD}`);
+  //   }
+  // }, [navigate]);
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);

@@ -62,6 +62,20 @@
     margin-right: 10px;
 } */
 
+.tableStatusText{
+    color: #ffffff;
+    text-transform: uppercase;
+    padding: 0.55em 0.9em;
+    font-size: 0.8em;
+    background-image: linear-gradient(310deg,#2dce89,#2dcecc);
+    border-radius: 0.45rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.tableStatusText.TextSecond{
+    background-image: linear-gradient(310deg,#627594,#a8b8d8);
+}
+
 .tableListEdit {
     color: #2a7ade;
     margin-right: 3px;

@@ -24,10 +24,10 @@ const UserList = () => {
   // }
   const getAllUsers = async () => {
     let res = await apiGetUser();
-    console.log(res)
-    if (res) {
-      const usersWithId = res.value.map((user) => ({ ...user, id: user.user_id }));
-      setlistUser(usersWithId);
+    console.log(res.data.content)
+    if (res.data.content) {
+      const tableData = res.data.content?.map((item, index) => ({ ...item, id: index + 1 }));
+      setlistUser(tableData);
     }
   }
 
@@ -49,13 +49,31 @@ const UserList = () => {
   // }, 500)
 
   const columns = [
-    { field: 'id', headerName: '#', width: 90 },
-    { field: 'categoryName', headerName: 'Category', width: 200 },
+    { field: 'id', headerName: '#', width: 50 },
+    { field: 'fullName', headerName: 'FULLNAME', width: 150 },
+    { field: 'birthday', headerName: 'BIRTHDAY', width: 200 },
+    { field: 'phoneNumber', headerName: 'PHONE', width: 150 },
+    { field: 'role', headerName: 'ROLE', width: 150, renderCell: (params) => {
+      return (
+        <span>{params.row.role.roleName}</span>
+      )
+    }},
+    { field: 'delFlag', headerName: 'STATUS', width: 150, renderCell: (params) =>{
+        return (
+          <>
+            {params.row.delFlag === false ? (
+              <span className="tableStatusText">Online</span>
+            ): (
+              <span className="tableStatusText TextSecond">Offline</span>
+            )}          
+          </>        
+        )
+    }},
     {
-      field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
+      field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
         return (
           <div>
-            <Link to={"/dashboard/users/" + params.row.category_id}>
+            <Link to={"/dashboard/users/" + params.row.userId}>
               <EditOutlinedIcon className="tableListEdit" />
             </Link>
             <DeleteOutlineIcon className="tableListDelete" />
@@ -87,9 +105,9 @@ const UserList = () => {
             </svg>
           </span>
         </div>
-        <Link to="/dashboard/newUser">
+        {/* <Link to="/dashboard/newUser">
           <button><AddIcon className="tableCreateIcon" /><span>Create</span></button>
-        </Link>
+        </Link> */}
       </div>
 
       <DataGrid
