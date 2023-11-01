@@ -82,12 +82,12 @@ const Login = () => {
               placeholder="Password"
             />
             {showPassword ? (
-              <VisibilityOffOutlinedIcon
+              <VisibilityOutlinedIcon
                 className="iconEye"
                 onClick={handlePasswordToggle}
               />
             ) : (
-              <VisibilityOutlinedIcon
+              <VisibilityOffOutlinedIcon
                 className="iconEye"
                 onClick={handlePasswordToggle}
               />
