@@ -1,8 +1,8 @@
 import "../assets/css/modalCommon.css"
 import icons from "../ultils/icons"
 
-const ModalChangePass = ({ open, onClose }) => {
-    const {CloseIcon,LockResetIcon} = icons;
+const ModalEditUser = ({ open, onClose }) => {
+    const { CloseIcon } = icons;
 
     if (!open) return null;
     return (
@@ -19,7 +19,6 @@ const ModalChangePass = ({ open, onClose }) => {
                     </p>
                     <div className="resetpasswordForm">
                         <p className="resetpasswordHeading">Change Password</p>
-                        <LockResetIcon className="resetpasswordcheck" fontSize="large" />
                         <div className="resetpasswordGroup">
                             <input className="resetpasswordinput" placeholder="Old Password" type="password" />
                         </div>
@@ -37,4 +36,4 @@ const ModalChangePass = ({ open, onClose }) => {
     )
 }
 
-export default ModalChangePass
+export default ModalEditUser

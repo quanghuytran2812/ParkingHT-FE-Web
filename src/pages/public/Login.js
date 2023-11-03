@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/user/authSlice';
+import { Loader } from '../../components';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Login = () => {
   const { VisibilityOutlinedIcon, VisibilityOffOutlinedIcon } = icons;
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loadingAPI, setloadingAPI] = useState(false);
   const [payload, setPayload] = useState({
     phoneNumber: '',
     password: ''
@@ -21,11 +23,13 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      setloadingAPI(true);
       const response = await apiLogin(payload);
       if (response.data && response.data.token) {
         if (response.data.role === "ROLE_ADMIN" || response.data.role === "ROLE_MANAGER") {
           dispatch(loginSuccess({ token: response.data.token, user: response.data }));
           navigate(`${path.DASHBOARD}`);
+          toast.success("Congratulation, "+response.data.message);
           // Redirect to the dashboard or other authorized route
         } else {
           // Handle unauthorized access for other roles
@@ -35,6 +39,7 @@ const Login = () => {
         // Handle login failure
         toast.error('Login failed. Please check your credentials.');
       }
+      setloadingAPI(false)
     } catch (err) {
       // Handle error
       if (!err?.response) {
@@ -60,7 +65,9 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <div className="login">
+    <>
+      {loadingAPI && <Loader />}
+      <div className="login">
       <div className="loginBoxImg">
         <div className="loginBoxImg1"></div>
         <div className="loginBoxImg2"></div>
@@ -109,6 +116,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

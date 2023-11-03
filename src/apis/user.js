@@ -9,3 +9,7 @@ export const apiGetUser = async () =>{
   return await axios.get('/user/get-all', { headers: AuthHeader() });
 }
 
+export const apiDeleteUser = async (uid) =>{
+  return await axios.put('/user/delete/' + uid, {},{ headers: AuthHeader() });
+}
+

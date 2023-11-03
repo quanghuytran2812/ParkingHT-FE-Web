@@ -79,6 +79,7 @@
 .tableListEdit {
     color: #2a7ade;
     margin-right: 3px;
+    cursor: pointer;
 }
 
 .tableListDelete {
