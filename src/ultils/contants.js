@@ -1,4 +1,4 @@
-import icons from "../ultils/icons"
+import icons from "ultils/icons"
 import path from "./path";
 
 const { DashboardOutlinedIcon, AccountCircleOutlinedIcon } = icons;

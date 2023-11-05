@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "../../assets/css/userProfile.css"
-import { ModalChangePass } from "../../components";
-import icons from "../../ultils/icons"
+import "assets/css/userProfile.css"
+import { ModalChangePass } from "components";
+import icons from "ultils/icons"
 
 const UsersProfile = () => {
     const {PublishIcon} = icons;

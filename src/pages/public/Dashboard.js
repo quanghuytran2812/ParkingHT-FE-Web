@@ -1,12 +1,12 @@
 import React from "react";
-import "../../assets/css/dashboard.css";
-import { Sidebar, Topbar } from "../../components";
+import "assets/css/dashboard.css";
+import { Sidebar, Topbar } from "components";
 import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import UsersProfile from "./UsersProfile";
-import path from "../../ultils/path"
-import ProtectedRoute from "../../components/ProtectedRoute";
-import UserList from "../admin/UserList";
+import path from "ultils/path"
+// import ProtectedRoute from "components/ProtectedRoute";
+import { UserList } from "pages/admin";
 
 const Dashboard = () => {
   return (

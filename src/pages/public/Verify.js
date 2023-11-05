@@ -1,12 +1,12 @@
-import "../../assets/css/verify.css";
+import "assets/css/verify.css";
 import { Link,useNavigate } from "react-router-dom"
 import OTPInput from "otp-input-react";
 import { useState } from "react";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { toast } from 'react-toastify';
-import icons from "../../ultils/icons";
-import path from "../../ultils/path"
+import icons from "ultils/icons";
+import path from "ultils/path"
 
 const Verify = () => {
     const {PhoneIcon,GppGoodIcon} = icons

@@ -1,4 +1,4 @@
-import "../../assets/css/home.css"
+import "assets/css/home.css"
 import { CircleChart, LineChartStatistical, Retroclock, StatsCard } from "../../components";
 
 const Home = () => {

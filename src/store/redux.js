@@ -1,7 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './user/authSlice';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+import { 
+  persistReducer, 
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist';
 
 const commonConfig = {
   key: 'root/user',
@@ -10,13 +19,18 @@ const commonConfig = {
 
 const userConfig = {
   ...commonConfig,
-  whitelist: ['isAuthenticated', 'token', 'user']
+  whitelist: ['isAuthenticated', 'token']
 }
 
 export const redux = configureStore({
   reducer: {
     auth: persistReducer(userConfig, authSlice),
   },
+  middleware: getDefaultMiddleware => getDefaultMiddleware({
+    serializableCheck: {
+      ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+    }
+  })
 })
 
 

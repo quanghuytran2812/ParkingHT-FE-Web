@@ -1,13 +1,13 @@
-import "../../assets/css/tablelist.css"
+import "assets/css/tablelist.css"
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import _, { debounce } from "lodash"
-import icons from "../../ultils/icons";
-import { apiDeleteUser, apiGetUser } from "../../apis";
+import icons from "ultils/icons";
+import { apiDeleteUser, apiGetUser } from "apis";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { ModalEditUser } from "../../components";
+import { ModalEditUser } from "components";
 
 const UserList = () => {
   const { EditOutlinedIcon, DeleteOutlineIcon } = icons

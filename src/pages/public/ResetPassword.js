@@ -1,8 +1,8 @@
-import "../../assets/css/resetPassword.css";
+import "assets/css/resetPassword.css";
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
-import icons from "../../ultils/icons"
-import path from "../../ultils/path"
+import icons from "ultils/icons"
+import path from "ultils/path"
 
 const ResetPassword = () => {
   const { LockResetIcon } = icons;

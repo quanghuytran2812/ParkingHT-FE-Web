@@ -17,6 +17,9 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const icons = {
     VisibilityOutlinedIcon,
@@ -37,7 +40,10 @@ const icons = {
     LocalParkingIcon,
     EditOutlinedIcon,
     DeleteOutlineIcon,
-    AddIcon
+    AddIcon,
+    NotificationsNoneIcon,
+    AccountCircleIcon,
+    LogoutIcon
 }
 
 export default icons
