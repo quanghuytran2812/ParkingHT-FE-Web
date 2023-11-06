@@ -1,0 +1,128 @@
+import { DataGrid } from '@mui/x-data-grid';
+import { useEffect, useState } from 'react';
+// import { toast } from 'react-toastify';
+// import Swal from 'sweetalert2';
+import icons from 'ultils/icons'
+import _, { debounce } from "lodash"
+import { apiParkingSlot } from 'apis';
+import CurrencyFormat from 'ultils/regex';
+
+const ParkingSlot = () => {
+    const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon } = icons
+    const [listParkingSlot, setlistParkingSlot] = useState([]);
+
+    const getAllParkingSlot = async () => {
+        let res = (await apiParkingSlot()) ?? {};
+        if (res.data && res.data.content) {
+            const tableData = res.data.content?.map((item, index) => ({ ...item, id: index + 1 }));
+            setlistParkingSlot(tableData);
+        }
+    }
+
+    const handleSearch = debounce((e) => {
+        let term = e.target.value;
+        if (term) {
+            let clonelistParkingSlot = _.cloneDeep(listParkingSlot);
+            clonelistParkingSlot = clonelistParkingSlot.filter(item =>
+                item.area.toLowerCase().includes(term.toLowerCase()) ||
+                item.name.toLowerCase().includes(term.toLowerCase()) ||
+                item.pricePerHour.toLowerCase().includes(term.toLowerCase())
+            );
+            setlistParkingSlot(clonelistParkingSlot);
+        } else {
+            getAllParkingSlot();
+        }
+    }, 500)
+
+    useEffect(() => {
+        getAllParkingSlot();
+    }, []);
+
+    const columns = [
+        { field: 'id', headerName: '#', width: 90 },
+        { field: 'area', headerName: 'AREA', width: 150 },
+        { field: 'name', headerName: 'NAME', width: 150 },
+        { field: 'pricePerHour', headerName: 'PRICE PER HOUR', width: 150, renderCell: (params) => {
+            return (
+                <CurrencyFormat num={params.row.pricePerHour}/>
+            )
+        }},
+        {
+            field: 'status', headerName: 'STATUS', width: 150, renderCell: (params) => {
+                return (
+                    <>
+                        {params.row.status === 0 ? (
+                            <span className="tableStatusText TextAvailable">available</span>
+                        ) : params.row.status === 1 ? (
+                            <span className="tableStatusText TextReserved">reserved</span>
+                        ) : params.row.status === 2 ? (
+                            <span className="tableStatusText TextOccupied">occupied</span>
+                        ) : null}
+                    </>
+                );
+            }
+        },
+        {
+            field: 'delFlag', headerName: 'OPERATIONAL STATES', width: 150, renderCell: (params) => {
+                return (
+                    <>
+                        {params.row.delFlag ? (
+                            <span className="tableStatusText TextSecond">inactive</span>
+                        ) : (
+                            <span className="tableStatusText">active</span>
+                        )}
+                    </>
+                )
+            }
+        },
+        {
+            field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+                return (
+                    <div>
+                        <span ><EditOutlinedIcon className="tableListEdit" /></span>
+                        <span ><DeleteOutlineIcon className="tableListDelete" /></span>
+                    </div>
+                )
+            }
+        }
+    ];
+
+    return (
+        <div className="tableList">
+            <h2 className="tableListTitle">Parking Slot List</h2>
+            <div className="tableListBoxContainer">
+                <div className="tableListinput-container">
+                    <input type="text"
+                        className="input"
+                        onChange={(e) => handleSearch(e)}
+                        placeholder="search..." />
+                    <span className="icon">
+                        <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path opacity="1" d="M14 5H20" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path opacity="1" d="M14 8H17" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M21 11.5C21 16.75 16.75 21 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2" stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path opacity="1" d="M22 22L20 20" stroke="#000" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <button><AddIcon className="tableCreateIcon" /><span>Create</span></button>
+            </div>
+            <DataGrid
+                rows={listParkingSlot}
+                columns={columns}
+                autoHeight
+                initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 6 },
+                    }
+                }}
+            />
+        </div>
+    )
+}
+
+export default ParkingSlot

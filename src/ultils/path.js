@@ -5,8 +5,16 @@ const path = {
     HOME: '/',
     VERIFY: 'verifycode',
     RESETPASSWORD: 'resetpassword',
+    USERPROFILE: 'userprofile',
+
+    // Manager
+    CATEGORY: 'vehiclecategory',
+    VEHICLE: 'vehicle',
+    PARKINGSLOT: 'parkingslot',
+
+    // Admin
     USERLIST: 'userlist',
-    USERPROFILE: 'userprofile'
+
 }
 
 export default path

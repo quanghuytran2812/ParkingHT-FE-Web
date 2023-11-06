@@ -1,7 +1,13 @@
 import icons from "ultils/icons"
 import path from "./path";
 
-const { DashboardOutlinedIcon, AccountCircleOutlinedIcon } = icons;
+const { 
+    DashboardOutlinedIcon, 
+    AccountCircleOutlinedIcon,
+    CategoryIcon,
+    AirportShuttleIcon,
+    LocalParkingIcon
+} = icons;
 export const sidebarItemData = [
     {
         id: 1,
@@ -14,6 +20,24 @@ export const sidebarItemData = [
         value: 'Manage User',
         paths: `/dashboard/userlist`,
         icon: <AccountCircleOutlinedIcon size={20} />
+    },
+    {
+        id: 3,
+        value: 'Manage Category',
+        paths: `/dashboard/vehiclecategory`,
+        icon: <CategoryIcon size={20} />
+    },
+    {
+        id: 4,
+        value: 'Manage Vehicle',
+        paths: `/dashboard/vehicle`,
+        icon: <AirportShuttleIcon size={20} />
+    },
+    {
+        id: 5,
+        value: 'Manage ParkingSlot',
+        paths: `/dashboard/parkingslot`,
+        icon: <LocalParkingIcon size={20} />
     }
 ];
 

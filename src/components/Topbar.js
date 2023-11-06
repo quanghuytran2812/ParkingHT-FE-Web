@@ -22,14 +22,14 @@ export default function Topbar() {
     toast.success("Logout sucessful!");
   }
 
-  useEffect(() => {
-    if(!current){
-      Swal.fire('Oops!', 'The current login session has ended. Kindly log in one again!', 'info').then(() => {
-        dispatch(logout());
-        navigate(`${path.LOGIN}`);
-      })
-    }
-  },[current,navigate,dispatch])
+  // useEffect(() => {
+  //   if(!current){
+  //     Swal.fire('Oops!', 'The current login session has ended. Kindly log in one again!', 'info').then(() => {
+  //       dispatch(logout());
+  //       navigate(`${path.LOGIN}`);
+  //     })
+  //   }
+  // },[current,navigate,dispatch])
 
   return (
     <div className="topbar">

@@ -7,6 +7,10 @@ import { toast } from 'react-toastify';
 export const login = createAsyncThunk('auth/login', async (credentials) => {
   return await authService.apiLogin(credentials)
 })
+//Get user by id
+export const apiGetUserById = createAsyncThunk('auth/userbuid', async (userid) => {
+  return await authService.apiGetUserById(userid)
+})
 
 const initialState = {
   isAuthenticated: false,
@@ -51,7 +55,7 @@ const authSlice = createSlice({
           }
         }
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state) => {
         state.isLoading = false
         state.token = null
         state.isAuthenticated = false

@@ -7,6 +7,8 @@ import UsersProfile from "./UsersProfile";
 import path from "ultils/path"
 // import ProtectedRoute from "components/ProtectedRoute";
 import { UserList } from "pages/admin";
+import { CategoryList, VehicleList } from "pages/manager";
+import ParkingSlot from "pages/manager/ParkingSlot";
 
 const Dashboard = () => {
   return (
@@ -21,6 +23,11 @@ const Dashboard = () => {
           <Route path={path.HOME} element={<Home />} />
           <Route path={path.USERLIST} element={<UserList />} />
           <Route path={path.USERPROFILE} element={<UsersProfile />} />
+
+          <Route path={path.CATEGORY} element={<CategoryList />} />
+          <Route path={path.VEHICLE} element={<VehicleList />} />
+          <Route path={path.PARKINGSLOT} element={<ParkingSlot />} />
+
         </Routes>
       </div>
     </div>

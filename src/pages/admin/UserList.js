@@ -16,9 +16,9 @@ const UserList = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const getAllUsers = async () => {
-    let res = await apiGetUser();
-    if (res.data.content) {
-      const tableData = res.data.content?.map((item, index) => ({ ...item, id: index + 1 }));
+    let res = (await apiGetUser()) ?? {};
+    if (res.data && res.data.content) {
+      const tableData = res.data.content.map((item, index) => ({ ...item, id: index + 1 }));
       setlistUser(tableData);
     }
   }
@@ -35,13 +35,13 @@ const UserList = () => {
   const handleDeleteUser = (uid) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Are you ready remove this user?",
+      text: "Are you ready inactive this user?",
       showCancelButton: true,
       confirmButtonColor: '#02aab0'
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await apiDeleteUser(uid);
-        if (res.data.userId) {
+        if (res.statusCode === 200) {
           getAllUsers();
           toast.success(res.message);
         } else toast.error(res.message);
@@ -56,7 +56,8 @@ const UserList = () => {
       let clonelistUser = _.cloneDeep(listUser);
       clonelistUser = clonelistUser.filter(item =>
         item.role.roleName.toLowerCase().includes(term.toLowerCase()) ||
-        item.userId.toLowerCase().includes(term.toLowerCase())
+        item.userId.toLowerCase().includes(term.toLowerCase()) ||
+        item.fullName.toLowerCase().includes(term.toLowerCase())
       );
       setlistUser(clonelistUser);
     } else {
@@ -134,9 +135,6 @@ const UserList = () => {
               </svg>
             </span>
           </div>
-          {/* <Link to="/dashboard/newUser">
-          <button><AddIcon className="tableCreateIcon" /><span>Create</span></button>
-        </Link> */}
         </div>
 
         <DataGrid
@@ -153,6 +151,7 @@ const UserList = () => {
       <ModalEditUser
         open={openModal}
         onClose={() => setOpenModal(false)}
+        dataUserEdit={dataEditUser}
       />
     </>
   )

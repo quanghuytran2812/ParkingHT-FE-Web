@@ -20,6 +20,8 @@ import AddIcon from '@mui/icons-material/Add';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import CategoryIcon from '@mui/icons-material/Category';
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 
 const icons = {
     VisibilityOutlinedIcon,
@@ -43,7 +45,9 @@ const icons = {
     AddIcon,
     NotificationsNoneIcon,
     AccountCircleIcon,
-    LogoutIcon
+    LogoutIcon,
+    CategoryIcon,
+    AirportShuttleIcon
 }
 
 export default icons
