@@ -1,20 +1,19 @@
-import "../assets/css/topbar.css"
+import "assets/css/topbar.css"
 import Dropdown, { DropdownItem, DropdownNotifications } from './Dropdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from 'store/user/authSlice';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import path from "../ultils/path";
+// import { useSelector } from 'react-redux';
+import path from "ultils/path";
 import icons from "ultils/icons";
-import { useEffect } from "react";
-import Swal from "sweetalert2";
+// import { useEffect } from "react";
+// import Swal from "sweetalert2";
 
 export default function Topbar() {
   const {NotificationsNoneIcon,AccountCircleIcon,LogoutIcon} = icons
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { current } = useSelector((state) => state.auth);
 
   const handleLogout = () =>{
     dispatch(logout());
@@ -59,7 +58,7 @@ export default function Topbar() {
             <DropdownItem>
               <img className="topRightInfoImg" src="https://hdwallpaperim.com/wp-content/uploads/2017/08/22/103013-blue_hair-anime-748x421.jpg" alt="avatar" />
               <div className="topRightInfoUser">
-                <p className="topRightInfoUserName">{current?.fullName}</p>
+                <p className="topRightInfoUserName">Nguyễn Văn A</p>
                 <span className="topRightInfoEmail">Welcome back!</span>
               </div>
             </DropdownItem>

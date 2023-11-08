@@ -15,8 +15,7 @@ export const apiGetUserById = createAsyncThunk('auth/userbuid', async (userid) =
 const initialState = {
   isAuthenticated: false,
   token: null,
-  isLoading: false,
-  current: null
+  isLoading: false
 };
 
 const authSlice = createSlice({
@@ -39,7 +38,6 @@ const authSlice = createSlice({
             if (userInfo.role === "ROLE_ADMIN" || userInfo.role === "ROLE_MANAGER") {
               state.isAuthenticated = true;
               state.token = action.payload.data.token;
-              state.current = userInfo
               toast.success(`${action.payload.message}`);
             } else {
               toast.error('You are not authorized to access this dashboard.');
@@ -59,7 +57,6 @@ const authSlice = createSlice({
         state.isLoading = false
         state.token = null
         state.isAuthenticated = false
-        state.current = null
       })
   }
 });

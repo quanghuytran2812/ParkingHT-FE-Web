@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import "../assets/css/dropdown.css"
+import "assets/css/dropdown.css"
 
 export default function Dropdown({ children, trigger }) {
     const [show, setShow] = useState(false)

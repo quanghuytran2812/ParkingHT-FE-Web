@@ -1,5 +1,5 @@
 import { LineChartData } from "../ultils/contants"
-import "../assets/css/linechart.css"
+import "assets/css/linechart.css"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const LineChartStatistical = () => {

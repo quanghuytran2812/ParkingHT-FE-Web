@@ -8,3 +8,7 @@ export const apiCategoryVehicle = async () => {
 export const apiDeleteCategoryVehicle = async (cid) => {
     return await axios.put('/vehicle-category/delete/' + cid, {}, { headers: AuthHeader() });
 }
+
+export const apiCreateCategoryVehicle = async (category) => {
+    return await axios.post('/vehicle-category/create', category, { headers: AuthHeader() });
+}

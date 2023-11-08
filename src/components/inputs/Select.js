@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 const Select = (options=[]) => {
     return (
         <div className="selectGroup">
-            <select class="select-component">
+            <select className="select-component">
                 <option value="1">ROLE_DRIVER</option>
                 <option value="3">ROLE_MANAGER</option>
                 {/* {options?.map(el => {

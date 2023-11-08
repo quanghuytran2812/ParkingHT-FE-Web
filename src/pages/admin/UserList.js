@@ -100,7 +100,8 @@ const UserList = () => {
       field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
         return (
           <>
-            {params.row.role.roleName === 'ROLE_ADMIN' ? (<div></div>) : (
+            {params.row.role.roleName === 'ROLE_ADMIN' 
+              || params.row.delFlag === true ? (<div></div>) : (
               <div>
                 <span onClick={() => handleEditUser(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                 <span onClick={() => handleDeleteUser(params.row.userId)}><DeleteOutlineIcon className="tableListDelete" /></span>

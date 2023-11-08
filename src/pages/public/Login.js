@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from 'components';
 import { login } from 'store/user/authSlice';
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { isLoading, isAuthenticate, token } = useSelector(
     (state) => state.auth
   )
@@ -24,10 +26,15 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(payload))
   };
-
   useEffect(() => {
     if (isAuthenticate || token) {
-      navigate(`${path.DASHBOARD}`);
+      const userInfo = jwtDecode(token)
+      if (userInfo.role === "ROLE_ADMIN") {
+        navigate(`${path.DASHBOARD}`);
+      }
+      if (userInfo.role === "ROLE_MANAGER") {
+        navigate("/dashboard/vehiclecategory");
+      }
     }
   }, [navigate, isAuthenticate, token]);
 

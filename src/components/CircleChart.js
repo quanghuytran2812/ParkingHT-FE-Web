@@ -1,6 +1,6 @@
-import "../assets/css/pieChart.css"
+import "assets/css/pieChart.css"
 import { PieChart, Pie, ResponsiveContainer, Tooltip } from 'recharts';
-import {CicleChartData} from "../ultils/contants"
+import {CicleChartData} from "ultils/contants"
 
 const CircleChart = () => {
 

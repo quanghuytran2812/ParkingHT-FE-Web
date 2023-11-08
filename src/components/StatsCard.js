@@ -1,5 +1,5 @@
-import "../assets/css/statsCard.css"
-import icons from "../ultils/icons"
+import "assets/css/statsCard.css"
+import icons from "ultils/icons"
 
 const StatsCard = () => {
     const {ArrowDownwardIcon,ArrowUpwardIcon,AttachMoneyIcon,GroupAddIcon,LocalParkingIcon} = icons;

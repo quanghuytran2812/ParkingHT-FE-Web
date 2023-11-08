@@ -9,11 +9,6 @@ const ModalEditUser = ({ open, onClose, dataUserEdit }) => {
 
     if (!open) return null;
 
-    // useEffect(() => {
-    //     if(open){
-
-    //     }
-    // },[dataUserEdit])
     return (
         <div onClick={onClose} className='ModalCommonoverlay'>
             <div

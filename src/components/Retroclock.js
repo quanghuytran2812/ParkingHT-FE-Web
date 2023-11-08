@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "../assets/css/retroclock.css"
+import "assets/css/retroclock.css"
 import { useEffect } from "react"
 
 const Retroclock = () => {
