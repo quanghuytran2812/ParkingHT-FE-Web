@@ -1,60 +1,79 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { apiCategoryVehicle, apiDeleteCategoryVehicle } from 'apis';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import icons from 'ultils/icons'
-import _, { debounce } from "lodash"
-import { ModalAddCategory, ModalEditCategory } from 'components';
+import _ from "lodash"
+import { Loader, ModalAddCategory, ModalEditCategory } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories, deleteCategory } from 'store/category/categorySlice';
 
 const CategoryList = () => {
     const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon } = icons
-    const [listCategory, setlistCategory] = useState([]);
+    const listCategory = useSelector((state) => state.category.list);
     const [dataCategoryEdit, setdataCategoryEdit] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.category);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredCategories, setFilteredCategories] = useState([]);
 
-    const getAllCategory = async () => {
-        let res = (await apiCategoryVehicle()) ?? {};
-        if (res.data && res.data.content) {
-            const tableData = res.data.content?.map((item, index) => ({ ...item, id: index + 1 }));
-            setlistCategory(tableData);
+    const fetchData = useCallback(() => {
+        try {
+            dispatch(fetchCategories());
+        } catch (error) {
+            console.error('Error fetching category data:', error);
         }
-    }
+    }, [dispatch]);
 
     useEffect(() => {
-        getAllCategory();
-    }, []);
+        fetchData();
+        if (error) {
+            toast.error(`${error}`);
+        }
+    }, [fetchData, error]);
 
-    const handleSearch = debounce((e) => {
-        let term = e.target.value;
+    const handleSearch = _.debounce((term) => {
         if (term) {
-            let clonelistCategory = _.cloneDeep(listCategory);
-            clonelistCategory = clonelistCategory.filter(item =>
+            const filtered = listCategory.filter((item) =>
                 item.vehicleCategoryName.toLowerCase().includes(term.toLowerCase())
             );
-            setlistCategory(clonelistCategory);
+            setFilteredCategories(filtered);
         } else {
-            getAllCategory();
+            setFilteredCategories(listCategory);
         }
-    }, 500)
+    }, 500);
+
+    const handleInputChange = (e) => {
+        const term = e.target.value;
+        setSearchTerm(term);
+        handleSearch(term);
+    };
 
     const handleDeleteCategory = (uid) => {
         Swal.fire({
             title: 'Are you sure?',
-            text: "Are you ready inactive this vehicle category?",
+            text: 'Are you ready to inactive this vehicle category?',
             showCancelButton: true,
-            confirmButtonColor: '#02aab0'
+            confirmButtonColor: '#02aab0',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await apiDeleteCategoryVehicle(uid);
-                if (res.statusCode === 200) {
-                    getAllCategory();
-                    toast.success(res.message);
-                } else toast.error(res.message);
+                dispatch(deleteCategory(uid))
+                    .then((res) => {
+                        if (res.meta.requestStatus === 'fulfilled') {
+                            fetchData()
+                            toast.success("Category deleted successfully");
+                        } else {
+                            toast.error(res.error.message);
+                        }
+                    })
+                    .catch((error) => {
+                        toast.error(error.message);
+                    });
             }
-        })
-    }
+        });
+    };
 
     const handleEditCategory = (category) => {
         setdataCategoryEdit(category);
@@ -62,7 +81,7 @@ const CategoryList = () => {
     }
 
     const handleUpdateTable = () => {
-        getAllCategory();
+        fetchData();
     };
 
     const columns = [
@@ -92,15 +111,18 @@ const CategoryList = () => {
             }
         }
     ];
+    const data = searchTerm ? filteredCategories : listCategory;
     return (
         <>
+            {loading && <Loader />}
             <div className="tableList">
                 <h2 className="tableListTitle">Vehicle Category List</h2>
                 <div className="tableListBoxContainer">
                     <div className="tableListinput-container">
                         <input type="text"
                             className="input"
-                            onChange={(e) => handleSearch(e)}
+                            value={searchTerm}
+                            onChange={handleInputChange}
                             placeholder="search..." />
                         <span className="icon">
                             <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +140,7 @@ const CategoryList = () => {
                     <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>Create</span></button>
                 </div>
                 <DataGrid
-                    rows={listCategory}
+                    rows={data.map((item, index) => ({ ...item, id: index + 1 }))}
                     columns={columns}
                     autoHeight
                     initialState={{
@@ -131,12 +153,13 @@ const CategoryList = () => {
             <ModalAddCategory
                 open={openModal}
                 onClose={() => setOpenModal(false)}
-                handleUpdateTable={handleUpdateTable} 
+                handleUpdateTable={handleUpdateTable}
             />
             <ModalEditCategory
                 open={openModalEdit}
                 onClose={() => setOpenModalEdit(false)}
                 dataCategoryEdit={dataCategoryEdit}
+                handleUpdateTable={handleUpdateTable}
             />
         </>
     )

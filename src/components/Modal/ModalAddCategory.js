@@ -1,10 +1,12 @@
-import { apiCreateCategoryVehicle } from "apis";
 import "assets/css/modalCommon.css"
 import { memo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { createCategory } from "store/category/categorySlice";
 import icons from "ultils/icons"
 
 const ModalAddCategory = ({ open, onClose, handleUpdateTable }) => {
+    const dispatch = useDispatch();
     const { CloseIcon } = icons;
     const [category, setCategory] = useState({
         vehicleCategoryName: ''
@@ -20,16 +22,19 @@ const ModalAddCategory = ({ open, onClose, handleUpdateTable }) => {
 
     const handleAddCategory = async (e) => {
         e.preventDefault();
-        const res = await apiCreateCategoryVehicle(category);
-        if (res.statusCode === 200) {
-            handleReset();
-            onClose();
-            handleUpdateTable()
-            toast.success(`${res.message}`)
-        } else {
-            toast.error(`${res.message}`)
-        }
+        dispatch(createCategory(category))
+            .then((result) => {
+                handleReset();
+                onClose();
+                handleUpdateTable();
+            })
+            .catch((error) => {
+                console.log(error)
+                toast.error(`${error.message}`);
+            });
     };
+
+
     return (
         <div onClick={onClose} className='ModalCommonoverlay'>
             <div

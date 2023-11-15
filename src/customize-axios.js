@@ -5,7 +5,18 @@ const instance = axios.create({
 });
 // // Thêm một bộ đón chặn request
 instance.interceptors.request.use(function (config) {
-  return config;
+  let localStorageData = localStorage.getItem('persist:root/user');
+  if(localStorageData && typeof localStorageData === 'string'){
+    localStorageData = JSON.parse(localStorageData);
+    const accessToken = JSON.parse(localStorageData?.token);
+    if(accessToken !== null){
+      config.headers = {
+        Authorization: `Bearer ${accessToken}`
+      }
+      return config;
+    }
+    return config;
+  } else return config; 
 }, function (error) {
   // Làm gì đó với lỗi request
   return Promise.reject(error);

@@ -1,18 +1,17 @@
 import axios from "customize-axios";
-import AuthHeader from "ultils/AuthHeader";
 
 export const apiParkingSlot = async () => {
-    return await axios.get('/parking-slot/get-all', { headers: AuthHeader() });
+    return await axios.get('/parking-slot/get-all');
 }
 
 export const apiDeleteParkingSlot = async (cid) => {
-    return await axios.put('/parking-slot/delete/' + cid, {}, { headers: AuthHeader() });
+    return await axios.put('/parking-slot/delete/' + cid, {});
 }
 
 export const apiAddParkingSlot = async (parkingslot) => {
-    return await axios.post('/parking-slot/create', parkingslot, { headers: AuthHeader() });
+    return await axios.post('/parking-slot/create', parkingslot);
 }
 
 export const apiEditParkingSlot = async (parkingslot) => {
-    return await axios.put('/parking-slot/update', parkingslot, { headers: AuthHeader() });
+    return await axios.put('/parking-slot/update', parkingslot);
 }

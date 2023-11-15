@@ -17,8 +17,8 @@ const UserList = () => {
 
   const getAllUsers = async () => {
     let res = (await apiGetUser()) ?? {};
-    if (res.data && res.data.content) {
-      const tableData = res.data.content.map((item, index) => ({ ...item, id: index + 1 }));
+    if (res && res.data) {
+      const tableData = res.data.map((item, index) => ({ ...item, id: index + 1 }));
       setlistUser(tableData);
     }
   }
@@ -71,18 +71,12 @@ const UserList = () => {
     {
       field: 'birthday', headerName: 'BIRTHDAY', width: 180, renderCell: (params) => {
         return (
-          <span>{moment(params.row.birthday).format("LL")}</span>
+          <span>{moment(params.row.birthday).format("DD/MM/YYYY")}</span>
         )
       }
     },
     { field: 'phoneNumber', headerName: 'PHONE', width: 120 },
-    {
-      field: 'role', headerName: 'ROLE', width: 150, renderCell: (params) => {
-        return (
-          <span>{params.row.role.roleName}</span>
-        )
-      }
-    },
+    { field: 'role', headerName: 'ROLE', width: 150},
     {
       field: 'delFlag', headerName: 'STATUS', width: 150, renderCell: (params) => {
         return (

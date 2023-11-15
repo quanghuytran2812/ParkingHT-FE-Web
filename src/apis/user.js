@@ -1,19 +1,18 @@
 import axios from "customize-axios";
-import AuthHeader from "ultils/AuthHeader";
 
 export const apiLogin = async (credentials) => {
   return await axios.post('/auth/generateToken', credentials);
 }
 
 export const apiGetUserById = async (userid) => {
-  return await axios.get('/user/get-by-id/'+userid, { headers: AuthHeader() });
+  return await axios.get('/user/get-by-id/'+userid);
 }
 
 export const apiGetUser = async () => {
-  return await axios.get('/user/get-all', { headers: AuthHeader() });
+  return await axios.get('/user/get-all');
 }
 
 export const apiDeleteUser = async (uid) => {
-  return await axios.put('/user/delete/' + uid, {}, { headers: AuthHeader() });
+  return await axios.put('/user/delete/' + uid, {});
 }
 

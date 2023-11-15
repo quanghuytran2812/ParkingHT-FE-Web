@@ -79,11 +79,6 @@
 .tableStatusText.TextAvailable{
     background-image: linear-gradient(310deg,#009FC2,#48DBFB);
 }
-
-.tableStatusText.TextReserved{
-    background-image: linear-gradient(310deg,#FFEF77, #F9FF60);
-}
-
 .tableStatusText.TextOccupied{
     background-image: linear-gradient(310deg,#DB3445,#F71735);
 }

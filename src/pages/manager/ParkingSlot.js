@@ -1,7 +1,5 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-// import { toast } from 'react-toastify';
-// import Swal from 'sweetalert2';
 import icons from 'ultils/icons'
 import _, { debounce } from "lodash"
 import { apiDeleteParkingSlot, apiParkingSlot } from 'apis';
@@ -19,8 +17,8 @@ const ParkingSlot = () => {
 
     const getAllParkingSlot = async () => {
         let res = (await apiParkingSlot()) ?? {};
-        if (res.data && res.data.content) {
-            const tableData = res.data.content?.map((item, index) => ({ ...item, id: index + 1 }));
+        if (res && res.data) {
+            const tableData = res.data?.map((item, index) => ({ ...item, id: index + 1 }));
             setlistParkingSlot(tableData);
         }
     }
@@ -81,15 +79,13 @@ const ParkingSlot = () => {
             }
         },
         {
-            field: 'status', headerName: 'STATUS', width: 150, renderCell: (params) => {
+            field: 'parking_Slot_Status', headerName: 'STATUS', width: 150, renderCell: (params) => {
                 return (
                     <>
-                        {params.row.status === 0 ? (
+                        {params.row.parking_Slot_Status === 'AVAILABLE' ? (
                             <span className="tableStatusText TextAvailable">available</span>
-                        ) : params.row.status === 1 ? (
-                            <span className="tableStatusText TextReserved">reserved</span>
-                        ) : params.row.status === 2 ? (
-                            <span className="tableStatusText TextOccupied">occupied</span>
+                        ) : params.row.parking_Slot_Status === 'BUSY' ? (
+                            <span className="tableStatusText TextOccupied">busy</span>
                         ) : null}
                     </>
                 );

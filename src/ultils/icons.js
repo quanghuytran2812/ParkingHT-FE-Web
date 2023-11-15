@@ -22,6 +22,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CategoryIcon from '@mui/icons-material/Category';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
+import BookIcon from '@mui/icons-material/Book';
+import ReportIcon from '@mui/icons-material/Report';
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 const icons = {
     VisibilityOutlinedIcon,
@@ -47,7 +50,10 @@ const icons = {
     AccountCircleIcon,
     LogoutIcon,
     CategoryIcon,
-    AirportShuttleIcon
+    AirportShuttleIcon,
+    BookIcon,
+    ReportIcon,
+    FeedbackIcon
 }
 
 export default icons

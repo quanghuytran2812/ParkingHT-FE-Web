@@ -20,10 +20,10 @@ const ResetPassword = () => {
         <p className="resetpasswordHeading">Reset Password</p>
         <LockResetIcon className="resetpasswordcheck" sx={{ fontSize: 60 }} />
         <div className="resetpasswordGroup">
-          <input class="resetpasswordinput" placeholder="New Password" type="password" />
+          <input className="resetpasswordinput" placeholder="New Password" type="password" />
         </div>
         <div className="resetpasswordGroup">
-          <input class="resetpasswordinput" placeholder="Confirm Password" type="password" />
+          <input className="resetpasswordinput" placeholder="Confirm Password" type="password" />
         </div>
         <button onClick={resetPass} className="resetpasswordbtn">Reset Password</button>
       </div>

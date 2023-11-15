@@ -1,11 +1,20 @@
-export default function AuthHeader() {
+import { jwtDecode } from "jwt-decode";
+
+function getAccessToken() {
   let localStorageData = localStorage.getItem('persist:root/user');
   localStorageData = JSON.parse(localStorageData);
   const accessToken = JSON.parse(localStorageData?.token);
-  if (accessToken) {
+  return accessToken;
+}
+
+export default function getTokenInfo() {
+  const accessToken = getAccessToken();
+  const tokenInfo = jwtDecode(accessToken);
+  if (tokenInfo) {
     return {
-      authorization: `Bearer ${accessToken}`,
-    }
+      id: tokenInfo.id,
+      role: tokenInfo.role
+    };
   } else {
     return {};
   }

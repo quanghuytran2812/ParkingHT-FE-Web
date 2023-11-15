@@ -1,4 +1,3 @@
-// import { useEffect } from "react";
 import "assets/css/modalCommon.css"
 import Select from "components/inputs/Select";
 import { memo } from "react";

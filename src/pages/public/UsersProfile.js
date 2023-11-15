@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "assets/css/userProfile.css"
 import { ModalChangePass } from "components";
-import icons from "ultils/icons"
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGetUserById } from "store/user/authSlice";
+import moment from "moment";
 
 const UsersProfile = () => {
-    const {PublishIcon} = icons;
     const [openModal, setOpenModal] = useState(false);
+    const dispatch = useDispatch();
+    const userinfo = useSelector((state) => state.auth.current);
+
+    useEffect(() => {
+        dispatch(fetchGetUserById())
+    }, [dispatch]);
+
     return (
         <>
             <div className="userProfile">
@@ -14,12 +22,12 @@ const UsersProfile = () => {
                     <div className="userProfileCard">
                         <div className="userProfileBox">
                             <div className="userProfileContent">
-                                <h2>Lila Simons <br /><span>Manager Parking</span></h2>
+                                <h2>{userinfo?.fullName} <br /><span>Manager Parking</span></h2>
                                 <div className="userProfileInfo">
                                     <ul className="userProfileContact">
-                                        <li><span>P</span> +841234512312</li>
-                                        <li><span>E</span> lilia@gmail.com</li>
-                                        <li><span>B</span> March, 12 2023</li>
+                                        <li><span>P</span> {userinfo?.phoneNumber}</li>
+                                        <li><span>E</span> {userinfo?.email}</li>
+                                        <li><span>B</span> {moment(userinfo?.birthday).format("DD/MM/YYYY")}</li>
                                     </ul>
                                 </div>
                                 <button onClick={() => setOpenModal(true)}>Change Password</button>
@@ -38,25 +46,24 @@ const UsersProfile = () => {
                             <div className="userProfileUpdateLeft">
                                 <div className="userProfileUpdateItem">
                                     <label>Full Name</label>
-                                    <input type="text" placeholder="Anna Becker" className="userProfileUpdateInput" />
+                                    <input type="text" defaultValue={userinfo?.fullName} className="userProfileUpdateInput" />
                                 </div>
                                 <div className="userProfileUpdateItem">
                                     <label>Phone</label>
-                                    <input type="text" placeholder="065 4785 4848" className="userProfileUpdateInput" />
+                                    <input type="number" defaultValue={userinfo?.phoneNumber}  className="userProfileUpdateInput" />
                                 </div>
                                 <div className="userProfileUpdateItem">
                                     <label>Email</label>
-                                    <input type="text" placeholder="annabeck99@gmail.com" className="userProfileUpdateInput" />
+                                    <input type="text" defaultValue={userinfo?.email} className="userProfileUpdateInput" />
                                 </div>
                                 <div className="userProfileUpdateItem">
                                     <label>Birth of day</label>
-                                    <input type="text" placeholder="12/09/2023" className="userProfileUpdateInput" />
+                                    <input type="text" defaultValue={moment(userinfo?.birthday).format("DD/MM/YYYY")} className="userProfileUpdateInput" />
                                 </div>
                             </div>
                             <div className="userProfileUpdateRight">
                                 <div className="userProfileUpdateUpload">
                                     <img className="userProfileUpdateImg" src="https://demoda.vn/wp-content/uploads/2022/09/hinh-anh-avatar-anime-nam-dep.jpg" alt="" />
-                                    <label htmlFor="file"><PublishIcon className="userProfileUpdateIcon" /></label>
                                     <input type="file" id="file" className="userProfileUpdateInputFile" />
                                 </div>
 
@@ -66,9 +73,9 @@ const UsersProfile = () => {
                     </div>
                 </div>
             </div>
-            <ModalChangePass 
-                open={openModal} 
-                onClose={() => setOpenModal(false)}/>
+            <ModalChangePass
+                open={openModal}
+                onClose={() => setOpenModal(false)} />
         </>
     )
 }

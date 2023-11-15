@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './user/authSlice';
+import categorySlice from './category/categorySlice';
 import storage from 'redux-persist/lib/storage';
 import { 
   persistReducer, 
@@ -11,6 +12,8 @@ import {
   PURGE,
   REGISTER
 } from 'redux-persist';
+import reportSlice from './report/reportSlice';
+
 
 const commonConfig = {
   key: 'root/user',
@@ -25,6 +28,8 @@ const userConfig = {
 export const redux = configureStore({
   reducer: {
     auth: persistReducer(userConfig, authSlice),
+    category: categorySlice,
+    report: reportSlice
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {

@@ -6,7 +6,10 @@ const {
     AccountCircleOutlinedIcon,
     CategoryIcon,
     AirportShuttleIcon,
-    LocalParkingIcon
+    LocalParkingIcon,
+    BookIcon,
+    ReportIcon,
+    FeedbackIcon
 } = icons;
 export const sidebarItemData = [
     {
@@ -23,21 +26,39 @@ export const sidebarItemData = [
     },
     {
         id: 3,
+        value: 'Manage Feedback',
+        paths: `/dashboard/feedback`,
+        icon: <FeedbackIcon size={20} />
+    },
+    {
+        id: 4,
         value: 'Manage Category',
         paths: `/dashboard/vehiclecategory`,
         icon: <CategoryIcon size={20} />
     },
     {
-        id: 4,
+        id: 5,
         value: 'Manage Vehicle',
         paths: `/dashboard/vehicle`,
         icon: <AirportShuttleIcon size={20} />
     },
     {
-        id: 5,
+        id: 6,
         value: 'Manage ParkingSlot',
         paths: `/dashboard/parkingslot`,
         icon: <LocalParkingIcon size={20} />
+    },
+    {
+        id: 7,
+        value: 'Manage Booking',
+        paths: `/dashboard/booking`,
+        icon: <BookIcon size={20} />
+    },
+    {
+        id: 8,
+        value: 'Manage Report',
+        paths: `/dashboard/report`,
+        icon: <ReportIcon size={20} />
     }
 ];
 
@@ -69,4 +90,9 @@ export const LineChartData = [
     { name: 'Agnes', value: 300 },
     { name: 'Alida', value: 100 },
     { name: 'Almira', value: 80 }
+]
+
+export const statusReportData = [
+    { code: 0, value: 'Processing' },
+    { code: 1, value: 'Completed' }
 ]

@@ -29,10 +29,10 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticate || token) {
       const userInfo = jwtDecode(token)
-      if (userInfo.role === "ROLE_ADMIN") {
+      if (userInfo.role === "Admin") {
         navigate(`${path.DASHBOARD}`);
       }
-      if (userInfo.role === "ROLE_MANAGER") {
+      if (userInfo.role === "Manager") {
         navigate("/dashboard/vehiclecategory");
       }
     }

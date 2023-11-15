@@ -17,10 +17,10 @@ export default function Sidebar() {
   const userInfo = jwtDecode(token)
 
   const filteredSidebarItemData = sidebarItemData.filter((item) => {
-    if (userInfo.role === "ROLE_ADMIN") {
+    if (userInfo.role === "Admin") {
       return true; // Show all items for ROLE_ADMIN
-    } else if (userInfo.role === "ROLE_MANAGER") {
-      return item.id >= 3; // Show items from id 3 onwards for ROLE_MANAGER
+    } else if (userInfo.role === "Manager") {
+      return item.id >= 4; // Show items from id 3 onwards for ROLE_MANAGER
     }
     return false; // Hide other items for any other role
   });

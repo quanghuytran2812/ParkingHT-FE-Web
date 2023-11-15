@@ -20,15 +20,23 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
 
     const handleEditParkingSlot = async (e) => {
         e.preventDefault();
-        const res = await apiEditParkingSlot(parkingSlot);
-        if (res && res.statusCode === 200) {
+    
+        try {
+          const res = await apiEditParkingSlot(parkingSlot);
+    
+          if (res?.statusCode === 200) {
             onClose();
             handleUpdateTable();
-            toast.success(`${res.message}`);
-        } else {
-            toast.error(`${res && res.message}`);
+            toast.success(`${res?.message}`);
+          } else if (res?.statusCode === 400) {
+            toast.error(`${res?.message}`);
+          } else {
+            toast.error('An error occurred while editing the parking slot.');
+          }
+        } catch (error) {
+          toast.error('An unexpected error occurred.');
         }
-    };
+      };
 
     if (!open) return null;
     return (

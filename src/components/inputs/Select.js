@@ -1,17 +1,20 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react';
 
-const Select = (options=[]) => {
-    return (
-        <div className="selectGroup">
-            <select className="select-component">
-                <option value="1">ROLE_DRIVER</option>
-                <option value="3">ROLE_MANAGER</option>
-                {/* {options?.map(el => {
-                    <option value={el.code}>{el.value}</option>
-                })} */}
-            </select>
-        </div>
-    )
-}
+const Select = ({ options = [], itemValue, onChange }) => {
+  const handleChange = useCallback((event) => {
+    onChange(event.target.value);
+  }, [onChange]);
+  return (
+    <div className="selectGroup">
+      <select className="select-component" defaultValue={itemValue} onChange={handleChange}>
+        {options?.map((el) => (
+          <option key={el.code} value={el.code}>
+            {el.value}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
 
-export default memo(Select)
+export default memo(Select);

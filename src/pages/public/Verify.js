@@ -1,72 +1,123 @@
 import "assets/css/verify.css";
-import { Link,useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import OTPInput from "otp-input-react";
 import { useState } from "react";
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import { toast } from 'react-toastify';
 import icons from "ultils/icons";
-import path from "ultils/path"
+import path from "ultils/path";
+import { auth } from "ultils/firebase/setup";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { Loader } from "components";
 
 const Verify = () => {
-    const {PhoneIcon,GppGoodIcon} = icons
+    const { PhoneIcon, GppGoodIcon } = icons;
+    const [loading, setloading] = useState(false);
     const navigate = useNavigate();
     const [OTP, setOTP] = useState("");
     const [ph, setPh] = useState("");
     const [showOTP, setShowOTP] = useState(false);
 
-    function sendOTPSMS() {
-        setShowOTP(true);
-        toast.success("OTP sent successfully!");
+    const onCaptchVerify = () => {
+        window.recaptchaVerifier = new RecaptchaVerifier(
+          auth,
+          "recaptcha",
+          {
+            size: "invisible",
+            callback: (response) => {
+              console.log(response);
+            },
+            defaultCountry: "VN"
+          }
+        );
+      };
+
+    const sendOTPSMS = async () => {
+        setloading(true);
+        onCaptchVerify();
+        let appVerifier = window.recaptchaVerifier;
+        const formatPh = '+' + ph;
+        signInWithPhoneNumber(auth, formatPh, appVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+                setloading(false);
+                setShowOTP(true);
+                toast.success("OTP sent successfully!");
+            })
+            .catch((error) => {
+                setloading(false);
+                console.log(`error=> ${error.message}`);
+            });
     }
 
-    function onOTPVerify() {
-        navigate("/"+path.RESETPASSWORD);
-        toast.success("Successful code confirmation");
+    const onOTPVerify = (e) => {
+        e.preventDefault();
+        setloading(true);
+        window.confirmationResult.confirm(OTP)
+            .then((result) => {
+                setloading(false);
+                navigate("/" + path.RESETPASSWORD);
+                toast.success("OTP verification successful. Reset password.");
+            })
+            .catch((error) => {
+                console.log(`error=> ${error.message}`);
+                setloading(false);
+            });
     }
+
     return (
-        <div className="verify">
-            <div className="verifyback">
-                <Link to={path.LOGIN} className="verifybackLink">⇦ Back</Link>
+        <>
+            {loading && <Loader />}
+            <div className="verify">
+                <div className="verifyback">
+                    <Link to={path.LOGIN} className="verifybackLink">⇦ Back</Link>
+                </div>
+                <div className="verifyForm">
+                    {showOTP ? (
+                        <>
+                            <form onSubmit={onOTPVerify}>
+                                <p className="verifyHeading">Enter your OTP</p>
+                                <GppGoodIcon className="verifycheck" sx={{ fontSize: 60 }} />
+                                <div className="verifybox">
+                                    <OTPInput
+                                        value={OTP}
+                                        onChange={setOTP}
+                                        autoFocus
+                                        OTPLength={6}
+                                        otpType="number"
+                                        disabled={false}
+                                        inputClassName="verifyinput"
+                                    />
+                                </div>
+                                <button type="submit" className="verifybtn1">Verify OTP</button>
+                            </form>
+                        </>
+                    ) : (
+                        <>
+                            <p className="verifyHeading">Verify your phone number</p>
+                            <PhoneIcon className="verifycheck" sx={{ fontSize: 60 }} />
+                            <div className="verifybox">
+                                <PhoneInput
+                                    country={"vn"}
+                                    value={ph}
+                                    onChange={setPh}
+                                    disableDropdown={true}
+                                />
+                            </div>
+                            <div id="recaptcha"></div>
+                            <button
+                                onClick={sendOTPSMS}
+                                className="verifybtn1"
+                            >
+                                Send code via SMS
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
-            <div className="verifyForm">
-                {showOTP ? (
-                    <>
-                        <p className="verifyHeading">Enter your OTP</p>
-                        <GppGoodIcon className="verifycheck" sx={{ fontSize: 60 }} />
-                        <div className="verifybox">
-                            <OTPInput
-                                value={OTP}
-                                onChange={setOTP}
-                                autoFocus
-                                OTPLength={6}
-                                otpType="number"
-                                disabled={false}
-                                inputClassName="verifyinput" />
-                        </div>
-                        <button onClick={onOTPVerify} className="verifybtn1">Verify OTP</button>
-                    </>
-                ) : (
-                    <>
-                        <p className="verifyHeading">Verify your phone number</p>
-                        <PhoneIcon className="verifycheck" sx={{ fontSize: 60 }} />
-                        <div className="verifybox">
-                            <PhoneInput
-                                country={"vn"}
-                                value={ph}
-                                onChange={setPh}
-                                disableDropdown={true} />
-                        </div>
-                        <button
-                            onClick={sendOTPSMS}
-                            className="verifybtn1">
-                            Send code via SMS
-                        </button>
-                    </>
-                )}
-            </div>
-        </div>
-    )
+        </>
+    );
 }
 
-export default Verify
+export default Verify;

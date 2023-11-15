@@ -8,8 +8,8 @@ const VehicleList = () => {
 
     const getAllVehicle = async () => {
         let res = (await apiVehicle()) ?? {};
-        if (res.data && res.data.content) {
-            const tableData = res.data.content?.map((item, index) => ({ ...item, id: index + 1 }));
+        if (res && res.data) {
+            const tableData = res.data?.map((item, index) => ({ ...item, id: index + 1 }));
             setlistVehicle(tableData);
         }
     }

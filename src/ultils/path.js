@@ -11,6 +11,9 @@ const path = {
     CATEGORY: 'vehiclecategory',
     VEHICLE: 'vehicle',
     PARKINGSLOT: 'parkingslot',
+    BOOKING: 'booking',
+    REPORT: 'report',
+    FEEDBACK: 'feedback',
 
     // Admin
     USERLIST: 'userlist',

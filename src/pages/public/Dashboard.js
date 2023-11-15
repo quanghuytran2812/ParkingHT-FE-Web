@@ -9,6 +9,8 @@ import path from "ultils/path"
 import { UserList } from "pages/admin";
 import { CategoryList, VehicleList } from "pages/manager";
 import ParkingSlot from "pages/manager/ParkingSlot";
+import BookingList from "pages/manager/BookingList";
+import ReportList from "pages/manager/ReportList";
 
 const Dashboard = () => {
   return (
@@ -16,9 +18,6 @@ const Dashboard = () => {
       <Sidebar />
       <div className="container">
         <Topbar />
-        {/* <ProtectedRoute allowedRoles={['ROLE_ADMIN']} paths={path.HOME} itemElements={<Home />}/>
-        <ProtectedRoute allowedRoles={['ROLE_MANAGER']} paths={path.HOME} itemElements={<UserList />}/> */}
-        {/* <ProtectedRoute allowedRoles={['ROLE_ADMIN','ROLE_MANAGER']} paths={path.USERPROFILE} itemElements={<UsersProfile />}/> */}
         <Routes>          
           <Route path={path.HOME} element={<Home />} />
           <Route path={path.USERLIST} element={<UserList />} />
@@ -27,6 +26,8 @@ const Dashboard = () => {
           <Route path={path.CATEGORY} element={<CategoryList />} />
           <Route path={path.VEHICLE} element={<VehicleList />} />
           <Route path={path.PARKINGSLOT} element={<ParkingSlot />} />
+          <Route path={path.BOOKING} element={<BookingList />} />
+          <Route path={path.REPORT} element={<ReportList />} />
 
         </Routes>
       </div>

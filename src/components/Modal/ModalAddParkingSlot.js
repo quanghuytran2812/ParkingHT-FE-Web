@@ -24,16 +24,21 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
 
     const handleAddParkingSlot = async (e) => {
         e.preventDefault();
+
         const res = await apiAddParkingSlot(parkingSlot);
-        if (res && res.statusCode === 200) {
+        if (res.statusCode === 200) {
             handleReset();
             onClose();
             handleUpdateTable();
             toast.success(`${res.message}`);
+        } else if (res.statusCode === 400) {
+            toast.error(`${res.message}`);
         } else {
-            toast.error(`${res && res.message}`);
+            toast.error('An error occurred while creating the parking slot.');
         }
-    }
+    };
+
+
 
     return (
         <div onClick={onClose} className='ModalCommonoverlay'>
