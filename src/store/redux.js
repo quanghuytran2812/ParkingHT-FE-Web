@@ -13,6 +13,10 @@ import {
   REGISTER
 } from 'redux-persist';
 import reportSlice from './report/reportSlice';
+import feedbackSlice from './feedback/feedbackSlice';
+import vehicleSlice from './vehicle/vehicleSlice';
+import parkingslotSlice from './parkingslot/parkingslotSlice';
+import userSlide from './user/userSlide';
 
 
 const commonConfig = {
@@ -29,7 +33,11 @@ export const redux = configureStore({
   reducer: {
     auth: persistReducer(userConfig, authSlice),
     category: categorySlice,
-    report: reportSlice
+    report: reportSlice,
+    feedback: feedbackSlice,
+    vehicle: vehicleSlice,
+    parkingslot: parkingslotSlice,
+    user: userSlide
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {

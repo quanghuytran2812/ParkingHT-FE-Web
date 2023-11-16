@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import UsersProfile from "./UsersProfile";
 import path from "ultils/path"
 // import ProtectedRoute from "components/ProtectedRoute";
-import { UserList } from "pages/admin";
+import { FeedbackList, UserList } from "pages/admin";
 import { CategoryList, VehicleList } from "pages/manager";
 import ParkingSlot from "pages/manager/ParkingSlot";
 import BookingList from "pages/manager/BookingList";
@@ -28,6 +28,7 @@ const Dashboard = () => {
           <Route path={path.PARKINGSLOT} element={<ParkingSlot />} />
           <Route path={path.BOOKING} element={<BookingList />} />
           <Route path={path.REPORT} element={<ReportList />} />
+          <Route path={path.FEEDBACK} element={<FeedbackList />} />
 
         </Routes>
       </div>

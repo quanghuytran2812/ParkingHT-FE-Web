@@ -4,11 +4,14 @@ import { ModalChangePass } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetUserById } from "store/user/authSlice";
 import moment from "moment";
+import { jwtDecode } from "jwt-decode";
 
 const UsersProfile = () => {
     const [openModal, setOpenModal] = useState(false);
     const dispatch = useDispatch();
     const userinfo = useSelector((state) => state.auth.current);
+    const { token } = useSelector((state) => state.auth)
+    const userInfo = jwtDecode(token);
 
     useEffect(() => {
         dispatch(fetchGetUserById())
@@ -30,7 +33,9 @@ const UsersProfile = () => {
                                         <li><span>B</span> {moment(userinfo?.birthday).format("DD/MM/YYYY")}</li>
                                     </ul>
                                 </div>
-                                <button onClick={() => setOpenModal(true)}>Change Password</button>
+                                {userInfo.role !== "Admin" ? (
+                                    <button onClick={() => setOpenModal(true)}>Change Password</button>
+                                ) : ''}                              
                             </div>
                         </div>
                         <div className="userProfileCircle">
@@ -66,8 +71,9 @@ const UsersProfile = () => {
                                     <img className="userProfileUpdateImg" src="https://demoda.vn/wp-content/uploads/2022/09/hinh-anh-avatar-anime-nam-dep.jpg" alt="" />
                                     <input type="file" id="file" className="userProfileUpdateInputFile" />
                                 </div>
-
-                                <button className="userProfileUpdateButton">Update</button>
+                                {userInfo.role !== "Admin" ? (
+                                    <button className="userProfileUpdateButton">Update</button>
+                                ) : ''}
                             </div>
                         </form>
                     </div>

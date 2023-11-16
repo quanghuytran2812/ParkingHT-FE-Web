@@ -16,3 +16,7 @@ export const apiDeleteUser = async (uid) => {
   return await axios.put('/user/delete/' + uid, {});
 }
 
+export const apiChangePassUser = async (id, pass) => {
+  return await axios.put('/user/change-password/' + id, pass);
+}
+

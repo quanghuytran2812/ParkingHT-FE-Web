@@ -18,7 +18,6 @@ const ModalEditReport = ({ open, onClose, dataReportEdit, handleUpdateTable }) =
         setProcessingStatus(value);
     };
 
-    console.log(dataReportEdit.processingStatus)
     const handleEditReport = async (e) => {
         e.preventDefault();
         dispatch(updateReport({ ...dataReportEdit, processingStatus }))

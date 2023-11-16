@@ -60,7 +60,7 @@ const ParkingSlot = () => {
                 const res = await apiDeleteParkingSlot(psid);
                 if (res.statusCode === 200) {
                     getAllParkingSlot();
-                    toast.success(res.message);
+                    toast.success("Category deleted successfully");
                 } else toast.error(res.message);
             }
         })

@@ -13,10 +13,10 @@ const path = {
     PARKINGSLOT: 'parkingslot',
     BOOKING: 'booking',
     REPORT: 'report',
-    FEEDBACK: 'feedback',
 
     // Admin
     USERLIST: 'userlist',
+    FEEDBACK: 'feedback',
 
 }
 
