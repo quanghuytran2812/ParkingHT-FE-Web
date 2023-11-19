@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as vehicleService from 'apis';
+import { toast } from 'react-toastify';
 
 // Fetch all vehicle
 export const fetchVehicle = createAsyncThunk('vehicle/fetchVehicle', async () => {
@@ -9,8 +10,7 @@ export const fetchVehicle = createAsyncThunk('vehicle/fetchVehicle', async () =>
 
 // Delete a vehicle
 export const deleteVehicle = createAsyncThunk('category/deleteVehicle', async (vehicleId) => {
-    const response =  await vehicleService.apiDeleteVehicle(vehicleId);
-    return response.data;
+    return await vehicleService.apiDeleteVehicle(vehicleId);
 });
 
 const vehicleSlice = createSlice({
@@ -18,7 +18,6 @@ const vehicleSlice = createSlice({
     initialState: {
         list: [],
         loading: false,
-        error: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -26,7 +25,6 @@ const vehicleSlice = createSlice({
             // Fetch vehicle
             .addCase(fetchVehicle.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(fetchVehicle.fulfilled, (state, action) => {
                 state.loading = false;
@@ -38,13 +36,13 @@ const vehicleSlice = createSlice({
             // Delete vehicle
             .addCase(deleteVehicle.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
-            .addCase(deleteVehicle.fulfilled, (state) => {
+            .addCase(deleteVehicle.fulfilled, (state,action) => {
                 state.loading = false;
             })
-            .addCase(deleteVehicle.rejected, (state) => {
+            .addCase(deleteVehicle.rejected, (state,action) => {
                 state.loading = false;
+                toast.error("Không tìm thấy xe này!")
             })
     },
 });

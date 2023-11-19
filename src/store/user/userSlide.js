@@ -3,15 +3,13 @@ import * as userService from 'apis';
 
 // Change password user
 export const changepassUser = createAsyncThunk('user/changepassUser', async (id,data) => {
-    const response = await userService.apiChangePassUser(id,data);
-    return response.data;
+    return await userService.apiChangePassUser(id,data);
 });
 
 const userSlice = createSlice({
     name: 'user',
     initialState: {
         loading: false,
-        error: null
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -19,14 +17,16 @@ const userSlice = createSlice({
             // change pass user
             .addCase(changepassUser.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(changepassUser.fulfilled, (state,action) => {
+                console.log("1")
                 console.log(action)
                 state.loading = false;
 
             })
-            .addCase(changepassUser.rejected, (state) => {
+            .addCase(changepassUser.rejected, (state,action) => {
+                console.log("2")
+                console.log(action)
                 state.loading = false;
             })    
     },

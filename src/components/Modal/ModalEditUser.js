@@ -1,6 +1,7 @@
 import "assets/css/modalCommon.css"
 import Select from "components/inputs/Select";
 import { memo } from "react";
+import { roleUserData } from "ultils/contants";
 import icons from "ultils/icons"
 
 const ModalEditUser = ({ open, onClose, dataUserEdit }) => {
@@ -22,7 +23,11 @@ const ModalEditUser = ({ open, onClose, dataUserEdit }) => {
                     </p>
                     <div className="resetpasswordForm">
                         <p className="resetpasswordHeading">Edit User</p>
-                        <Select />
+                        <Select
+                            itemValue={dataUserEdit.role}
+                            options={roleUserData}
+                            // onChange={handleStatusChange}
+                        />
                         <button className="resetpasswordbtn">Update</button>
                     </div>
                 </div>

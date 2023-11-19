@@ -25,6 +25,9 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import BookIcon from '@mui/icons-material/Book';
 import ReportIcon from '@mui/icons-material/Report';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import MapIcon from '@mui/icons-material/Map';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 const icons = {
     VisibilityOutlinedIcon,
@@ -53,7 +56,10 @@ const icons = {
     AirportShuttleIcon,
     BookIcon,
     ReportIcon,
-    FeedbackIcon
+    FeedbackIcon,
+    MapIcon,
+    KeyboardDoubleArrowLeftIcon,
+    KeyboardDoubleArrowRightIcon
 }
 
 export default icons

@@ -1,7 +1,6 @@
 import "assets/css/modalCommon.css"
 import { memo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { createCategory } from "store/category/categorySlice";
 import icons from "ultils/icons"
 
@@ -20,7 +19,7 @@ const ModalAddCategory = ({ open, onClose, handleUpdateTable }) => {
         })
     }
 
-    const handleAddCategory = async (e) => {
+    const handleAddCategory = (e) => {
         e.preventDefault();
         dispatch(createCategory(category))
             .then((result) => {
@@ -30,7 +29,6 @@ const ModalAddCategory = ({ open, onClose, handleUpdateTable }) => {
             })
             .catch((error) => {
                 console.log(error)
-                toast.error(`${error.message}`);
             });
     };
 

@@ -7,6 +7,7 @@ import { deleteVehicle, fetchVehicle } from 'store/vehicle/vehicleSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { Loader } from 'components';
+import { jwtDecode } from 'jwt-decode';
 
 const VehicleList = () => {
     const { DeleteOutlineIcon } = icons
@@ -15,6 +16,10 @@ const VehicleList = () => {
     const { loading, error } = useSelector((state) => state.vehicle);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredvehicle, setFilteredvehicle] = useState([]);
+    const { token } = useSelector(
+        (state) => state.auth
+    )
+    const userInfo = jwtDecode(token)
 
     const fetchData = useCallback(() => {
         try {
@@ -58,17 +63,15 @@ const VehicleList = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 dispatch(deleteVehicle(uid))
-                    .then((res) => {
-                        if (res.meta.requestStatus === 'fulfilled') {
-                            fetchData()
-                            toast.success("Category deleted successfully");
-                        } else {
-                            toast.error(res.error.message);
-                        }
-                    })
-                    .catch((error) => {
-                        toast.error(error.message);
-                    });
+                .then((res) => {
+                    if (res.meta.requestStatus === 'fulfilled') {
+                        fetchData()
+                        toast.success("Xe được tắt hoạt động thành công!");
+                    }
+                })
+                .catch((error) => {
+                    toast.error(error);
+                });
             }
         });
     };
@@ -101,9 +104,17 @@ const VehicleList = () => {
         {
             field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
                 return (
-                    <div>
-                        <span onClick={() => handleDeleteVehicle(params.row.vehicleId)}><DeleteOutlineIcon className="tableListDelete" /></span>
-                    </div>
+                    <>
+                        {userInfo.role === 'Manager' || params.row.delFlag === true ? (
+                            <div></div>
+                        ) : (
+                            <div>
+                                <span onClick={() => handleDeleteVehicle(params.row.vehicleId)}>
+                                    <DeleteOutlineIcon className="tableListDelete" />
+                                </span>
+                            </div>
+                        )}
+                    </>
                 )
             }
         }
@@ -136,7 +147,8 @@ const VehicleList = () => {
                     </div>
                 </div>
                 <DataGrid
-                    rows={data.map((item, index) => ({ ...item, id: index + 1 }))}
+                    rows={data.map((item, index) => ({ ...item, id: index + 1 }))
+                            .sort((a, b) => a.delFlag - b.delFlag)}
                     columns={columns}
                     autoHeight
                     initialState={{

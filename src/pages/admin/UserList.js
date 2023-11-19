@@ -18,7 +18,7 @@ const UserList = () => {
   const getAllUsers = async () => {
     let res = (await apiGetUser()) ?? {};
     if (res && res.data) {
-      const tableData = res.data.map((item, index) => ({ ...item, id: index + 1 }));
+      const tableData = res.data.map((item, index) => ({ ...item, id: index + 1 })).sort((a, b) => a.delFlag - b.delFlag);
       setlistUser(tableData);
     }
   }
@@ -43,7 +43,7 @@ const UserList = () => {
         const res = await apiDeleteUser(uid);
         if (res.statusCode === 200) {
           getAllUsers();
-          toast.success(res.message);
+          toast.success("Người dùng này được tắt hoạt động thành công!");
         } else toast.error(res.message);
       }
     })
@@ -94,7 +94,7 @@ const UserList = () => {
       field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
         return (
           <>
-            {params.row.role.roleName === 'ROLE_ADMIN' 
+            {params.row.role === 'ADMIN' 
               || params.row.delFlag === true ? (<div></div>) : (
               <div>
                 <span onClick={() => handleEditUser(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>

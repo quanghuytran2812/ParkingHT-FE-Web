@@ -1,12 +1,12 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import icons from 'ultils/icons'
 import _ from "lodash"
 import { Loader, ModalAddCategory, ModalEditCategory } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories, deleteCategory } from 'store/category/categorySlice';
+import { toast } from 'react-toastify';
 
 const CategoryList = () => {
     const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon } = icons
@@ -15,24 +15,21 @@ const CategoryList = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.category);
+    const { loading } = useSelector((state) => state.category);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredCategories, setFilteredCategories] = useState([]);
 
     const fetchData = useCallback(() => {
         try {
-            dispatch(fetchCategories());
+          dispatch(fetchCategories());
         } catch (error) {
-            console.error('Error fetching category data:', error);
+          console.error('Error fetching category data:', error);
         }
-    }, [dispatch]);
-
-    useEffect(() => {
+      }, [dispatch]);
+      
+      useEffect(() => {
         fetchData();
-        if (error) {
-            toast.error(`${error}`);
-        }
-    }, [fetchData, error]);
+      }, [fetchData]);
 
     const handleSearch = _.debounce((term) => {
         if (term) {
@@ -63,13 +60,11 @@ const CategoryList = () => {
                     .then((res) => {
                         if (res.meta.requestStatus === 'fulfilled') {
                             fetchData()
-                            toast.success("Category deleted successfully");
-                        } else {
-                            toast.error(res.error.message);
+                            toast.success("Loại xe được tắt hoạt động thành công!");
                         }
                     })
                     .catch((error) => {
-                        toast.error(error.message);
+                        toast.error(error);
                     });
             }
         });
@@ -103,10 +98,14 @@ const CategoryList = () => {
         {
             field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
                 return (
-                    <div>
-                        <span onClick={() => handleEditCategory(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
-                        <span onClick={() => handleDeleteCategory(params.row.vehicleCategoryId)} ><DeleteOutlineIcon className="tableListDelete" /></span>
-                    </div>
+                    <>
+                        {params.row.delFlag === true ? (<div></div>) : (
+                            <div>
+                                <span onClick={() => handleEditCategory(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
+                                <span onClick={() => handleDeleteCategory(params.row.vehicleCategoryId)} ><DeleteOutlineIcon className="tableListDelete" /></span>
+                            </div>
+                        )}
+                    </>
                 )
             }
         }
@@ -140,7 +139,8 @@ const CategoryList = () => {
                     <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>Create</span></button>
                 </div>
                 <DataGrid
-                    rows={data.map((item, index) => ({ ...item, id: index + 1 }))}
+                    rows={data.map((item, index) => ({ ...item, id: index + 1 }))
+                        .sort((a, b) => a.delFlag - b.delFlag)}
                     columns={columns}
                     autoHeight
                     initialState={{

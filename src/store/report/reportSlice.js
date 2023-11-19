@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as reportService from 'apis';
+import { toast } from 'react-toastify';
 
 // Fetch all report
 export const fetchReport = createAsyncThunk('report/fetchReport', async () => {
@@ -7,13 +8,13 @@ export const fetchReport = createAsyncThunk('report/fetchReport', async () => {
     return response.data;
 });
 
-// Fetch all report
+// Fetch all Report Unread
 export const fetchReportUnread = createAsyncThunk('report/fetchReportUnread', async () => {
     const response = await reportService.apiListReportUnread();
     return response.data;
 });
 
-// Fetch all report
+// Fetch count Report Unread
 export const fetchCountReportUnread = createAsyncThunk('report/fetchCountReportUnread', async () => {
     const response = await reportService.apiCountReportUnread();
     return response.data;
@@ -30,7 +31,6 @@ const reportSlice = createSlice({
     initialState: {
         list: [],
         loading: false,
-        error: null,
         countUnread: 0,
         listUnread: []
     },
@@ -40,7 +40,6 @@ const reportSlice = createSlice({
             // Fetch report
             .addCase(fetchReport.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(fetchReport.fulfilled, (state, action) => {
                 state.loading = false;
@@ -48,12 +47,10 @@ const reportSlice = createSlice({
             })
             .addCase(fetchReport.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
             })      
             // Update report
             .addCase(updateReport.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(updateReport.fulfilled, (state, action) => {
                 state.loading = false;
@@ -63,10 +60,11 @@ const reportSlice = createSlice({
                         ? updatedReport
                         : report
                 );
+                toast.success("Báo cáo được cập nhật thành công!");
             })
             .addCase(updateReport.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                toast.error("Báo cáo được cập nhật thất bại!")
             })    
             //fetch count report unread
             .addCase(fetchCountReportUnread.fulfilled, (state, action) => {

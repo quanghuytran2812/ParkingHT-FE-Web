@@ -1,69 +1,60 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as parkingslotService from 'apis';
-import { toast } from 'react-toastify';
 
-// Fetch all parkingslot
-export const fetchParkingslot = createAsyncThunk('parkingslot/fetchParkingslot', async () => {
-    const response = await parkingslotService.apiParkingSlot();
+// Fetch all area of parkingslot
+export const fetchParkingslotAllArea = createAsyncThunk('parkingslot/fetchParkingslotAllArea', async () => {
+    const response = await parkingslotService.apiParkingSlotAllArea();
     return response.data;
 });
 
-// Delete a parkingslot
-export const deleteParkingslot = createAsyncThunk('parkingslot/deleteParkingslot', async (categoryId) => {
-    const response = await parkingslotService.apiDeleteParkingSlot(categoryId);
+// Fetch all parkingslot by area
+export const fetchParkingslotByArea = createAsyncThunk('parkingslot/fetchParkingslotByArea', async (id) => {
+    const response = await parkingslotService.apiParkingSlotByArea(id);
     return response.data;
 });
 
 // Update a parkingslot
 export const updateParkingslot = createAsyncThunk('parkingslot/updateParkingslot', async (data) => {
-    const response = await parkingslotService.apiEditParkingSlot(data);
-    return response.data;
-});
-
-// Create a parkingslot
-export const createParkingslot = createAsyncThunk('parkingslot/createParkingslot', async (category) => {
-    const res = await parkingslotService.apiAddParkingSlot(category);
-    return res.data;
+    return await parkingslotService.apiEditParkingSlot(data);
 });
 
 const parkingslotSlice = createSlice({
     name: 'parkingslot',
     initialState: {
-        list: [],
         loading: false,
-        error: null,
+        listArea: [],
+        listPSbyArea: []
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Fetch parkingslot
-            .addCase(fetchParkingslot.pending, (state) => {
+            // Fetch parkingslot all area
+            .addCase(fetchParkingslotAllArea.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
-            .addCase(fetchParkingslot.fulfilled, (state, action) => {
+            .addCase(fetchParkingslotAllArea.fulfilled, (state, action) => {
                 state.loading = false;
-                state.list = action.payload;
+                state.listArea = action.payload;
             })
-            .addCase(fetchParkingslot.rejected, (state, action) => {
+            .addCase(fetchParkingslotAllArea.rejected, (state, action) => {
                 state.loading = false;
                 // state.error = action.payload.message;
             })
-            // Delete parkingslot
-            .addCase(deleteParkingslot.pending, (state) => {
+            // Fetch parkingslot by area
+            .addCase(fetchParkingslotByArea.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
-            .addCase(deleteParkingslot.fulfilled, (state) => {
+            .addCase(fetchParkingslotByArea.fulfilled, (state, action) => {
                 state.loading = false;
+                state.listPSbyArea = action.payload;
             })
-            .addCase(deleteParkingslot.rejected, (state) => {
+            .addCase(fetchParkingslotByArea.rejected, (state, action) => {
                 state.loading = false;
+                // state.error = action.payload.message;
             })
             // Update parkingslot
             .addCase(updateParkingslot.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(updateParkingslot.fulfilled, (state, action) => {
                 state.loading = false;
@@ -75,22 +66,6 @@ const parkingslotSlice = createSlice({
                 );
             })
             .addCase(updateParkingslot.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload.message;
-            })
-            //Create parkingslot
-            .addCase(createParkingslot.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(createParkingslot.fulfilled, (state, action) => {
-                state.loading = false;
-                if (action.payload) {
-                    toast.success("Parking Slot created successfully");
-                }
-
-            })
-            .addCase(createParkingslot.rejected, (state) => {
                 state.loading = false;
             })
     },

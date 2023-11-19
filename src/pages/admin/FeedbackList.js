@@ -70,26 +70,14 @@ const FeedbackList = () => {
           }
         },
         {
-          field: 'processingStatus', headerName: 'STATUS', width: 150, renderCell: (params) => {
+          field: 'isFeedback', headerName: 'STATUS', width: 150, renderCell: (params) => {
             return (
               <>
-                {params.row.processingStatus === 1 ? (
-                  <span className="tableStatusText">completed</span>
-                ) : <span className="tableStatusText TextSecond">processing</span>}
+                {params.row.isFeedback === 1 ? (
+                  <span className="tableStatusText">done</span>
+                ) : <span className="tableStatusText TextSecond">not yet</span>}
               </>
             );
-          }
-        },
-        {
-          field: 'processingDate', headerName: 'PROCESS DATE', width: 220, renderCell: (params) => {
-            return (
-              <span>
-                {params.row.processingDate !== null ?
-                  moment(params.row.processingDate).format("DD/MM/YYYY, h:mm:ss A")
-                  : 'Not yet processed'
-                }
-              </span>
-            )
           }
         }
       ];
@@ -121,7 +109,8 @@ const FeedbackList = () => {
           </div>
         </div>
         <DataGrid
-          rows={data.map((item, index) => ({ ...item, id: index + 1 }))}
+          rows={data.map((item, index) => ({ ...item, id: index + 1 }))
+                  .sort((a, b) => a.isFeedback - b.isFeedback)}
           columns={columns}
           autoHeight
           initialState={{

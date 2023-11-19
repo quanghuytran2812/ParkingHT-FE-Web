@@ -18,7 +18,7 @@ const ParkingSlot = () => {
     const getAllParkingSlot = async () => {
         let res = (await apiParkingSlot()) ?? {};
         if (res && res.data) {
-            const tableData = res.data?.map((item, index) => ({ ...item, id: index + 1 }));
+            const tableData = res.data?.map((item, index) => ({ ...item, id: index + 1 })).sort((a, b) => a.delFlag - b.delFlag);
             setlistParkingSlot(tableData);
         }
     }
@@ -60,7 +60,7 @@ const ParkingSlot = () => {
                 const res = await apiDeleteParkingSlot(psid);
                 if (res.statusCode === 200) {
                     getAllParkingSlot();
-                    toast.success("Category deleted successfully");
+                    toast.success("Chỗ đậu xe được tắt hoạt động thành công!");
                 } else toast.error(res.message);
             }
         })
@@ -107,10 +107,15 @@ const ParkingSlot = () => {
         {
             field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
                 return (
-                    <div>
-                        <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
-                        <span onClick={() => handleDeleteParkingSlot(params.row.parkingSlotId)}><DeleteOutlineIcon className="tableListDelete" /></span>
-                    </div>
+                    <>
+                        {params.row.delFlag === true ? (<div></div>) : (
+                            <div>
+                                <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
+                                <span onClick={() => handleDeleteParkingSlot(params.row.parkingSlotId)}><DeleteOutlineIcon className="tableListDelete" /></span>
+                            </div>
+                        )}
+                    </>
+
                 )
             }
         }
@@ -157,7 +162,7 @@ const ParkingSlot = () => {
                 onClose={() => setOpenModal(false)}
                 handleUpdateTable={handleUpdateTable}
             />
-            <ModalEditParkingSlot 
+            <ModalEditParkingSlot
                 open={openModalEdit}
                 onClose={() => setOpenModalEdit(false)}
                 dataParkingSlotEdit={dataParkingSlotEdit}

@@ -17,7 +17,7 @@ const ModalChangePass = ({ open, onClose }) => {
 
     useEffect(() => {
         dispatch(fetchGetUserById())
-      }, [dispatch]);
+    }, [dispatch]);
 
     const handleReset = () => {
         setPayload({
@@ -28,14 +28,24 @@ const ModalChangePass = ({ open, onClose }) => {
 
     const handleChangePass = async (e) => {
         e.preventDefault();
-        const res = await apiChangePassUser(userinfo.userId, payload);
-        console.log(res)
-        if(res.statusCode === 200){
-            handleReset();
-            onClose();
-            toast.success('Password changed successfully!');
-        }else if(res.statusCode === 400){
-            toast.error(`${res.message}`)
+        try {
+            const res = await apiChangePassUser(userinfo.userId, payload);
+            if (res.statusCode === 200) {
+                handleReset();
+                onClose();
+                toast.success('Password changed successfully!');
+            } else {
+                toast.error(`${res.message}`)
+            }
+        } catch (err) {
+            if (!err?.response) {
+                toast.error('No Server Response');
+            } else if (err.response?.status === 400) {
+                toast.error('Mật khẩu sai');
+            }else{
+                toast.error("An error occurred while changing the password.");
+            }
+            
         }
     };
     if (!open) return null;

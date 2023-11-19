@@ -7,12 +7,11 @@ import UsersProfile from "./UsersProfile";
 import path from "ultils/path"
 // import ProtectedRoute from "components/ProtectedRoute";
 import { FeedbackList, UserList } from "pages/admin";
-import { CategoryList, VehicleList } from "pages/manager";
-import ParkingSlot from "pages/manager/ParkingSlot";
-import BookingList from "pages/manager/BookingList";
-import ReportList from "pages/manager/ReportList";
+import { BookingList, CategoryList, MapParkingSlot, ParkingSlot, ReportList, VehicleList } from "pages/manager";
+
 
 const Dashboard = () => {
+
   return (
     <div className="dashboard">
       <Sidebar />
@@ -29,6 +28,7 @@ const Dashboard = () => {
           <Route path={path.BOOKING} element={<BookingList />} />
           <Route path={path.REPORT} element={<ReportList />} />
           <Route path={path.FEEDBACK} element={<FeedbackList />} />
+          <Route path={path.DIAGRAMPARKINGSLOT} element={<MapParkingSlot />} />
 
         </Routes>
       </div>

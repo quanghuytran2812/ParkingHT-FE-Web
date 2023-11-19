@@ -37,8 +37,8 @@ export function DropdownItem({ children }) {
     return <li className="dropdownItem">{children}</li>
 }
 
-export function DropdownNotifications({ children, isRead }) {
-    return <li className={`dropdownNotifications ${isRead ? "isRead" : ""}`}>
+export function DropdownNotifications({ children, isRead, onClick }) {
+    return <li className={`dropdownNotifications ${isRead ? "isRead" : ""}`} onClick={onClick}>
         {children}
     </li>
 }

@@ -1,15 +1,16 @@
 import { apiEditParkingSlot } from "apis";
 import "assets/css/modalCommon.css";
+import Select from "components/inputs/Select";
 import { memo, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { statusParkingSlotData } from "ultils/contants";
 import icons from "ultils/icons";
 
 const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlotEdit }) => {
     const { CloseIcon } = icons;
     const [parkingSlot, setParkingSlot] = useState({
-        area: "",
-        name: "",
         pricePerHour: "",
+        parking_Slot_Status: ""
     });
 
     useEffect(() => {
@@ -18,26 +19,38 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
         }
     }, [open, dataParkingSlotEdit]);
 
+    const handleStatusChange = (value) => {
+        setParkingSlot(prevState => ({
+            ...prevState,
+            parking_Slot_Status: value
+        }));
+    };
+
     const handleEditParkingSlot = async (e) => {
         e.preventDefault();
-    
-        try {
-          const res = await apiEditParkingSlot(parkingSlot);
-    
-          if (res?.statusCode === 200) {
-            onClose();
-            handleUpdateTable();
-            toast.success(`${res?.message}`);
-          } else if (res?.statusCode === 400) {
-            toast.error(`${res?.message}`);
-          } else {
-            toast.error('An error occurred while editing the parking slot.');
-          }
-        } catch (error) {
-          toast.error('An unexpected error occurred.');
-        }
-      };
 
+        try {
+            const res = await apiEditParkingSlot(parkingSlot);
+
+            if (res?.statusCode === 200) {
+                onClose();
+                handleUpdateTable();
+                toast.success(`Chỗ đậu xe được cập nhập thành công!`);
+            }
+        } catch (err) {
+             // Handle error
+             if (!err?.response) {
+                toast.error('Không có phản hồi của máy chủ');
+            } else if (err.response?.status === 400) {
+                toast.error(`${err.response?.data.message}`)
+            } else if (err.response?.status === 401) {
+                toast.error('Không được phép!');
+            } else {
+                toast.error("Chỗ đậu xe được cập nhập thất bại!")
+            }
+            console.clear();
+        }
+    };
     if (!open) return null;
     return (
         <div onClick={onClose} className="ModalCommonoverlay">
@@ -53,24 +66,11 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                     </p>
                     <div className="resetpasswordForm">
                         <p className="tableformHeading">Edit Parking Slot</p>
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Area //Ex: Đường số 1"
-                                value={parkingSlot.area}
-                                onChange={(e) => setParkingSlot((prev) => ({ ...prev, area: e.target.value }))}
-                                type="text"
-                            />
-                        </div>
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Name //Ex: 101"
-                                value={parkingSlot.name}
-                                onChange={(e) => setParkingSlot((prev) => ({ ...prev, name: e.target.value }))}
-                                type="text"
-                            />
-                        </div>
+                        <Select
+                            itemValue={dataParkingSlotEdit.parking_Slot_Status}
+                            options={statusParkingSlotData}
+                            onChange={handleStatusChange}
+                        />
                         <div className="inputGroup">
                             <input
                                 className="resetpasswordinput"

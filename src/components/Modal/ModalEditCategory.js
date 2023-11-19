@@ -1,7 +1,6 @@
 import "assets/css/modalCommon.css";
 import { memo, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import { updateCategory } from "store/category/categorySlice";
 import icons from "ultils/icons";
 
@@ -11,7 +10,6 @@ const ModalEditCategory = ({ open, onClose, handleUpdateTable, dataCategoryEdit 
     const [category, setCategory] = useState({
         vehicleCategoryName: ""
     });
-    const { error } = useSelector((state) => state.category);
 
     useEffect(() => {
         if (open) {
@@ -22,23 +20,14 @@ const ModalEditCategory = ({ open, onClose, handleUpdateTable, dataCategoryEdit 
     const handleEditCategory = async (e) => {
         e.preventDefault();
         dispatch(updateCategory(category))
-        .then((res) => {
-            if (res.meta.requestStatus === 'fulfilled') {
-                toast.success("Category updated successfully");
+            .then((result) => {
                 onClose();
                 handleUpdateTable()
-            } else {
-                toast.error(res.message);
-            }
-        })
-        .catch((error) => {
-            toast.error(error.message);
-        });
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     };
-
-    if (error) {
-        toast.error(`${error}`);
-    }
 
     if (!open) return null;
 

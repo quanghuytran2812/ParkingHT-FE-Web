@@ -2,7 +2,6 @@ import "assets/css/modalCommon.css"
 import Select from "components/inputs/Select";
 import { memo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { updateReport } from "store/report/reportSlice";
 import { statusReportData } from "ultils/contants";
 import icons from "ultils/icons"
@@ -21,18 +20,13 @@ const ModalEditReport = ({ open, onClose, dataReportEdit, handleUpdateTable }) =
     const handleEditReport = async (e) => {
         e.preventDefault();
         dispatch(updateReport({ ...dataReportEdit, processingStatus }))
-            .then((res) => {
-                if (res.meta.requestStatus === 'fulfilled') {
-                    toast.success("Report updated successfully");
-                    onClose();
-                    handleUpdateTable()
-                } else {
-                    toast.error(res.message);
-                }
-            })
-            .catch((error) => {
-                toast.error(error.message);
-            });
+        .then((result) => {
+            onClose();
+            handleUpdateTable()
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     };
     return (
         <div onClick={onClose} className='ModalCommonoverlay'>

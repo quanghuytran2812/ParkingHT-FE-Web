@@ -2,33 +2,38 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as authService from 'apis';
 import { jwtDecode } from "jwt-decode";
 import { toast } from 'react-toastify';
-import getTokenInfo from 'ultils/AuthHeader';
 
 //Login
 export const login = createAsyncThunk('auth/login', async (credentials) => {
   return await authService.apiLogin(credentials)
 })
 //Get user by id
-export const fetchGetUserById = createAsyncThunk('auth/userbuid', async (userid) => {
-  let tokenData = getTokenInfo();
+export const fetchGetUserById = createAsyncThunk('auth/userbuid', async (userid,thunkAPI) => {
+  const tokenData = thunkAPI.getState().auth.token;
   if (tokenData) {
-    return authService.apiGetUserById(tokenData.id);
+    const userInfo = jwtDecode(tokenData);
+    return await authService.apiGetUserById(userInfo.id);
+  } else {
+    throw new Error('Token not found');
   }
-  return authService.apiGetUserById(userid);
 });
 
 const initialState = {
   isAuthenticated: false,
   token: null,
   isLoading: false,
-  current: null
+  current: null,
+  mess: ''
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: () => initialState
+    logout: () => initialState,
+    clearMessage: (state) => {
+      state.mess = ''
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -64,17 +69,17 @@ const authSlice = createSlice({
         state.token = null
         state.isAuthenticated = false
       })
-      // Fetch categories
-      .addCase(fetchGetUserById.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
+      // Fetch user
       .addCase(fetchGetUserById.fulfilled, (state, action) => {
         state.isLoading = false;
         state.current = action.payload.data;
       })
       .addCase(fetchGetUserById.rejected, (state) => {
         state.isLoading = false;
+        // state.current = null;
+        // state.isAuthenticated =null;
+        // state.token = null;
+        // state.mess = 'Phiên d'
       })
   },
 });

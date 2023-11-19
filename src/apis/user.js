@@ -20,3 +20,7 @@ export const apiChangePassUser = async (id, pass) => {
   return await axios.put('/user/change-password/' + id, pass);
 }
 
+export const apiUpdateUser = async (id, useinfo) => {
+  return await axios.put('/user/update/' + id, useinfo);
+}
+

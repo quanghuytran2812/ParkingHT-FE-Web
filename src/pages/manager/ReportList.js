@@ -53,11 +53,11 @@ const ReportList = () => {
   const handleEditReport = (report) => {
     setdataReportEdit(report);
     setOpenModalEdit(true);
-}
+  }
 
-const handleUpdateTable = () => {
+  const handleUpdateTable = () => {
     fetchData();
-};
+  };
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
@@ -100,9 +100,13 @@ const handleUpdateTable = () => {
     {
       field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
         return (
-          <div>
-            <span onClick={() => handleEditReport(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
-          </div>
+          <>
+            {params.row.processingStatus === 1 ? (<div></div>) : (
+              <div>
+                <span onClick={() => handleEditReport(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
+              </div>
+            )}
+          </>
         )
       }
     }
@@ -136,7 +140,9 @@ const handleUpdateTable = () => {
           </div>
         </div>
         <DataGrid
-          rows={data.map((item, index) => ({ ...item, id: index + 1 }))}
+          rows={data
+            .map((item, index) => ({ ...item, id: index + 1 }))
+            .sort((a, b) => a.isRead - b.isRead)}
           columns={columns}
           autoHeight
           initialState={{

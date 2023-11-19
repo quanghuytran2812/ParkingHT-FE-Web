@@ -15,3 +15,12 @@ export const apiAddParkingSlot = async (parkingslot) => {
 export const apiEditParkingSlot = async (parkingslot) => {
     return await axios.put('/parking-slot/update', parkingslot);
 }
+
+export const apiParkingSlotAllArea = async () => {
+    return await axios.get('/parking-slot/get-all-area');
+}
+
+export const apiParkingSlotByArea = async (area) => {
+    return await axios.get('/parking-slot/get-by-area/'+area);
+}
+

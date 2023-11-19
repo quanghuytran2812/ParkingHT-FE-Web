@@ -1,15 +1,16 @@
 import icons from "ultils/icons"
 import path from "./path";
 
-const { 
-    DashboardOutlinedIcon, 
+const {
+    DashboardOutlinedIcon,
     AccountCircleOutlinedIcon,
     CategoryIcon,
     AirportShuttleIcon,
     LocalParkingIcon,
     BookIcon,
     ReportIcon,
-    FeedbackIcon
+    FeedbackIcon,
+    MapIcon
 } = icons;
 export const sidebarItemData = [
     {
@@ -59,6 +60,12 @@ export const sidebarItemData = [
         value: 'Manage Report',
         paths: `/dashboard/report`,
         icon: <ReportIcon size={20} />
+    },
+    {
+        id: 9,
+        value: 'Diagram ParkingSlot',
+        paths: `/dashboard/diagramparkingslot`,
+        icon: <MapIcon size={20} />
     }
 ];
 
@@ -85,7 +92,7 @@ export const LineChartData = [
     }
 ]
 
- export const CicleChartData = [
+export const CicleChartData = [
     { name: 'Adela', value: 100 },
     { name: 'Agnes', value: 300 },
     { name: 'Alida', value: 100 },
@@ -95,4 +102,14 @@ export const LineChartData = [
 export const statusReportData = [
     { code: 0, value: 'Processing' },
     { code: 1, value: 'Completed' }
+]
+
+export const statusParkingSlotData = [
+    { code: 'AVAILABLE', value: 'AVAILABLE' },
+    { code: 'BUSY', value: 'BUSY' }
+]
+
+export const roleUserData = [
+    { code: 'MANAGER', value: 'MANAGER' },
+    { code: 'DRIVER', value: 'DRIVER' }
 ]

@@ -24,17 +24,26 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
 
     const handleAddParkingSlot = async (e) => {
         e.preventDefault();
-
-        const res = await apiAddParkingSlot(parkingSlot);
-        if (res.statusCode === 200) {
-            handleReset();
-            onClose();
-            handleUpdateTable();
-            toast.success(`${res.message}`);
-        } else if (res.statusCode === 400) {
-            toast.error(`${res.message}`);
-        } else {
-            toast.error('An error occurred while creating the parking slot.');
+        try {
+            const res = await apiAddParkingSlot(parkingSlot);
+            if (res.statusCode === 200) {
+                handleReset();
+                onClose();
+                handleUpdateTable();
+                toast.success("Chỗ đậu xe được tạo mới thành công!");
+            }
+        } catch (err) {
+            // Handle error
+            if (!err?.response) {
+                toast.error('Không có phản hồi của máy chủ');
+            } else if (err.response?.status === 400) {
+                toast.error(`Tên trùng lặp trong một khu vực!`)
+            } else if (err.response?.status === 401) {
+                toast.error('Không được phép!');
+            } else {
+                toast.error("Chỗ đậu xe được tạo mới thất bại!")
+            }
+            console.clear();
         }
     };
 
