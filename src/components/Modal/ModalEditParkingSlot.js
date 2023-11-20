@@ -38,8 +38,8 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                 toast.success(`Chỗ đậu xe được cập nhập thành công!`);
             }
         } catch (err) {
-             // Handle error
-             if (!err?.response) {
+            // Handle error
+            if (!err?.response) {
                 toast.error('Không có phản hồi của máy chủ');
             } else if (err.response?.status === 400) {
                 toast.error(`${err.response?.data.message}`)
@@ -71,14 +71,16 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                             options={statusParkingSlotData}
                             onChange={handleStatusChange}
                         />
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Price Per Hour //Ex: 14000"
-                                value={parkingSlot.pricePerHour}
-                                onChange={(e) => setParkingSlot((prev) => ({ ...prev, pricePerHour: e.target.value }))}
-                                type="number"
-                            />
+                        <div style={{ marginBottom: '20px' }}>
+                            <div className="inputGroup">
+                                <input
+                                    className="resetpasswordinput"
+                                    placeholder="Price Per Hour //Ex: 14000"
+                                    value={parkingSlot.pricePerHour}
+                                    onChange={(e) => setParkingSlot((prev) => ({ ...prev, pricePerHour: e.target.value }))}
+                                    type="number"
+                                />
+                            </div>
                         </div>
                         <button type="submit" className="resetpasswordbtn">
                             Save Changes

@@ -92,13 +92,6 @@ export const LineChartData = [
     }
 ]
 
-export const CicleChartData = [
-    { name: 'Adela', value: 100 },
-    { name: 'Agnes', value: 300 },
-    { name: 'Alida', value: 100 },
-    { name: 'Almira', value: 80 }
-]
-
 export const statusReportData = [
     { code: 0, value: 'Processing' },
     { code: 1, value: 'Completed' }

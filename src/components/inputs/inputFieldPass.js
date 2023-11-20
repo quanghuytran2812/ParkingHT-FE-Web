@@ -1,13 +1,14 @@
 import "assets/css/inputField.css"
 import icons from 'ultils/icons';
 
-const InputFieldPass = ({ className, showPassword, onClick, value, onChange, placeholder,
+const InputFieldPass = ({ className, classNameInput, showPassword, onClick, value, onChange, placeholder,
          nameKey, invalidFields, setInvalidFields }) => {
     const { VisibilityOutlinedIcon, VisibilityOffOutlinedIcon } = icons;
     return (
         <div className='inputFieldDiv'>
             <div className={className}>
                 <input
+                    className={classNameInput}
                     type={showPassword ? 'text' : 'password'}
                     value={value}
                     onChange={onChange}

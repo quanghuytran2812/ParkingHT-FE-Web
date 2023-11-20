@@ -45,19 +45,21 @@ const ModalEditCategory = ({ open, onClose, handleUpdateTable, dataCategoryEdit 
                     </p>
                     <div className="resetpasswordForm">
                         <p className="tableformHeading">Edit vehicle Category</p>
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Category Name"
-                                value={category.vehicleCategoryName}
-                                onChange={(e) =>
-                                    setCategory((prev) => ({
-                                        ...prev,
-                                        vehicleCategoryName: e.target.value
-                                    }))
-                                }
-                                type="text"
-                            />
+                        <div style={{ marginBottom: '20px' }}>
+                            <div className="inputGroup">
+                                <input
+                                    className="resetpasswordinput"
+                                    placeholder="Category Name"
+                                    value={category.vehicleCategoryName}
+                                    onChange={(e) =>
+                                        setCategory((prev) => ({
+                                            ...prev,
+                                            vehicleCategoryName: e.target.value
+                                        }))
+                                    }
+                                    type="text"
+                                />
+                            </div>
                         </div>
                         <button type="submit" className="resetpasswordbtn">
                             Save Changes

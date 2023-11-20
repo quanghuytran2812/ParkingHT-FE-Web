@@ -27,7 +27,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const invalids = validate(payload, setInvalidFields)
-    console.log(invalids)
     if(invalids === 0){
       dispatch(login(payload))
     }

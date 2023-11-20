@@ -3,7 +3,6 @@ export const validate = (payload, setInvalidFields) => {
     const formatPayload = Object.entries(payload)
     for (let arr of formatPayload) {
         if (arr[1].trim() === '') {
-            console.log(arr[0])
             invalids++
             setInvalidFields(prev => [...prev, { name: arr[0], mes: 'Không được để trống!' }])
         }
@@ -28,6 +27,12 @@ export const validate = (payload, setInvalidFields) => {
                             '- Một chữ số.\n' +
                             '- Một nhân vật đặc biệt.'
                     }])
+                }
+                break;
+            case 'confirmPassword':
+                if (arr[1] !== payload.password) {
+                    invalids++;
+                    setInvalidFields(prev => [...prev, { name: arr[0], mes: 'Mật khẩu không tương ứng!' }]);
                 }
                 break;
             default:

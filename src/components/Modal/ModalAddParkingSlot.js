@@ -1,11 +1,14 @@
 import { apiAddParkingSlot } from "apis";
 import "assets/css/modalCommon.css"
+import InputField from "components/inputs/InputField";
 import { memo, useState } from "react";
 import { toast } from "react-toastify";
+import { validate } from "ultils/helpers";
 import icons from "ultils/icons"
 
 const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
     const { CloseIcon } = icons;
+    const [invalidFields, setInvalidFields] = useState([]);
     const [parkingSlot, setparkingSlot] = useState({
         area: '',
         name: '',
@@ -24,26 +27,29 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
 
     const handleAddParkingSlot = async (e) => {
         e.preventDefault();
-        try {
-            const res = await apiAddParkingSlot(parkingSlot);
-            if (res.statusCode === 200) {
-                handleReset();
-                onClose();
-                handleUpdateTable();
-                toast.success("Chỗ đậu xe được tạo mới thành công!");
+        const invalids = validate(parkingSlot, setInvalidFields)
+        if (invalids === 0) {
+            try {
+                const res = await apiAddParkingSlot(parkingSlot);
+                if (res.statusCode === 200) {
+                    handleReset();
+                    onClose();
+                    handleUpdateTable();
+                    toast.success("Chỗ đậu xe được tạo mới thành công!");
+                }
+            } catch (err) {
+                // Handle error
+                if (!err?.response) {
+                    toast.error('Không có phản hồi của máy chủ');
+                } else if (err.response?.status === 400) {
+                    toast.error(`Tên trùng lặp trong một khu vực!`)
+                } else if (err.response?.status === 401) {
+                    toast.error('Không được phép!');
+                } else {
+                    toast.error("Chỗ đậu xe được tạo mới thất bại!")
+                }
+                console.clear();
             }
-        } catch (err) {
-            // Handle error
-            if (!err?.response) {
-                toast.error('Không có phản hồi của máy chủ');
-            } else if (err.response?.status === 400) {
-                toast.error(`Tên trùng lặp trong một khu vực!`)
-            } else if (err.response?.status === 401) {
-                toast.error('Không được phép!');
-            } else {
-                toast.error("Chỗ đậu xe được tạo mới thất bại!")
-            }
-            console.clear();
         }
     };
 
@@ -63,30 +69,36 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                     </p>
                     <div className="resetpasswordForm">
                         <p className="tableformHeading">Create Parking Slot</p>
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Area //Ex: Đường số 1"
-                                value={parkingSlot.area}
-                                onChange={(e) => setparkingSlot(prev => ({ ...prev, area: e.target.value }))}
-                                type="text" />
-                        </div>
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Name //Ex: 101"
-                                value={parkingSlot.name}
-                                onChange={(e) => setparkingSlot(prev => ({ ...prev, name: e.target.value }))}
-                                type="text" />
-                        </div>
-                        <div className="inputGroup">
-                            <input
-                                className="resetpasswordinput"
-                                placeholder="Price Per Hour //Ex: 14000"
-                                value={parkingSlot.pricePerHour}
-                                onChange={(e) => setparkingSlot(prev => ({ ...prev, pricePerHour: e.target.value }))}
-                                type="number" />
-                        </div>
+                        <InputField
+                            nameKey='area'
+                            className='inputGroup'
+                            classNameInput='resetpasswordinput'
+                            value={parkingSlot.area}
+                            onChange={(e) => setparkingSlot(prev => ({ ...prev, area: e.target.value }))}
+                            placeholder="Area //Ex: Đường số 1"
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                        />
+                        <InputField
+                            nameKey='name'
+                            className='inputGroup'
+                            classNameInput='resetpasswordinput'
+                            value={parkingSlot.name}
+                            onChange={(e) => setparkingSlot(prev => ({ ...prev, name: e.target.value }))}
+                            placeholder="Name //Ex: 101"
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                        />
+                        <InputField
+                            nameKey='pricePerHour'
+                            className='inputGroup'
+                            classNameInput='resetpasswordinput'
+                            value={parkingSlot.pricePerHour}
+                            onChange={(e) => setparkingSlot(prev => ({ ...prev, pricePerHour: e.target.value }))}
+                            placeholder="Price Per Hour //Ex: 14000"
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                        />
                         <button type="submit" className="resetpasswordbtn">Save Changes</button>
                     </div>
                 </form>
