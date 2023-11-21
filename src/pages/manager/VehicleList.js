@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteVehicle, fetchVehicle } from 'store/vehicle/vehicleSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Loader } from 'components';
+import { Loader, ModalDetailsVehicle } from 'components';
 import { jwtDecode } from 'jwt-decode';
 
 const VehicleList = () => {
-    const { DeleteOutlineIcon } = icons
+    const { DeleteOutlineIcon, ContentPasteSearchIcon } = icons
+    const [openModalDetail, setOpenModalDetail] = useState(false);
+    const [dataDetail, setdataDetail] = useState({});
     const listVehicle = useSelector((state) => state.vehicle.list);
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.vehicle);
@@ -76,6 +78,11 @@ const VehicleList = () => {
         });
     };
 
+    const handleDetails = (info) => {
+        setdataDetail(info);
+        setOpenModalDetail(true);
+    }
+
     const columns = [
         { field: 'id', headerName: '#', width: 20 },
         { field: 'vehicleName', headerName: 'VEHICLE', width: 200 },
@@ -106,9 +113,16 @@ const VehicleList = () => {
                 return (
                     <>
                         {userInfo.role === 'Manager' || params.row.delFlag === true ? (
-                            <div></div>
+                            <div>
+                                <span onClick={() => handleDetails(params.row)}>
+                                    <ContentPasteSearchIcon className='tableListDetail' />
+                                </span>
+                            </div>
                         ) : (
                             <div>
+                                <span onClick={() => handleDetails(params.row)}>
+                                    <ContentPasteSearchIcon className='tableListDetail' />
+                                </span>
                                 <span onClick={() => handleDeleteVehicle(params.row.vehicleId)}>
                                     <DeleteOutlineIcon className="tableListDelete" />
                                 </span>
@@ -158,6 +172,11 @@ const VehicleList = () => {
                     }}
                 />
             </div>
+            <ModalDetailsVehicle 
+                open={openModalDetail}
+                onClose={() => setOpenModalDetail(false)}
+                dataInfo={dataDetail}
+            />
         </>
     )
 }

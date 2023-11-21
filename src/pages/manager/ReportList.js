@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import icons from 'ultils/icons'
 import _ from "lodash"
 import { fetchReport } from 'store/report/reportSlice';
-import { Loader, ModalEditReport } from 'components';
+import { Loader, ModalDetailsReport, ModalEditReport } from 'components';
 import { DataGrid } from '@mui/x-data-grid';
-import { toast } from 'react-toastify';
 import moment from 'moment';
 
 const ReportList = () => {
-  const { EditOutlinedIcon } = icons
+  const { EditOutlinedIcon, ContentPasteSearchIcon } = icons
   const dispatch = useDispatch();
   const listReport = useSelector((state) => state.report.list);
-  const { loading, error } = useSelector((state) => state.report);
+  const [openModalDetail, setOpenModalDetail] = useState(false);
+  const { loading } = useSelector((state) => state.report);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredReport, setFilteredReport] = useState([]);
   const [dataReportEdit, setdataReportEdit] = useState({});
@@ -28,10 +28,7 @@ const ReportList = () => {
 
   useEffect(() => {
     fetchData();
-    if (error) {
-      toast.error(`${error}`);
-    }
-  }, [fetchData, error]);
+  }, [fetchData]);
 
   const handleSearch = _.debounce((term) => {
     if (term) {
@@ -55,14 +52,27 @@ const ReportList = () => {
     setOpenModalEdit(true);
   }
 
+  const handleDetails = (info) => {
+    setdataReportEdit(info);
+    setOpenModalDetail(true);
+  }
+
   const handleUpdateTable = () => {
     fetchData();
   };
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'vehiclePlateNumber', headerName: 'VEHICLE PLATENUMBER', width: 150 },
-    { field: 'content', headerName: 'CONTENT', width: 200 },
+    { field: 'vehiclePlateNumber', headerName: 'VEHICLE PLATENUMBER', width: 150, renderCell: (params) => {
+      return (
+        <span>
+          {
+            params.row.vehiclePlateNumber !== "" && params.row.vehiclePlateNumber.length > 0
+            ? params.row.vehiclePlateNumber : "No license plate"
+          }
+        </span>
+      )
+    }},
     {
       field: 'createDate', headerName: 'CREATEDATE', width: 150, renderCell: (params) => {
         return (
@@ -75,7 +85,7 @@ const ReportList = () => {
       }
     },
     {
-      field: 'processingStatus', headerName: 'STATUS', width: 150, renderCell: (params) => {
+      field: 'processingStatus', headerName: 'PROCESS STATUS', width: 150, renderCell: (params) => {
         return (
           <>
             {params.row.processingStatus === 1 ? (
@@ -101,9 +111,20 @@ const ReportList = () => {
       field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
         return (
           <>
-            {params.row.processingStatus === 1 ? (<div></div>) : (
+            {params.row.processingStatus === 1 ? (
               <div>
-                <span onClick={() => handleEditReport(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
+                <span onClick={() => handleDetails(params.row)}>
+                  <ContentPasteSearchIcon className='tableListDetail' />
+                </span>
+              </div>
+            ) : (
+              <div>
+                <span onClick={() => handleDetails(params.row)}>
+                  <ContentPasteSearchIcon className='tableListDetail' />
+                </span>
+                <span onClick={() => handleEditReport(params.row)}>
+                  <EditOutlinedIcon className="tableListEdit" />
+                </span>
               </div>
             )}
           </>
@@ -157,6 +178,11 @@ const ReportList = () => {
         onClose={() => setOpenModalEdit(false)}
         dataReportEdit={dataReportEdit}
         handleUpdateTable={handleUpdateTable}
+      />
+      <ModalDetailsReport
+        open={openModalDetail}
+        onClose={() => setOpenModalDetail(false)}
+        dataInfo={dataReportEdit}
       />
     </>
   )

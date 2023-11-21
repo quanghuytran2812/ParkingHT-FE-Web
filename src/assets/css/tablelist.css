@@ -82,7 +82,10 @@
 .tableStatusText.TextOccupied{
     background-image: linear-gradient(310deg,#DB3445,#F71735);
 }
-
+.tableListDetail{
+    margin-right: 3px;
+    cursor: pointer;
+}
 
 .tableListEdit {
     color: #2a7ade;

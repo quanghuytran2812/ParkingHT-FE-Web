@@ -1,87 +1,101 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { Loader } from 'components';
+import { Loader, ModalDetailsFeedback } from 'components';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { fetchFeedback } from 'store/feedback/feedbackSlice';
+import icons from 'ultils/icons';
 
 const FeedbackList = () => {
-    const dispatch = useDispatch();
-    const listFeedback = useSelector((state) => state.feedback.list);
-    const { loading, error } = useSelector((state) => state.report);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filteredFeedback, setFilteredFeedback] = useState([]);
-  
-    const fetchData = useCallback(() => {
-      try {
-        dispatch(fetchFeedback());
-      } catch (error) {
-        console.error('Error fetching feedback data:', error);
+  const { ContentPasteSearchIcon } = icons
+  const dispatch = useDispatch();
+  const [openModalDetail, setOpenModalDetail] = useState(false);
+  const [dataDetail, setdataDetail] = useState({});
+  const listFeedback = useSelector((state) => state.feedback.list);
+  const { loading, error } = useSelector((state) => state.report);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredFeedback, setFilteredFeedback] = useState([]);
+
+  const fetchData = useCallback(() => {
+    try {
+      dispatch(fetchFeedback());
+    } catch (error) {
+      console.error('Error fetching feedback data:', error);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchData();
+    if (error) {
+      toast.error(`${error}`);
+    }
+  }, [fetchData, error]);
+
+  const handleSearch = _.debounce((term) => {
+    if (term) {
+      const filtered = listFeedback.filter((item) =>
+        item.feedBackId.toLowerCase().includes(term.toLowerCase()) ||
+        item.content.toLowerCase().includes(term.toLowerCase())
+      );
+      setFilteredFeedback(filtered);
+    } else {
+      setFilteredFeedback(listFeedback);
+    }
+  }, 500);
+
+  const handleInputChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+    handleSearch(term);
+  };
+
+  const handleDetails = (info) => {
+    setdataDetail(info);
+    setOpenModalDetail(true);
+  }
+
+  const columns = [
+    { field: 'id', headerName: '#', width: 20 },
+    { field: 'rankStar', headerName: 'RANK START', width: 150 },
+    {
+      field: 'createDate', headerName: 'CREATEDATE', width: 150, renderCell: (params) => {
+        return (
+          <span>
+            {
+              moment(params.row.createDate).format("DD/MM/YYYY")
+            }
+          </span>
+        )
       }
-    }, [dispatch]);
-  
-    useEffect(() => {
-      fetchData();
-      if (error) {
-        toast.error(`${error}`);
-      }
-    }, [fetchData, error]);
-  
-    const handleSearch = _.debounce((term) => {
-      if (term) {
-        const filtered = listFeedback.filter((item) =>
-          item.feedBackId.toLowerCase().includes(term.toLowerCase()) ||
-          item.content.toLowerCase().includes(term.toLowerCase())
+    },
+    {
+      field: 'isFeedback', headerName: 'STATUS', width: 150, renderCell: (params) => {
+        return (
+          <>
+            {params.row.isFeedback === 1 ? (
+              <span className="tableStatusText">done</span>
+            ) : <span className="tableStatusText TextSecond">not yet</span>}
+          </>
         );
-        setFilteredFeedback(filtered);
-      } else {
-        setFilteredFeedback(listFeedback);
       }
-    }, 500);
-  
-    const handleInputChange = (e) => {
-      const term = e.target.value;
-      setSearchTerm(term);
-      handleSearch(term);
-    };
-    const columns = [
-        { field: 'id', headerName: '#', width: 20 },
-        { field: 'content', headerName: 'CONTENT', width: 200, renderCell: (params) => {
-          return (
-            <span>
-              {
-                params.row.content !== null ? params.row.content : 'No idea'
-              }
-            </span>
-          )
-        }},
-        { field: 'rankStar', headerName: 'RANK START', width: 150 },
-        {
-          field: 'createDate', headerName: 'CREATEDATE', width: 150, renderCell: (params) => {
-            return (
-              <span>
-                {
-                  moment(params.row.createDate).format("DD/MM/YYYY")
-                }
+    },
+    {
+      field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+        return (
+          <>
+            <div>
+              <span onClick={() => handleDetails(params.row)}>
+                <ContentPasteSearchIcon className='tableListDetail' />
               </span>
-            )
-          }
-        },
-        {
-          field: 'isFeedback', headerName: 'STATUS', width: 150, renderCell: (params) => {
-            return (
-              <>
-                {params.row.isFeedback === 1 ? (
-                  <span className="tableStatusText">done</span>
-                ) : <span className="tableStatusText TextSecond">not yet</span>}
-              </>
-            );
-          }
-        }
-      ];
-      const data = searchTerm ? filteredFeedback : listFeedback;
+            </div>
+          </>
+        )
+      }
+    }
+  ];
+  const data = searchTerm ? filteredFeedback : listFeedback;
   return (
     <>
       {loading && <Loader />}
@@ -110,7 +124,7 @@ const FeedbackList = () => {
         </div>
         <DataGrid
           rows={data.map((item, index) => ({ ...item, id: index + 1 }))
-                  .sort((a, b) => a.isFeedback - b.isFeedback)}
+            .sort((a, b) => a.isFeedback - b.isFeedback)}
           columns={columns}
           autoHeight
           initialState={{
@@ -120,6 +134,11 @@ const FeedbackList = () => {
           }}
         />
       </div>
+      <ModalDetailsFeedback
+        open={openModalDetail}
+        onClose={() => setOpenModalDetail(false)}
+        dataInfo={dataDetail}
+      />
     </>
   )
 }

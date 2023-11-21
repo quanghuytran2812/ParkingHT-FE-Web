@@ -6,11 +6,12 @@ import { apiDeleteParkingSlot, apiParkingSlot } from 'apis';
 import CurrencyFormat from 'ultils/regex';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-import { ModalAddParkingSlot, ModalEditParkingSlot } from 'components';
+import { ModalAddParkingSlot, ModalDetailsParkingSlot, ModalEditParkingSlot } from 'components';
 
 const ParkingSlot = () => {
-    const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon } = icons
+    const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon, ContentPasteSearchIcon } = icons
     const [listParkingSlot, setlistParkingSlot] = useState([]);
+    const [openModalDetail, setOpenModalDetail] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [dataParkingSlotEdit, setdataParkingSlotEdit] = useState({});
     const [openModalEdit, setOpenModalEdit] = useState(false);
@@ -66,6 +67,10 @@ const ParkingSlot = () => {
         })
     }
 
+    const handleDetails = (info) => {
+        setdataParkingSlotEdit(info);
+        setOpenModalDetail(true);
+    }
 
     const columns = [
         { field: 'id', headerName: '#', width: 90 },
@@ -108,8 +113,13 @@ const ParkingSlot = () => {
             field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
                 return (
                     <>
-                        {params.row.delFlag === true ? (<div></div>) : (
+                        {params.row.delFlag === true ? (
                             <div>
+                                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
+                            </div>
+                        ) : (
+                            <div>
+                                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                                 <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                                 <span onClick={() => handleDeleteParkingSlot(params.row.parkingSlotId)}><DeleteOutlineIcon className="tableListDelete" /></span>
                             </div>
@@ -167,6 +177,11 @@ const ParkingSlot = () => {
                 onClose={() => setOpenModalEdit(false)}
                 dataParkingSlotEdit={dataParkingSlotEdit}
                 handleUpdateTable={handleUpdateTable}
+            />
+            <ModalDetailsParkingSlot 
+                open={openModalDetail}
+                onClose={() => setOpenModalDetail(false)}
+                dataInfo={dataParkingSlotEdit}
             />
         </>
     )

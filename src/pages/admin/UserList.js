@@ -7,10 +7,11 @@ import { apiDeleteUser, apiGetUser } from "apis";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { ModalEditUser } from "components";
+import { ModalDetailsUser, ModalEditUser } from "components";
 
 const UserList = () => {
-  const { EditOutlinedIcon, DeleteOutlineIcon } = icons
+  const { EditOutlinedIcon, DeleteOutlineIcon, ContentPasteSearchIcon } = icons
+  const [openModalDetail, setOpenModalDetail] = useState(false);
   const [listUser, setlistUser] = useState([]);
   const [dataEditUser, setdataEditUser] = useState({});
   const [openModal, setOpenModal] = useState(false);
@@ -30,6 +31,11 @@ const UserList = () => {
   const handleEditUser = (user) => {
     setdataEditUser(user);
     setOpenModal(true);
+  }
+
+  const handleDetails = (info) => {
+    setdataEditUser(info);
+    setOpenModalDetail(true);
   }
 
   const handleDeleteUser = (uid) => {
@@ -76,7 +82,7 @@ const UserList = () => {
       }
     },
     { field: 'phoneNumber', headerName: 'PHONE', width: 120 },
-    { field: 'role', headerName: 'ROLE', width: 150},
+    { field: 'role', headerName: 'ROLE', width: 150 },
     {
       field: 'delFlag', headerName: 'STATUS', width: 150, renderCell: (params) => {
         return (
@@ -94,9 +100,13 @@ const UserList = () => {
       field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
         return (
           <>
-            {params.row.role === 'ADMIN' 
-              || params.row.delFlag === true ? (<div></div>) : (
+            {params.row.role === 'ADMIN'
+              || params.row.delFlag === true ? (
               <div>
+                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
+              </div>) : (
+              <div>
+                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                 <span onClick={() => handleEditUser(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                 <span onClick={() => handleDeleteUser(params.row.userId)}><DeleteOutlineIcon className="tableListDelete" /></span>
               </div>
@@ -147,6 +157,11 @@ const UserList = () => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         dataUserEdit={dataEditUser}
+      />
+      <ModalDetailsUser
+        open={openModalDetail}
+        onClose={() => setOpenModalDetail(false)}
+        dataInfo={dataEditUser}
       />
     </>
   )

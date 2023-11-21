@@ -35,12 +35,14 @@ export default function Topbar() {
     if (tokenInfo.role === "Manager") {
       dispatch(fetchCountReportUnread())
       dispatch(fetchReportUnread())
+      document.title = countUnread !== 0 ? `(${countUnread}) New Report` : "ParkingHT"
     }
     if (tokenInfo.role === "Admin") {
       dispatch(fetchCountFeedbackUnread())
       dispatch(fetchFeedbackUnread())
+      document.title = countUnreadF !== 0 ? `(${countUnreadF}) New Feedback` : "ParkingHT"
     }
-  }, [dispatch, tokenInfo.role]);
+  }, [dispatch, tokenInfo.role, countUnread, countUnreadF]);
 
   // useEffect(() => {
   //   if (mess) {

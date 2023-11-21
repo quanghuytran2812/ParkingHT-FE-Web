@@ -1,19 +1,20 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import icons from 'ultils/icons'
 import _ from "lodash"
-import { Loader, ModalAddCategory, ModalEditCategory } from 'components';
+import { Loader, ModalAddCategory, ModalDetailsCategory, ModalEditCategory } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories, deleteCategory } from 'store/category/categorySlice';
 import { toast } from 'react-toastify';
 
 const CategoryList = () => {
-    const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon } = icons
+    const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon, ContentPasteSearchIcon } = icons
     const listCategory = useSelector((state) => state.category.list);
     const [dataCategoryEdit, setdataCategoryEdit] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalDetail, setOpenModalDetail] = useState(false);
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.category);
     const [searchTerm, setSearchTerm] = useState('');
@@ -21,15 +22,15 @@ const CategoryList = () => {
 
     const fetchData = useCallback(() => {
         try {
-          dispatch(fetchCategories());
+            dispatch(fetchCategories());
         } catch (error) {
-          console.error('Error fetching category data:', error);
+            console.error('Error fetching category data:', error);
         }
-      }, [dispatch]);
-      
-      useEffect(() => {
+    }, [dispatch]);
+
+    useEffect(() => {
         fetchData();
-      }, [fetchData]);
+    }, [fetchData]);
 
     const handleSearch = _.debounce((term) => {
         if (term) {
@@ -74,7 +75,10 @@ const CategoryList = () => {
         setdataCategoryEdit(category);
         setOpenModalEdit(true);
     }
-
+    const handleDetails = (info) => {
+        setdataCategoryEdit(info);
+        setOpenModalDetail(true);
+    }
     const handleUpdateTable = () => {
         fetchData();
     };
@@ -99,8 +103,13 @@ const CategoryList = () => {
             field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
                 return (
                     <>
-                        {params.row.delFlag === true ? (<div></div>) : (
+                        {params.row.delFlag === true ? (
                             <div>
+                                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
+                            </div>
+                        ) : (
+                            <div>
+                                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                                 <span onClick={() => handleEditCategory(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                                 <span onClick={() => handleDeleteCategory(params.row.vehicleCategoryId)} ><DeleteOutlineIcon className="tableListDelete" /></span>
                             </div>
@@ -138,17 +147,19 @@ const CategoryList = () => {
                     </div>
                     <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>Create</span></button>
                 </div>
-                <DataGrid
-                    rows={data.map((item, index) => ({ ...item, id: index + 1 }))
-                        .sort((a, b) => a.delFlag - b.delFlag)}
-                    columns={columns}
-                    autoHeight
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 6 },
-                        }
-                    }}
-                />
+                <Suspense fallback="Laoding categories...">
+                    <DataGrid
+                        rows={data.map((item, index) => ({ ...item, id: index + 1 }))
+                            .sort((a, b) => a.delFlag - b.delFlag)}
+                        columns={columns}
+                        autoHeight
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 6 },
+                            }
+                        }}
+                    />
+                </Suspense>
             </div>
             <ModalAddCategory
                 open={openModal}
@@ -160,6 +171,11 @@ const CategoryList = () => {
                 onClose={() => setOpenModalEdit(false)}
                 dataCategoryEdit={dataCategoryEdit}
                 handleUpdateTable={handleUpdateTable}
+            />
+            <ModalDetailsCategory
+                open={openModalDetail}
+                onClose={() => setOpenModalDetail(false)}
+                dataInfo={dataCategoryEdit}
             />
         </>
     )
