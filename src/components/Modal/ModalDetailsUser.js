@@ -31,6 +31,7 @@ const ModalDetailsUser = ({ open, onClose, dataInfo }) => {
                                 <p>Role: </p>
                                 <p>Status: </p>
                                 <p>Update Time: </p>
+                                <p>Last Login: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.fullName}</p>
@@ -41,6 +42,7 @@ const ModalDetailsUser = ({ open, onClose, dataInfo }) => {
                                 <p>{dataInfo.role}</p>
                                 <p>{dataInfo.delFlag ? "Inactive" : "Active"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
+                                <p>{moment(dataInfo.lastLogin).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>
                         </div>
                     </div>
