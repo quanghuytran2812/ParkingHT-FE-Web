@@ -4,7 +4,7 @@ import InputFieldPass from "components/inputs/inputFieldPass";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { fetchGetUserById } from "store/user/authSlice";
+import { fetchGetUserById } from "store/user/userSlide";
 import { validate } from "ultils/helpers";
 import icons from "ultils/icons"
 
@@ -15,7 +15,7 @@ const ModalChangePass = ({ open, onClose }) => {
     const [showPassword1, setShowPassword1] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
     const dispatch = useDispatch();
-    const userinfo = useSelector((state) => state.auth.current);
+    const userinfo = useSelector((state) => state.user.current);
     const [payload, setPayload] = useState({
         oldPass: '',
         password: '',

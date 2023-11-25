@@ -1,7 +1,11 @@
 import axios from "customize-axios";
+import { authHeader } from "ultils/AuthHeader";
 
-export const apiCategoryVehicle = async () => {
-    return await axios.get('/vehicle-category/get-all');
+export const apiCategoryVehicle = async (token) => {
+    return await axios.get('/vehicle-category/get-all',
+        {
+            headers: authHeader(token),
+        });
 }
 
 export const apiDeleteCategoryVehicle = async (cid) => {

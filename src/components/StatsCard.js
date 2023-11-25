@@ -1,16 +1,34 @@
 import "assets/css/statsCard.css"
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDashboard } from "store/dashboard/dashboardSlice";
 import icons from "ultils/icons"
+import CurrencyFormat from "ultils/regex";
 
 const StatsCard = () => {
-    const {AttachMoneyIcon,GroupAddIcon,LocalParkingIcon} = icons;
+    const {AttachMoneyIcon,GroupAddIcon} = icons;
+    const dispatch = useDispatch();
+    const { numberTotalInDay, numberTotalRegister } = useSelector((state) => state.dashboard);
+    const { token } = useSelector((state) => state.auth);
+    const tokenInfo = jwtDecode(token)
+    
+    useEffect(() => {
+        if (tokenInfo.role === "Admin") {
+            dispatch(fetchDashboard())
+        }
+    },[dispatch,tokenInfo.role])
+
     return (
         <div className="StatsCard">
             <div className="StatsCardItem">
-                <span className="StatsCardTitle">Total Revenue</span>
+                <span className="StatsCardTitle">Total Earnings In A Single Day</span>
                 <div className="StatsCardMoneyContainer">
                     <AttachMoneyIcon className="StatsCardIconItem"/>
                     <div className="StatsCardWrapper">
-                        <span className="StatsCardMoney">$2,415</span>                       
+                        <span className="StatsCardMoney">
+                            <CurrencyFormat num={numberTotalInDay} />
+                        </span>                       
                     </div>
                 </div>
             </div>
@@ -20,17 +38,7 @@ const StatsCard = () => {
                 <div className="StatsCardMoneyContainer">
                     <GroupAddIcon className="StatsCardIconItem"/>
                     <div className="StatsCardWrapper">
-                        <span className="StatsCardMoney">15</span>                       
-                    </div>
-                </div>
-            </div>
-
-            <div className="StatsCardItem darkGreenColor">
-                <span className="StatsCardTitle">Total Spaces Available</span>
-                <div className="StatsCardMoneyContainer">
-                    <LocalParkingIcon className="StatsCardIconItem"/>
-                    <div className="StatsCardWrapper">
-                        <span className="StatsCardMoney">30</span>                   
+                        <span className="StatsCardMoney">{numberTotalRegister}</span>                       
                     </div>
                 </div>
             </div>

@@ -69,29 +69,6 @@ export const sidebarItemData = [
     }
 ];
 
-export const LineChartData = [
-    {
-        "month": "January",
-        "total_cost": 4000
-    },
-    {
-        "month": "February",
-        "total_cost": 3000
-    },
-    {
-        "month": "March",
-        "total_cost": 2000
-    },
-    {
-        "month": "April",
-        "total_cost": 2780
-    },
-    {
-        "month": "May",
-        "total_cost": 1890
-    }
-]
-
 export const statusReportData = [
     { code: 0, value: 'Processing' },
     { code: 1, value: 'Completed' }

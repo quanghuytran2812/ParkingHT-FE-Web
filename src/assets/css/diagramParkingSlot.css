@@ -1,4 +1,78 @@
+.containerDiagramP {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px 0 10px;
+    min-height: 100vh;
+}
+
+.wrapperCategory {
+    flex: 40%;
+}
+.listCategory{
+    margin-left: 15px;
+    margin-top: 25px;
+    padding: 10px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 350px;
+    align-items: center;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
+.listCategory::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+.itemCategory {
+    width: 100px;
+    background-color: hsl(0, 0%, 100%);
+    padding: 1rem 1.4rem;
+    box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
+    border-radius: 1rem;
+    text-align: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.itemCategory_title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: hsl(0, 0%, 15%);
+}
+
+.listCategoryArrow{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buttonScrollArrow{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: hsl(0, 0%, 100%);
+    border: none;
+    color: hsl(0, 0%, 15%);
+    box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
+    cursor: pointer;
+    transition: .5s;
+}
+.buttonScrollArrow:hover {
+    background-color: #000;
+}
+
+.buttonScrollArrow:hover .buttonScrollIconsArrow {
+    color: #fff;
+}
+
 .wrapperParking {
+    flex: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,13 +83,14 @@
     display: flex;
     flex-direction: row;
     width: 450px;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     overflow-x: auto;
     scroll-behavior: smooth;
     white-space: nowrap;
 }
-.containerArea::-webkit-scrollbar{
+
+.containerArea::-webkit-scrollbar {
     -webkit-appearance: none;
 }
 
@@ -131,13 +206,13 @@
     justify-content: space-between;
 }
 
-.main-scroll-div{
+.main-scroll-div {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.buttonScroll{
+.buttonScroll {
     outline: none;
     border: 2px solid #000;
     width: 40px;
@@ -151,10 +226,10 @@
     transition: 400ms;
 }
 
-.buttonScroll:hover{
+.buttonScroll:hover {
     background-color: #000;
 }
 
-.buttonScroll:hover .buttonScrollIcons{
+.buttonScroll:hover .buttonScrollIcons {
     color: #fff;
 }

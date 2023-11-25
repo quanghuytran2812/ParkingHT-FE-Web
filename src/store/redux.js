@@ -17,6 +17,7 @@ import feedbackSlice from './feedback/feedbackSlice';
 import vehicleSlice from './vehicle/vehicleSlice';
 import parkingslotSlice from './parkingslot/parkingslotSlice';
 import userSlide from './user/userSlide';
+import dashboardSlice from './dashboard/dashboardSlice';
 
 
 const commonConfig = {
@@ -37,7 +38,8 @@ export const redux = configureStore({
     feedback: feedbackSlice,
     vehicle: vehicleSlice,
     parkingslot: parkingslotSlice,
-    user: userSlide
+    user: userSlide,
+    dashboard: dashboardSlice
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {

@@ -9,15 +9,25 @@ export const fetchReport = createAsyncThunk('report/fetchReport', async () => {
 });
 
 // Fetch all Report Unread
-export const fetchReportUnread = createAsyncThunk('report/fetchReportUnread', async () => {
-    const response = await reportService.apiListReportUnread();
-    return response.data;
+export const fetchReportUnread = createAsyncThunk('report/fetchReportUnread', async (report, thunkAPI) => {
+    try {
+        const tokenData = thunkAPI.getState().auth.token;
+        const response = await reportService.apiListReportUnread(tokenData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 });
 
 // Fetch count Report Unread
-export const fetchCountReportUnread = createAsyncThunk('report/fetchCountReportUnread', async () => {
-    const response = await reportService.apiCountReportUnread();
-    return response.data;
+export const fetchCountReportUnread = createAsyncThunk('report/fetchCountReportUnread', async (report, thunkAPI) => {
+    try {
+        const tokenData = thunkAPI.getState().auth.token;
+        const response = await reportService.apiCountReportUnread(tokenData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 });
 
 // Update a report

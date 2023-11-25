@@ -29,6 +29,8 @@ import MapIcon from '@mui/icons-material/Map';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const icons = {
     VisibilityOutlinedIcon,
@@ -61,7 +63,9 @@ const icons = {
     MapIcon,
     KeyboardDoubleArrowLeftIcon,
     KeyboardDoubleArrowRightIcon,
-    ContentPasteSearchIcon
+    ContentPasteSearchIcon,
+    KeyboardDoubleArrowUpIcon,
+    KeyboardDoubleArrowDownIcon
 }
 
 export default icons

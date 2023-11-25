@@ -8,15 +8,25 @@ export const fetchFeedback = createAsyncThunk('feedback/fetchFeedback', async ()
 });
 
 // Fetch all Feedback Unread
-export const fetchFeedbackUnread = createAsyncThunk('feedback/fetchFeedbackUnread', async () => {
-    const response = await feedbackService.apiListFeedbackUnread();
-    return response.data;
+export const fetchFeedbackUnread = createAsyncThunk('feedback/fetchFeedbackUnread', async (feedback, thunkAPI) => {
+    try {
+        const tokenData = thunkAPI.getState().auth.token;
+        const response = await feedbackService.apiListFeedbackUnread(tokenData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 });
 
 // Fetch count Feedback Unread
-export const fetchCountFeedbackUnread = createAsyncThunk('feedback/fetchCountFeedbackUnread', async () => {
-    const response = await feedbackService.apiCountFeedbackUnread();
-    return response.data;
+export const fetchCountFeedbackUnread = createAsyncThunk('feedback/fetchCountFeedbackUnread', async (feedback, thunkAPI) => {
+    try {
+        const tokenData = thunkAPI.getState().auth.token;
+        const response = await feedbackService.apiCountFeedbackUnread(tokenData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 });
 
 const feedbackSlice = createSlice({
@@ -40,7 +50,7 @@ const feedbackSlice = createSlice({
             })
             .addCase(fetchFeedback.rejected, (state) => {
                 state.loading = false;
-            }) 
+            })
             //fetch count feedback unread
             .addCase(fetchCountFeedbackUnread.fulfilled, (state, action) => {
                 state.loading = false;
@@ -48,7 +58,7 @@ const feedbackSlice = createSlice({
             })
             .addCase(fetchCountFeedbackUnread.rejected, (state) => {
                 state.loading = false;
-            }) 
+            })
             //fetch feedback unread
             .addCase(fetchFeedbackUnread.fulfilled, (state, action) => {
                 state.loading = false;
@@ -56,7 +66,7 @@ const feedbackSlice = createSlice({
             })
             .addCase(fetchFeedbackUnread.rejected, (state) => {
                 state.loading = false;
-            }) 
+            })
     },
 });
 

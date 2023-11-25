@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as parkingslotService from 'apis';
 
-// Fetch all area of parkingslot
-export const fetchParkingslotAllArea = createAsyncThunk('parkingslot/fetchParkingslotAllArea', async () => {
-    const response = await parkingslotService.apiParkingSlotAllArea();
+// // Fetch area of parkingslot by category
+export const fetchParkingslotAreaByCategory = createAsyncThunk('parkingslot/fetchParkingslotAreaByCategory', async (category) => {
+    const response = await parkingslotService.apiParkingSlotAreaByCategory(category);
     return response.data;
 });
 
@@ -22,23 +22,22 @@ const parkingslotSlice = createSlice({
     name: 'parkingslot',
     initialState: {
         loading: false,
-        listArea: [],
+        listAreaByCategory: [],
         listPSbyArea: []
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
             // Fetch parkingslot all area
-            .addCase(fetchParkingslotAllArea.pending, (state) => {
+            .addCase(fetchParkingslotAreaByCategory.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(fetchParkingslotAllArea.fulfilled, (state, action) => {
+            .addCase(fetchParkingslotAreaByCategory.fulfilled, (state, action) => {
                 state.loading = false;
-                state.listArea = action.payload;
+                state.listAreaByCategory = action.payload;
             })
-            .addCase(fetchParkingslotAllArea.rejected, (state, action) => {
+            .addCase(fetchParkingslotAreaByCategory.rejected, (state, action) => {
                 state.loading = false;
-                // state.error = action.payload.message;
             })
             // Fetch parkingslot by area
             .addCase(fetchParkingslotByArea.pending, (state) => {

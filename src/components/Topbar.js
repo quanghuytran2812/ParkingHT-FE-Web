@@ -2,9 +2,8 @@ import "assets/css/topbar.css"
 import Dropdown, { DropdownItem, DropdownNotifications } from './Dropdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchGetUserById, logout } from 'store/user/authSlice';
+import { logout } from 'store/user/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useSelector } from 'react-redux';
 import path from "ultils/path";
 import icons from "ultils/icons";
 import { useEffect } from "react";
@@ -12,8 +11,8 @@ import { fetchCountReportUnread, fetchReportUnread } from "store/report/reportSl
 import { jwtDecode } from "jwt-decode";
 import { fetchCountFeedbackUnread, fetchFeedbackUnread } from "store/feedback/feedbackSlice";
 import moment from "moment";
-// import { useEffect } from "react";
-// import Swal from "sweetalert2";
+import { clearMessage, fetchGetUserById } from "store/user/userSlide";
+import Swal from "sweetalert2";
 
 export default function Topbar() {
   const { NotificationsNoneIcon, AccountCircleIcon, LogoutIcon } = icons
@@ -21,7 +20,8 @@ export default function Topbar() {
   const dispatch = useDispatch();
   const { countUnread, listUnread } = useSelector((state) => state.report);
   const { countUnreadF, listUnreadF } = useSelector((state) => state.feedback);
-  const { token, current } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
+  const { current, mess } = useSelector((state) => state.user);
   const tokenInfo = jwtDecode(token)
 
   const handleLogout = () => {
@@ -44,14 +44,14 @@ export default function Topbar() {
     }
   }, [dispatch, tokenInfo.role, countUnread, countUnreadF]);
 
-  // useEffect(() => {
-  //   if (mess) {
-  //     Swal.fire('Oops!', mess, 'info').then(() => {
-  //       dispatch(logout())
-  //       navigate(`${path.LOGIN}`);
-  //     })
-  //   }
-  // }, [mess, dispatch, navigate])
+  useEffect(() => {
+    if (mess) Swal.fire('Oops!', mess, 'info').then(() => {
+        dispatch(logout())
+        dispatch(clearMessage())
+        navigate(`${path.LOGIN}`);
+      })
+
+  }, [mess, dispatch, navigate])
 
   return (
     <div className="topbar">

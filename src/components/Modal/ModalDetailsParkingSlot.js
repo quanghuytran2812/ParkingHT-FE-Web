@@ -27,6 +27,7 @@ const ModalDetailsParkingSlot = ({ open, onClose, dataInfo }) => {
                                 <p>Area: </p>
                                 <p>Name: </p>
                                 <p>Price Per Hour: </p>
+                                <p>Category Name: </p>
                                 <p>Status: </p>
                                 <p>Operational States: </p>
                                 <p>Update Time: </p>
@@ -35,6 +36,7 @@ const ModalDetailsParkingSlot = ({ open, onClose, dataInfo }) => {
                                 <p>{dataInfo.area}</p>
                                 <p>{dataInfo.name}</p>
                                 <p><CurrencyFormat num={dataInfo.pricePerHour} /></p>
+                                <p>{dataInfo.vehicleCategory.vehicleCategoryName}</p>
                                 <p>{dataInfo.parking_Slot_Status}</p>
                                 <p>{dataInfo.delFlag ? "Inactive" : "Active"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>

@@ -2,16 +2,16 @@ import { useCallback, useEffect, useState } from "react";
 import "assets/css/userProfile.css"
 import { ModalChangePass } from "components";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGetUserById } from "store/user/authSlice";
 import moment from "moment";
 import { jwtDecode } from "jwt-decode";
 import { apiUpdateUser } from "apis";
 import { toast } from "react-toastify";
+import { fetchGetUserById } from "store/user/userSlide";
 
 const UsersProfile = () => {
     const [openModal, setOpenModal] = useState(false);
     const dispatch = useDispatch();
-    const userinfo = useSelector((state) => state.auth.current);
+    const userinfo = useSelector((state) => state.user.current);
     const { token } = useSelector((state) => state.auth)
     const userInfo = jwtDecode(token);
 

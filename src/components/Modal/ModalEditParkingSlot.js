@@ -9,13 +9,22 @@ import icons from "ultils/icons";
 const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlotEdit }) => {
     const { CloseIcon } = icons;
     const [parkingSlot, setParkingSlot] = useState({
+        parkingSlotId: "",
+        area: "",
         pricePerHour: "",
-        parking_Slot_Status: ""
+        parking_Slot_Status: "",
+        vehicleCategory: ""
     });
 
     useEffect(() => {
         if (open) {
-            setParkingSlot(dataParkingSlotEdit);
+            setParkingSlot({
+                parkingSlotId: dataParkingSlotEdit.parkingSlotId,
+                area: dataParkingSlotEdit.area,
+                pricePerHour: dataParkingSlotEdit.pricePerHour,
+                parking_Slot_Status: dataParkingSlotEdit.parking_Slot_Status,
+                vehicleCategory: dataParkingSlotEdit.vehicleCategory.vehicleCategoryId
+            });
         }
     }, [open, dataParkingSlotEdit]);
 
@@ -42,7 +51,7 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
             if (!err?.response) {
                 toast.error('Không có phản hồi của máy chủ');
             } else if (err.response?.status === 400) {
-                toast.error(`${err.response?.data.message}`)
+                toast.error(`${err.response?.data.detail}`)
             } else if (err.response?.status === 401) {
                 toast.error('Không được phép!');
             } else {

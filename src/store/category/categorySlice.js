@@ -3,9 +3,14 @@ import * as categoryService from 'apis';
 import { toast } from 'react-toastify';
 
 // Fetch all category
-export const fetchCategories = createAsyncThunk('category/fetchCategories', async () => {
-    const res = await categoryService.apiCategoryVehicle();
-    return res.data;
+export const fetchCategories = createAsyncThunk('category/fetchCategories', async (category, thunkAPI) => {
+    try {
+        const tokenData = thunkAPI.getState().auth.token;
+        const res = await categoryService.apiCategoryVehicle(tokenData);
+        return res.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 });
 
 // Delete a category

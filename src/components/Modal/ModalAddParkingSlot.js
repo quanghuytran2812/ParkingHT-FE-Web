@@ -1,28 +1,42 @@
 import { apiAddParkingSlot } from "apis";
 import "assets/css/modalCommon.css"
 import InputField from "components/inputs/InputField";
-import { memo, useState } from "react";
+import SelectCategory from "components/inputs/SelectCategory";
+import { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { fetchCategories } from "store/category/categorySlice";
 import { validate } from "ultils/helpers";
 import icons from "ultils/icons"
 
 const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
     const { CloseIcon } = icons;
     const [invalidFields, setInvalidFields] = useState([]);
+    const dispatch = useDispatch();
+    const { list } = useSelector((state) => state.category);
     const [parkingSlot, setparkingSlot] = useState({
         area: '',
         name: '',
-        pricePerHour: ''
+        pricePerHour: '',
+        vehicleCategory: ''
     })
 
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
     if (!open) return null;
 
     const handleReset = () => {
         setparkingSlot({
             area: '',
             name: '',
-            pricePerHour: ''
+            pricePerHour: '',
+            vehicleCategory: ''
         })
+    }
+
+    if (parkingSlot.vehicleCategory === "" || !parkingSlot.vehicleCategory.length > 0) {
+        setparkingSlot(prev => ({ ...prev, vehicleCategory: list[0].vehicleCategoryId }))
     }
 
     const handleAddParkingSlot = async (e) => {
@@ -90,6 +104,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                             setInvalidFields={setInvalidFields}
                         />
                         <InputField
+                            type='number'
                             nameKey='pricePerHour'
                             className='inputGroup'
                             classNameInput='resetpasswordinput'
@@ -98,6 +113,10 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                             placeholder="Price Per Hour //Ex: 14000"
                             invalidFields={invalidFields}
                             setInvalidFields={setInvalidFields}
+                        />
+                        <SelectCategory
+                            options={list}
+                            onChange={(e) => setparkingSlot(prev => ({ ...prev, vehicleCategory: e.target.value }))}
                         />
                         <button type="submit" className="resetpasswordbtn">Save Changes</button>
                     </div>

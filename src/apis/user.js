@@ -1,11 +1,16 @@
 import axios from "customize-axios";
+import { authHeader } from "ultils/AuthHeader";
 
 export const apiLogin = async (credentials) => {
   return await axios.post('/auth/generateToken', credentials);
 }
 
-export const apiGetUserById = async (userid) => {
-  return await axios.get('/user/get-by-id/'+userid);
+export const apiGetUserById = async (userid, token) => {
+  return await axios.get('/user/get-by-id/' + userid,
+    {
+      headers: authHeader(token),
+    },
+  );
 }
 
 export const apiGetUser = async () => {

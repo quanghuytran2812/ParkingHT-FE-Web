@@ -6,7 +6,7 @@
 
 .StatsCardItem{
     padding: 1rem; 
-    width: 33.3333%; 
+    width: 50%; 
     margin: 10px 10px 20px 0;
     border-radius: 0.5rem;
     -webkit-box-shadow: 0 0 15px -10px rgba(0,0,0, 0.75);
@@ -15,10 +15,6 @@
 }
 .StatsCardItem.lightGreenColor{
     background-color: #FFDAB9CC;
-}
-
-.StatsCardItem.darkGreenColor{
-    background-color: #98FF98CC;
 }
 
 .StatsCardTitle{

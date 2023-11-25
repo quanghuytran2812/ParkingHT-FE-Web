@@ -117,11 +117,16 @@ const ParkingSlot = () => {
                             <div>
                                 <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                             </div>
-                        ) : (
+                        ) : params.row.parking_Slot_Status === 'AVAILABLE'? (
                             <div>
                                 <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                                 <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                                 <span onClick={() => handleDeleteParkingSlot(params.row.parkingSlotId)}><DeleteOutlineIcon className="tableListDelete" /></span>
+                            </div>
+                        ): (
+                            <div>
+                                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
+                                <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                             </div>
                         )}
                     </>

@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-function getAccessToken() {
+const getAccessToken = () => {
   let localStorageData = localStorage.getItem('persist:root/user');
   localStorageData = JSON.parse(localStorageData);
   const accessToken = JSON.parse(localStorageData?.token);
@@ -19,3 +19,7 @@ export default function getTokenInfo() {
     return {};
   }
 }
+
+const authHeader = token => ({Authorization: `Bearer ${token}`});
+
+export {authHeader, getAccessToken};
