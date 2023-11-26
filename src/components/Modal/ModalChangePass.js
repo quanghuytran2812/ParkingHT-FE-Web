@@ -88,7 +88,7 @@ const ModalChangePass = ({ open, onClose }) => {
                     </p>
                     <form onSubmit={handleChangePass} className="resetpasswordForm">
                         <div className="resetpasswordFormText">
-                            <p className="resetpasswordHeading">Change Password</p>
+                            <p className="resetpasswordHeading">ĐỔI MẬT KHẨU</p>
                             <LockResetIcon className="resetpasswordcheck" fontSize="large" />
                         </div>
                         <InputFieldPass
@@ -99,7 +99,7 @@ const ModalChangePass = ({ open, onClose }) => {
                             onClick={handlePasswordToggle1}
                             value={payload.oldPass}
                             onChange={(e) => setPayload(prev => ({ ...prev, oldPass: e.target.value }))}
-                            placeholder='Old Password'
+                            placeholder='Mật khẩu cũ'
                             invalidFields={invalidFields}
                             setInvalidFields={setInvalidFields}
                         />
@@ -111,7 +111,7 @@ const ModalChangePass = ({ open, onClose }) => {
                             onClick={handlePasswordToggle}
                             value={payload.password}
                             onChange={(e) => setPayload(prev => ({ ...prev, password: e.target.value }))}
-                            placeholder='New Password'
+                            placeholder='Mật khẩu mới'
                             invalidFields={invalidFields}
                             setInvalidFields={setInvalidFields}
                         />
@@ -123,11 +123,11 @@ const ModalChangePass = ({ open, onClose }) => {
                             onClick={handlePasswordToggle2}
                             value={payload.confirmPassword}
                             onChange={(e) => setPayload(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                            placeholder='Confirm Password'
+                            placeholder='Xác nhận mật khẩu'
                             invalidFields={invalidFields}
                             setInvalidFields={setInvalidFields}
                         />
-                        <button type="submit" className="resetpasswordbtn">Change Password</button>
+                        <button type="submit" className="resetpasswordbtn">Đổi mật khẩu</button>
                     </form>
                 </div>
             </div>

@@ -52,8 +52,8 @@ const ParkingSlot = () => {
 
     const handleDeleteParkingSlot = (psid) => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "Are you ready inactive this parking slot?",
+            title: 'Bạn có chắc không?',
+            text: "Bạn đã sẵn sàng ngừng sử dụng chỗ đậu xe này chưa?",
             showCancelButton: true,
             confirmButtonColor: '#02aab0'
         }).then(async (result) => {
@@ -139,7 +139,7 @@ const ParkingSlot = () => {
     return (
         <>
             <div className="tableList">
-                <h2 className="tableListTitle">Parking Slot List</h2>
+                <h2 className="tableListTitle">Quản lý chỗ đỗ xe</h2>
                 <div className="tableListBoxContainer">
                     <div className="tableListinput-container">
                         <input type="text"

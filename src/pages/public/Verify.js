@@ -37,7 +37,7 @@ const Verify = () => {
                     {showOTP ? (
                         <>
                             <form onSubmit={onOTPVerify}>
-                                <p className="verifyHeading">Enter your OTP</p>
+                                <p className="verifyHeading">Nhập OTP của bạn</p>
                                 <GppGoodIcon className="verifycheck" sx={{ fontSize: 60 }} />
                                 <div className="verifybox">
                                     <OTPInput
@@ -50,12 +50,12 @@ const Verify = () => {
                                         inputClassName="verifyinput"
                                     />
                                 </div>
-                                <button type="submit" className="verifybtn1">Verify OTP</button>
+                                <button type="submit" className="verifybtn1">Xác minh OTP</button>
                             </form>
                         </>
                     ) : (
                         <>
-                            <p className="verifyHeading">Verify your phone number</p>
+                            <p className="verifyHeading">XÁC MINH SỐ ĐIỆN THOẠI CỦA BẠN</p>
                             <PhoneIcon className="verifycheck" sx={{ fontSize: 60 }} />
                             <div className="verifybox">
                                 <PhoneInput
@@ -70,7 +70,7 @@ const Verify = () => {
                                 onClick={sendOTPSMS}
                                 className="verifybtn1"
                             >
-                                Send code via SMS
+                                Gửi mã qua SMS
                             </button>
                         </>
                     )}

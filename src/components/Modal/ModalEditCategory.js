@@ -44,7 +44,7 @@ const ModalEditCategory = ({ open, onClose, handleUpdateTable, dataCategoryEdit 
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading">Edit vehicle Category</p>
+                        <p className="tableformHeading">Cập nhập loại xe</p>
                         <div style={{ marginBottom: '20px' }}>
                             <div className="inputGroup">
                                 <input
@@ -62,7 +62,7 @@ const ModalEditCategory = ({ open, onClose, handleUpdateTable, dataCategoryEdit 
                             </div>
                         </div>
                         <button type="submit" className="resetpasswordbtn">
-                            Save Changes
+                            Lưu thay đổi
                         </button>
                     </div>
                 </form>

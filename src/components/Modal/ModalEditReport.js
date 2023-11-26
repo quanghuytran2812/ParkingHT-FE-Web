@@ -41,13 +41,13 @@ const ModalEditReport = ({ open, onClose, dataReportEdit, handleUpdateTable }) =
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="resetpasswordHeading">Edit Report</p>
+                        <p className="resetpasswordHeading">Cập nhập đánh giá</p>
                         <Select
                             itemValue={dataReportEdit.processingStatus}
                             options={statusReportData}
                             onChange={handleStatusChange}
                         />
-                        <button type="submit" className="resetpasswordbtn">Update</button>
+                        <button type="submit" className="resetpasswordbtn">cập nhập</button>
                     </div>
                 </form>
             </div>

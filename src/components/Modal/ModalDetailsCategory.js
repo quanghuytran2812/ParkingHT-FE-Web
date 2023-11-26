@@ -19,13 +19,13 @@ const ModalDetailsCategory = ({ open, onClose, dataInfo }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading hr">Details vehicle Category</p>
+                        <p className="tableformHeading hr">CHI TIẾT LOẠI XE</p>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Category Name: </p>
-                                <p>Status: </p>
-                                <p>Update Time: </p>
+                                <p>Tên loại xe: </p>
+                                <p>Trạng thái: </p>
+                                <p>Cập nhật thời gian: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.vehicleCategoryName}</p>

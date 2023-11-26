@@ -20,7 +20,7 @@ const LineChartStatistical = () => {
 
     return (
         <div className="chart">
-            <h3 className="chartTitle">Monthly Revenue</h3>
+            <h3 className="chartTitle">Doanh thu hàng tháng</h3>
             <ResponsiveContainer aspect={2.1/1.05}>
                 <LineChart
                     data={listMonthlyPayment}
@@ -30,7 +30,7 @@ const LineChartStatistical = () => {
                     <YAxis />
                     <Tooltip />
                     <Legend iconType="plainline"/>
-                    <Line type="monotone" dataKey="amountInMonth" name="Amount" stroke="#02aab0" activeDot={{ r: 8 }} />
+                    <Line type="monotone" dataKey="amountInMonth" name="Tổng số" stroke="#02aab0" activeDot={{ r: 8 }} />
                 </LineChart>
             </ResponsiveContainer>
         </div>

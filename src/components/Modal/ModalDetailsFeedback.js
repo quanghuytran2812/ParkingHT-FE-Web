@@ -19,14 +19,14 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading hr">Details Feedback</p>
+                        <p className="tableformHeading hr">CHI TIẾT PHẢN HỒI</p>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Rank Star: </p>
-                                <p>Create Date: </p>
-                                <p>Status: </p>
-                                <p>Content: </p>
+                                <p>Xếp hạng sao: </p>
+                                <p>Ngày tạo: </p>
+                                <p>Trạng thái: </p>
+                                <p>Nội dung: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.rankStar}</p>                             

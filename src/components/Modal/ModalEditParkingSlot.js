@@ -74,7 +74,7 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading">Edit Parking Slot</p>
+                        <p className="tableformHeading">Cập nhập chỗ đậu xe</p>
                         <Select
                             itemValue={dataParkingSlotEdit.parking_Slot_Status}
                             options={statusParkingSlotData}
@@ -92,7 +92,7 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                             </div>
                         </div>
                         <button type="submit" className="resetpasswordbtn">
-                            Save Changes
+                            Lưu thay đổi
                         </button>
                     </div>
                 </form>

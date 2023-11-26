@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="home">
       <header>
-        <h1 className="homeTitle">Dashboard</h1>
+        <h1 className="homeTitle">Bảng điều khiển</h1>
       </header>
       <hr className="homeHr" />
       <div className="homeContainer">

@@ -19,19 +19,19 @@ const ModalDetailsUser = ({ open, onClose, dataInfo }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading hr">Details User</p>
+                        <p className="tableformHeading hr">CHI TIẾT NGƯỜI DÙNG</p>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Full Name: </p>
-                                <p>Birthday: </p>
-                                <p>Phone Number: </p>
-                                <p>Email: </p>
-                                <p>Created Date: </p>
-                                <p>Role: </p>
-                                <p>Status: </p>
-                                <p>Update Time: </p>
-                                <p>Last Login: </p>
+                                <p>Tên: </p>
+                                <p>Ngày sinh: </p>
+                                <p>Số điện thoại: </p>
+                                <p>E-mail: </p>
+                                <p>Ngày tạo: </p>
+                                <p>Vai trò: </p>
+                                <p>Trạng thái: </p>
+                                <p>Cập nhật thời gian: </p>
+                                <p>Lần đăng nhập cuối: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.fullName}</p>

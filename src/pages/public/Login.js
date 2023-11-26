@@ -61,8 +61,8 @@ const Login = () => {
               <p>arkingHT</p>
             </div>
             <div className="loginDes">
-              <p>Welcome</p>
-              <span>Welcome back you've been missed!</span>
+              <p>Chào mừng</p>
+              <span>Chào mừng bạn đã trở lại!</span>
             </div>
             <InputField
               nameKey='phoneNumber'
@@ -70,7 +70,7 @@ const Login = () => {
               type='number'
               value={payload.phoneNumber}
               onChange={(e) => setPayload(prev => ({ ...prev, phoneNumber: e.target.value }))}
-              placeholder="Enter phone number"
+              placeholder="Nhập số điện thoại"
               invalidFields={invalidFields}
               setInvalidFields={setInvalidFields}
             />
@@ -81,15 +81,15 @@ const Login = () => {
               onClick={handlePasswordToggle}
               value={payload.password}
               onChange={(e) => setPayload(prev => ({ ...prev, password: e.target.value }))}
-              placeholder='Password'
+              placeholder='Nhập mật khẩu'
               invalidFields={invalidFields}
               setInvalidFields={setInvalidFields}
             />
             <div className="forgotPass">
-              <a href={path.VERIFY}>Forgot Password?</a>
+              <a href={path.VERIFY}>Quên mật khẩu?</a>
             </div>
             <div className="signIn">
-              <button type='submit'>Sign In</button>
+              <button type='submit'>Đăng nhập</button>
             </div>
           </div>
         </form>

@@ -20,17 +20,17 @@ const ModalDetailsParkingSlot = ({ open, onClose, dataInfo }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading hr">Details Parking Slot</p>
+                        <p className="tableformHeading hr">CHI TIẾT BÃI ĐẬU XE</p>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Area: </p>
-                                <p>Name: </p>
-                                <p>Price Per Hour: </p>
-                                <p>Category Name: </p>
-                                <p>Status: </p>
-                                <p>Operational States: </p>
-                                <p>Update Time: </p>
+                                <p>Khu vực: </p>
+                                <p>Tên ô: </p>
+                                <p>Giá mỗi giờ: </p>
+                                <p>Tên loại xe: </p>
+                                <p>Trạng thái: </p>
+                                <p>Trạng thái hoạt động: </p>
+                                <p>Cập nhật thời gian: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.area}</p>

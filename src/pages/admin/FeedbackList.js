@@ -100,7 +100,7 @@ const FeedbackList = () => {
     <>
       {loading && <Loader />}
       <div className="tableList">
-        <h2 className="tableListTitle">Feedback List</h2>
+        <h2 className="tableListTitle">Quản lý phản hồi</h2>
         <div className="tableListBoxContainer">
           <div className="tableListinput-container">
             <input type="text"

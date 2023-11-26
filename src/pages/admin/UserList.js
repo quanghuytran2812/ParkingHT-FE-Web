@@ -40,8 +40,8 @@ const UserList = () => {
 
   const handleDeleteUser = (uid) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Are you ready inactive this user?",
+      title: 'Bạn có chắc không?',
+      text: "Bạn đã sẵn sàng ngừng hoạt động người dùng này chưa?",
       showCancelButton: true,
       confirmButtonColor: '#02aab0'
     }).then(async (result) => {
@@ -120,7 +120,7 @@ const UserList = () => {
   return (
     <>
       <div className="tableList">
-        <h2 className="tableListTitle">User List</h2>
+        <h2 className="tableListTitle">Quản lý người dùng</h2>
         <div className="tableListBoxContainer">
           <div className="tableListinput-container">
             <input type="text"

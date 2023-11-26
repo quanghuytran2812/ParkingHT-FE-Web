@@ -62,7 +62,7 @@ const UsersProfile = () => {
     return (
         <>
             <div className="userProfile">
-                <h2 className="editUserTitle">My Profile</h2>
+                <h2 className="editUserTitle">Thông tin của tôi</h2>
                 <div className="userProfileContainer">
                     <div className="userProfileCard">
                         <div className="userProfileBox">
@@ -76,7 +76,7 @@ const UsersProfile = () => {
                                     </ul>
                                 </div>
                                 {userInfo.role !== "Admin" ? (
-                                    <button onClick={() => setOpenModal(true)}>Change Password</button>
+                                    <button onClick={() => setOpenModal(true)}>Đổi mật khẩu</button>
                                 ) : ''}
                             </div>
                         </div>
@@ -88,11 +88,11 @@ const UsersProfile = () => {
                     </div>
 
                     <div className="userProfileUpdate">
-                        <span className="userProfileUpdateTitle">Edit</span>
+                        <span className="userProfileUpdateTitle">Cập nhập thông tin</span>
                         <form onSubmit={handleUpdateUser} className="userProfileUpdateForm">
                             <div className="userProfileUpdateLeft">
                                 <div className="userProfileUpdateItem">
-                                    <label>Full Name</label>
+                                    <label>Tên</label>
                                     <input
                                         type="text"
                                         defaultValue={userinfo?.fullName}
@@ -101,7 +101,7 @@ const UsersProfile = () => {
                                     />
                                 </div>
                                 <div className="userProfileUpdateItem">
-                                    <label>Phone</label>
+                                    <label>Số điện thoại</label>
                                     <input
                                         type="number"
                                         defaultValue={userinfo?.phoneNumber}
@@ -110,7 +110,7 @@ const UsersProfile = () => {
                                     />
                                 </div>
                                 <div className="userProfileUpdateItem">
-                                    <label>Email</label>
+                                    <label>E-mail</label>
                                     <input
                                         type="text"
                                         defaultValue={userinfo?.email}
@@ -119,7 +119,7 @@ const UsersProfile = () => {
                                     />
                                 </div>
                                 <div className="userProfileUpdateItem">
-                                    <label>Birth of day</label>
+                                    <label>Ngày sinh</label>
                                     <input
                                         type="text"
                                         defaultValue={moment(userinfo?.birthday).format("DD/MM/YYYY")}
@@ -139,7 +139,7 @@ const UsersProfile = () => {
                                 </div>
                                 {userInfo.role !== "Admin" && (
                                     <button type="submit" className="userProfileUpdateButton">
-                                        Update
+                                        Cập nhập
                                     </button>
                                 )}
                             </div>

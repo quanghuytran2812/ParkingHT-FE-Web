@@ -41,7 +41,7 @@ const ResetPassword = () => {
       </div>
       <div className="resetpasswordForm">
         <div className="resetpasswordFormText">
-          <p className="resetpasswordHeading">Reset Password</p>
+          <p className="resetpasswordHeading">ĐẶT LẠI MẬT KHẨU</p>
           <LockResetIcon className="resetpasswordcheck" sx={{ fontSize: 60 }} />
         </div>
         <InputFieldPass
@@ -52,7 +52,7 @@ const ResetPassword = () => {
           onClick={handlePasswordToggle}
           value={payload.password}
           onChange={(e) => setPayload(prev => ({ ...prev, password: e.target.value }))}
-          placeholder='New Password'
+          placeholder='Mật khẩu mới'
           invalidFields={invalidFields}
           setInvalidFields={setInvalidFields}
         />
@@ -64,11 +64,11 @@ const ResetPassword = () => {
           onClick={handlePasswordToggle2}
           value={payload.confirmPassword}
           onChange={(e) => setPayload(prev => ({ ...prev, confirmPassword: e.target.value }))}
-          placeholder='Confirm Password'
+          placeholder='Xác nhận mật khẩu'
           invalidFields={invalidFields}
           setInvalidFields={setInvalidFields}
         />
-        <button onClick={resetPass} className="resetpasswordbtn">Reset Password</button>
+        <button onClick={resetPass} className="resetpasswordbtn">Đặt lại mật khẩu</button>
       </div>
     </div>
   )

@@ -19,19 +19,19 @@ const ModalDetailsReport = ({ open, onClose, dataInfo }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading hr">Details Report</p>
+                        <p className="tableformHeading hr">Chi tiết đánh giá</p>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
                                 {dataInfo.vehiclePlateNumber !== "" && dataInfo.vehiclePlateNumber.length > 0
-                                    ? <p>Number Plate: </p> : ''
+                                    ? <p>Biển số xe: </p> : ''
                                 }
-                                <p>Create Date: </p>
-                                <p>processingDate: </p>
-                                <p>processingStatus: </p>
-                                <p>Status: </p>
-                                <p>Update Time: </p>
-                                <p>Content: </p>
+                                <p>Ngày tạo: </p>
+                                <p>Ngày xử lý: </p>
+                                <p>Trạng thái xử lý: </p>
+                                <p>Trạng thái hoạt động: </p>
+                                <p>Cập nhật thời gian: </p>
+                                <p>Nội dung: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 {dataInfo.vehiclePlateNumber !== "" && dataInfo.vehiclePlateNumber.length > 0

@@ -52,18 +52,18 @@ const ModalAddCategory = ({ open, onClose, handleUpdateTable }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading">Create vehicle Category</p>
+                        <p className="tableformHeading">Tạo loại xe</p>
                         <InputField
                             nameKey='vehicleCategoryName'
                             className='inputGroup'
                             classNameInput='resetpasswordinput'
                             value={category.vehicleCategoryName}
                             onChange={(e) => setCategory(prev => ({ ...prev, vehicleCategoryName: e.target.value }))}
-                            placeholder="Category Name"
+                            placeholder="Tên loại xe"
                             invalidFields={invalidFields}
                             setInvalidFields={setInvalidFields}
                         />
-                        <button type="submit" className="resetpasswordbtn">Save Changes</button>
+                        <button type="submit" className="resetpasswordbtn">Lưu thay đổi</button>
                     </div>
                 </form>
             </div>

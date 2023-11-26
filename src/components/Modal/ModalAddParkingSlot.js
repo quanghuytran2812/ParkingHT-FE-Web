@@ -82,7 +82,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading">Create Parking Slot</p>
+                        <p className="tableformHeading">TẠO CHỖ ĐẬU XE</p>
                         <InputField
                             nameKey='area'
                             className='inputGroup'
@@ -118,7 +118,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                             options={list}
                             onChange={(e) => setparkingSlot(prev => ({ ...prev, vehicleCategory: e.target.value }))}
                         />
-                        <button type="submit" className="resetpasswordbtn">Save Changes</button>
+                        <button type="submit" className="resetpasswordbtn">Lưu thay đổi</button>
                     </div>
                 </form>
             </div>

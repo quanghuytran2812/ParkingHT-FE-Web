@@ -58,8 +58,8 @@ const VehicleList = () => {
 
     const handleDeleteVehicle = (uid) => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'Are you ready to inactive this vehicle?',
+            title: 'Bạn có chắc không?',
+            text: 'Bạn đã sẵn sàng ngừng hoạt động chiếc xe này chưa?',
             showCancelButton: true,
             confirmButtonColor: '#02aab0',
         }).then(async (result) => {
@@ -138,7 +138,7 @@ const VehicleList = () => {
         <>
             {loading && <Loader />}
             <div className="tableList">
-                <h2 className="tableListTitle">Vehicle List</h2>
+                <h2 className="tableListTitle">Quản lý xe</h2>
                 <div className="tableListBoxContainer">
                     <div className="tableListinput-container">
                         <input type="text"

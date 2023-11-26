@@ -19,16 +19,16 @@ const ModalDetailsVehicle = ({ open, onClose, dataInfo }) => {
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">
-                        <p className="tableformHeading hr">Details Vehicle</p>
+                        <p className="tableformHeading hr">CHI TIẾT XE</p>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Vehicle Owner: </p>
-                                <p>Vehicle Name: </p>
-                                <p>Number Plate: </p>
-                                <p>Number Of Fouls: </p>
-                                <p>Status: </p>
-                                <p>Update Time: </p>
+                                <p>Chủ phương tiện: </p>
+                                <p>Tên xe: </p>
+                                <p>Biển số xe: </p>
+                                <p>Số lần vi phạm: </p>
+                                <p>Trạng thái: </p>
+                                <p>Cập nhật thời gian: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.user.fullName}</p>

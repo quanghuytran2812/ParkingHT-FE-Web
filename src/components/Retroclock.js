@@ -33,7 +33,7 @@ const Retroclock = () => {
 
     return (
         <div className="Retroclock">
-            <h2>Digital Clock</h2>
+            <h2>ĐỒNG HỒ KỸ THUẬT SỐ</h2>
             <div className="time">
                 <div className="hrs">
                     <label>{hours}</label><label>Hours</label>

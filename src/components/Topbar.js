@@ -62,7 +62,7 @@ export default function Topbar() {
               <NotificationsNoneIcon />
               {countUnread === 0 ? '' : <span className="topIconBadge">{countUnread}</span>}
             </div>}>
-            {countUnread === 0 ? '' : <h6 className='topRightNotifications'>Notifications</h6>}
+            {countUnread === 0 ? '' : <h6 className='topRightNotifications'>Thông báo</h6>}
             {listUnread?.map((report) => (
               <DropdownNotifications key={report.reportId} isRead="isRead" onClick={() => navigate("/dashboard/report")}>
                 <img className="topRightInfoImg" src={require('../assets/images/Logo.png')} alt='' />
@@ -79,7 +79,7 @@ export default function Topbar() {
               <NotificationsNoneIcon />
               {countUnreadF === 0 ? '' : <span className="topIconBadge">{countUnreadF}</span>}
             </div>}>
-            {countUnreadF === 0 ? '' : <h6 className='topRightNotifications'>Notifications</h6>}
+            {countUnreadF === 0 ? '' : <h6 className='topRightNotifications'>Thông báo</h6>}
             {listUnreadF?.map((feedback) => (
               <DropdownNotifications key={feedback.feedBackId} isRead="isRead" onClick={() => navigate("/dashboard/feedback")}>
                 <img className="topRightInfoImg" src={require('../assets/images/Logo.png')} alt='' />
@@ -96,12 +96,12 @@ export default function Topbar() {
             <img className="topRightInfoImg" src="https://hdwallpaperim.com/wp-content/uploads/2017/08/22/103013-blue_hair-anime-748x421.jpg" alt="avatar" />
             <div className="topRightInfoUser">
               <p className="topRightInfoUserName">{current?.fullName}</p>
-              <span className="topRightInfoEmail">Welcome back!</span>
+              <span className="topRightInfoEmail">Chào mừng trở lại!</span>
             </div>
           </DropdownItem>
           <hr />
-          <DropdownItem><AccountCircleIcon size={20} /><Link className="DropdownItemUserProfile" to="/dashboard/userprofile">My Profile</Link></DropdownItem>
-          <DropdownItem><div className="TopbarDropdownItem" onClick={() => handleLogout()}><LogoutIcon size={20} /> Logout</div></DropdownItem>
+          <DropdownItem><AccountCircleIcon size={20} /><Link className="DropdownItemUserProfile" to="/dashboard/userprofile">Thông tin của tôi</Link></DropdownItem>
+          <DropdownItem><div className="TopbarDropdownItem" onClick={() => handleLogout()}><LogoutIcon size={20} /> Đăng xuất</div></DropdownItem>
         </Dropdown>
       </div>
     </div>

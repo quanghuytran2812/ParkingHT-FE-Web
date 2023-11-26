@@ -22,7 +22,7 @@ const StatsCard = () => {
     return (
         <div className="StatsCard">
             <div className="StatsCardItem">
-                <span className="StatsCardTitle">Total Earnings In A Single Day</span>
+                <span className="StatsCardTitle">Tổng thu nhập trong một ngày</span>
                 <div className="StatsCardMoneyContainer">
                     <AttachMoneyIcon className="StatsCardIconItem"/>
                     <div className="StatsCardWrapper">
@@ -34,7 +34,7 @@ const StatsCard = () => {
             </div>
 
             <div className="StatsCardItem lightGreenColor">
-                <span className="StatsCardTitle">Newly Driver Registered</span>
+                <span className="StatsCardTitle">Số người dùng mới đăng ký</span>
                 <div className="StatsCardMoneyContainer">
                     <GroupAddIcon className="StatsCardIconItem"/>
                     <div className="StatsCardWrapper">
