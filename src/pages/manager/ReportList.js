@@ -63,18 +63,18 @@ const ReportList = () => {
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'vehiclePlateNumber', headerName: 'VEHICLE PLATENUMBER', width: 150, renderCell: (params) => {
+    { field: 'vehiclePlateNumber', headerName: 'BIỂN SỐ XE', width: 150, renderCell: (params) => {
       return (
         <span>
           {
             params.row.vehiclePlateNumber !== "" && params.row.vehiclePlateNumber.length > 0
-            ? params.row.vehiclePlateNumber : "No license plate"
+            ? params.row.vehiclePlateNumber : "Không có biển số"
           }
         </span>
       )
     }},
     {
-      field: 'createDate', headerName: 'CREATEDATE', width: 150, renderCell: (params) => {
+      field: 'createDate', headerName: 'NGÀY TẠO', width: 150, renderCell: (params) => {
         return (
           <span>
             {
@@ -85,30 +85,30 @@ const ReportList = () => {
       }
     },
     {
-      field: 'processingStatus', headerName: 'PROCESS STATUS', width: 150, renderCell: (params) => {
+      field: 'processingStatus', headerName: 'TRẠNG THÁI XỬ LÝ', width: 150, renderCell: (params) => {
         return (
           <>
             {params.row.processingStatus === 1 ? (
-              <span className="tableStatusText">completed</span>
-            ) : <span className="tableStatusText TextSecond">processing</span>}
+              <span className="tableStatusText">hoàn thành</span>
+            ) : <span className="tableStatusText TextSecond">đang xử lý</span>}
           </>
         );
       }
     },
     {
-      field: 'processingDate', headerName: 'PROCESS DATE', width: 220, renderCell: (params) => {
+      field: 'processingDate', headerName: 'NGÀY XỬ LÝ', width: 220, renderCell: (params) => {
         return (
           <span>
             {params.row.processingDate !== null ?
               moment(params.row.processingDate).format("DD/MM/YYYY, h:mm:ss A")
-              : 'Not yet processed'
+              : 'Chưa được xử lý'
             }
           </span>
         )
       }
     },
     {
-      field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
         return (
           <>
             {params.row.processingStatus === 1 ? (
@@ -145,7 +145,7 @@ const ReportList = () => {
               className="input"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder="search..." />
+              placeholder="TÌM KIẾM..." />
             <span className="icon">
               <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

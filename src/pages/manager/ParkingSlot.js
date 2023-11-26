@@ -74,43 +74,43 @@ const ParkingSlot = () => {
 
     const columns = [
         { field: 'id', headerName: '#', width: 90 },
-        { field: 'area', headerName: 'AREA', width: 150 },
-        { field: 'name', headerName: 'NAME', width: 150 },
+        { field: 'area', headerName: 'KHU VỰC', width: 150 },
+        { field: 'name', headerName: 'TÊN Ô', width: 150 },
         {
-            field: 'pricePerHour', headerName: 'PRICE PER HOUR', width: 150, renderCell: (params) => {
+            field: 'pricePerHour', headerName: 'GIÁ MỖI GIỜ', width: 150, renderCell: (params) => {
                 return (
                     <CurrencyFormat num={params.row.pricePerHour} />
                 )
             }
         },
         {
-            field: 'parking_Slot_Status', headerName: 'STATUS', width: 150, renderCell: (params) => {
+            field: 'parking_Slot_Status', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
                 return (
                     <>
                         {params.row.parking_Slot_Status === 'AVAILABLE' ? (
-                            <span className="tableStatusText TextAvailable">available</span>
+                            <span className="tableStatusText TextAvailable">có sẵn</span>
                         ) : params.row.parking_Slot_Status === 'BUSY' ? (
-                            <span className="tableStatusText TextOccupied">busy</span>
+                            <span className="tableStatusText TextOccupied">bận</span>
                         ) : null}
                     </>
                 );
             }
         },
         {
-            field: 'delFlag', headerName: 'OPERATIONAL STATES', width: 150, renderCell: (params) => {
+            field: 'delFlag', headerName: 'TRẠNG THÁI HOẠT ĐỘNG', width: 180, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag ? (
-                            <span className="tableStatusText TextSecond">inactive</span>
+                            <span className="tableStatusText TextSecond">KHÔNG HOẠT ĐỘNG</span>
                         ) : (
-                            <span className="tableStatusText">active</span>
+                            <span className="tableStatusText">HOẠT ĐỘNG</span>
                         )}
                     </>
                 )
             }
         },
         {
-            field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+            field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag === true ? (
@@ -145,7 +145,7 @@ const ParkingSlot = () => {
                         <input type="text"
                             className="input"
                             onChange={(e) => handleSearch(e)}
-                            placeholder="search..." />
+                            placeholder="TÌM KIẾM..." />
                         <span className="icon">
                             <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

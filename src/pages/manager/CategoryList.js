@@ -85,22 +85,22 @@ const CategoryList = () => {
 
     const columns = [
         { field: 'id', headerName: '#', width: 90 },
-        { field: 'vehicleCategoryName', headerName: 'VEHICLE CATEGORY', width: 250 },
+        { field: 'vehicleCategoryName', headerName: 'LOẠI XE', width: 250 },
         {
-            field: 'delFlag', headerName: 'STATUS', width: 150, renderCell: (params) => {
+            field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag ? (
-                            <span className="tableStatusText TextSecond">inactive</span>
+                            <span className="tableStatusText TextSecond">KHÔNG HOẠT ĐỘNG</span>
                         ) : (
-                            <span className="tableStatusText">active</span>
+                            <span className="tableStatusText">HOẠT DỘNG</span>
                         )}
                     </>
                 )
             }
         },
         {
-            field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+            field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag === true ? (
@@ -131,7 +131,7 @@ const CategoryList = () => {
                             className="input"
                             value={searchTerm}
                             onChange={handleInputChange}
-                            placeholder="search..." />
+                            placeholder="TÌM KIẾM..." />
                         <span className="icon">
                             <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -145,7 +145,7 @@ const CategoryList = () => {
                             </svg>
                         </span>
                     </div>
-                    <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>Create</span></button>
+                    <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>TẠO MỚI</span></button>
                 </div>
                 <Suspense fallback="Laoding categories...">
                     <DataGrid

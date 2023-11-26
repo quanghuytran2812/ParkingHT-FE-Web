@@ -58,9 +58,9 @@ const FeedbackList = () => {
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'rankStar', headerName: 'RANK START', width: 150 },
+    { field: 'rankStar', headerName: 'XẾP HẠNG SAO', width: 150 },
     {
-      field: 'createDate', headerName: 'CREATEDATE', width: 150, renderCell: (params) => {
+      field: 'createDate', headerName: 'NGÀY TẠO', width: 150, renderCell: (params) => {
         return (
           <span>
             {
@@ -71,18 +71,18 @@ const FeedbackList = () => {
       }
     },
     {
-      field: 'isFeedback', headerName: 'STATUS', width: 150, renderCell: (params) => {
+      field: 'isFeedback', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
         return (
           <>
             {params.row.isFeedback === 1 ? (
-              <span className="tableStatusText">done</span>
-            ) : <span className="tableStatusText TextSecond">not yet</span>}
+              <span className="tableStatusText">LÀM</span>
+            ) : <span className="tableStatusText TextSecond">CHƯA LÀM</span>}
           </>
         );
       }
     },
     {
-      field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
         return (
           <>
             <div>
@@ -107,7 +107,7 @@ const FeedbackList = () => {
               className="input"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder="search..." />
+              placeholder="TÌM KIẾM..." />
             <span className="icon">
               <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

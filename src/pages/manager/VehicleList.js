@@ -85,31 +85,31 @@ const VehicleList = () => {
 
     const columns = [
         { field: 'id', headerName: '#', width: 20 },
-        { field: 'vehicleName', headerName: 'VEHICLE', width: 200 },
+        { field: 'vehicleName', headerName: 'TÊN XE', width: 200 },
         {
-            field: 'user', headerName: 'USER', width: 200, renderCell: (params) => {
+            field: 'user', headerName: 'NGƯỜI DÙNG', width: 200, renderCell: (params) => {
                 return (
                     <span>{params.row.user.fullName}</span>
                 )
             }
         },
-        { field: 'plateNumber', headerName: 'PLATENUMBER', width: 150 },
-        { field: 'numberOfFouls', headerName: 'NUMBER OF FOULS', width: 150, align: 'center' },
+        { field: 'plateNumber', headerName: 'BIỂN SỐ XE', width: 150 },
+        { field: 'numberOfFouls', headerName: 'SỐ LẦN VI PHẠM', width: 150, align: 'center' },
         {
-            field: 'delFlag', headerName: 'STATUS', width: 120, renderCell: (params) => {
+            field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag ? (
-                            <span className="tableStatusText TextSecond">inactive</span>
+                            <span className="tableStatusText TextSecond">KHÔNG HOẠT ĐỘNG</span>
                         ) : (
-                            <span className="tableStatusText">active</span>
+                            <span className="tableStatusText">HOẠT ĐỘNG</span>
                         )}
                     </>
                 )
             }
         },
         {
-            field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+            field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
                 return (
                     <>
                         {userInfo.role === 'Manager' || params.row.delFlag === true ? (
@@ -145,7 +145,7 @@ const VehicleList = () => {
                             className="input"
                             value={searchTerm}
                             onChange={handleInputChange}
-                            placeholder="search..." />
+                            placeholder="TÌM KIẾM..." />
                         <span className="icon">
                             <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

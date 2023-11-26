@@ -73,31 +73,31 @@ const UserList = () => {
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'fullName', headerName: 'FULLNAME', width: 150 },
+    { field: 'fullName', headerName: 'TÊN', width: 150 },
     {
-      field: 'birthday', headerName: 'BIRTHDAY', width: 180, renderCell: (params) => {
+      field: 'birthday', headerName: 'SINH NHẬT', width: 180, renderCell: (params) => {
         return (
           <span>{moment(params.row.birthday).format("DD/MM/YYYY")}</span>
         )
       }
     },
-    { field: 'phoneNumber', headerName: 'PHONE', width: 120 },
-    { field: 'role', headerName: 'ROLE', width: 150 },
+    { field: 'phoneNumber', headerName: 'SỐ ĐIỆN THOẠI', width: 120 },
+    { field: 'role', headerName: 'VAI TRÒ', width: 150 },
     {
-      field: 'delFlag', headerName: 'STATUS', width: 150, renderCell: (params) => {
+      field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
         return (
           <>
             {params.row.delFlag ? (
-              <span className="tableStatusText TextSecond">inactive</span>
+              <span className="tableStatusText TextSecond">không hoạt động</span>
             ) : (
-              <span className="tableStatusText">active</span>
+              <span className="tableStatusText">hoạt động</span>
             )}
           </>
         )
       }
     },
     {
-      field: 'action', headerName: 'ACTION', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
         return (
           <>
             {params.row.role === 'ADMIN'
@@ -126,7 +126,7 @@ const UserList = () => {
             <input type="text"
               className="input"
               onChange={(e) => handleSearch(e)}
-              placeholder="search..." />
+              placeholder="TÌM KIẾM..." />
             <span className="icon">
               <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
