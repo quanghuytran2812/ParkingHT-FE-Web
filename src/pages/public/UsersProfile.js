@@ -34,7 +34,7 @@ const UsersProfile = () => {
         const formattedBirthday = moment(birthdayValue, "DD/MM/YYYY").format("YYYY-MM-DD");
       
         if (!moment(formattedBirthday, "YYYY-MM-DD", true).isValid()) {
-          toast.error("Invalid date format for birthday");
+          toast.error("Định dạng ngày sinh nhật không hợp lệ");
           return;
         }
       
@@ -75,7 +75,7 @@ const UsersProfile = () => {
                                         <li><span>B</span> {moment(userinfo?.birthday).format("DD/MM/YYYY")}</li>
                                     </ul>
                                 </div>
-                                {userInfo.role !== "Admin" ? (
+                                {userInfo.role !== "ADMIN" ? (
                                     <button onClick={() => setOpenModal(true)}>Đổi mật khẩu</button>
                                 ) : ''}
                             </div>
@@ -137,7 +137,7 @@ const UsersProfile = () => {
                                     />
                                     <input type="file" id="file" className="userProfileUpdateInputFile" />
                                 </div>
-                                {userInfo.role !== "Admin" && (
+                                {userInfo.role !== "ADMIN" && (
                                     <button type="submit" className="userProfileUpdateButton">
                                         Cập nhập
                                     </button>

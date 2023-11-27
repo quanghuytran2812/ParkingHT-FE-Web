@@ -2,9 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as dashboardService from 'apis';
 
 // Fetch dashboard
-export const fetchDashboard = createAsyncThunk('dashboard/fetchDashboard', async () => {
+export const fetchDashboard = createAsyncThunk('dashboard/fetchDashboard', async (dashboard, thunkAPI) => {
     try {
-        const res = await dashboardService.apiDashboard();
+        const tokenData = thunkAPI.getState().auth.token;
+        const res = await dashboardService.apiDashboard(tokenData);
         return res;
     } catch (error) {
         throw error.response.data;

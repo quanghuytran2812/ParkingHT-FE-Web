@@ -51,7 +51,7 @@ export const sidebarItemData = [
     },
     {
         id: 7,
-        value: 'Quản lý đặt xe',
+        value: 'Quản lý đặt chỗ',
         paths: `/dashboard/booking`,
         icon: <BookIcon size={20} />
     },

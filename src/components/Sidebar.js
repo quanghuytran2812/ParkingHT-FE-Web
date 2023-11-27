@@ -17,9 +17,9 @@ export default function Sidebar() {
   const userInfo = jwtDecode(token)
 
   const filteredSidebarItemData = sidebarItemData.filter((item) => {
-    if (userInfo.role === "Admin") {
+    if (userInfo.role === "ADMIN") {
       return true; // Show all items for ROLE_ADMIN
-    } else if (userInfo.role === "Manager") {
+    } else if (userInfo.role === "MANAGER") {
       return item.id >= 4; // Show items from id 3 onwards for ROLE_MANAGER
     }
     return false; // Hide other items for any other role

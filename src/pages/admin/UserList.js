@@ -38,6 +38,10 @@ const UserList = () => {
     setOpenModalDetail(true);
   }
 
+  const handleTableU = () => {
+    getAllUsers();
+  }
+
   const handleDeleteUser = (uid) => {
     Swal.fire({
       title: 'Bạn có chắc không?',
@@ -157,6 +161,7 @@ const UserList = () => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         dataUserEdit={dataEditUser}
+        handleTableU={handleTableU}
       />
       <ModalDetailsUser
         open={openModalDetail}

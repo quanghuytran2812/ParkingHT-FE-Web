@@ -82,6 +82,9 @@
 .tableStatusText.TextOccupied{
     background-image: linear-gradient(310deg,#DB3445,#F71735);
 }
+.tableStatusText.TextComplete{
+    background-image: linear-gradient(310deg,#2dce89,#2dcecc);
+}
 .tableListDetail{
     margin-right: 3px;
     cursor: pointer;

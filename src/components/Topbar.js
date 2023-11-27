@@ -32,12 +32,12 @@ export default function Topbar() {
 
   useEffect(() => {
     dispatch(fetchGetUserById())
-    if (tokenInfo.role === "Manager") {
+    if (tokenInfo.role === "MANAGER") {
       dispatch(fetchCountReportUnread())
       dispatch(fetchReportUnread())
       document.title = countUnread !== 0 ? `(${countUnread}) New Report` : "ParkingHT"
     }
-    if (tokenInfo.role === "Admin") {
+    if (tokenInfo.role === "ADMIN") {
       dispatch(fetchCountFeedbackUnread())
       dispatch(fetchFeedbackUnread())
       document.title = countUnreadF !== 0 ? `(${countUnreadF}) New Feedback` : "ParkingHT"
@@ -56,7 +56,7 @@ export default function Topbar() {
   return (
     <div className="topbar">
       <div className="topbarWrapper">
-        {tokenInfo.role === "Manager" ? (
+        {tokenInfo.role === "MANAGER" ? (
           <Dropdown trigger={
             <div className="topbarIconsContainer">
               <NotificationsNoneIcon />
@@ -73,7 +73,7 @@ export default function Topbar() {
               </DropdownNotifications>
             ))}
           </Dropdown>
-        ) : tokenInfo.role === "Admin" ? (
+        ) : tokenInfo.role === "ADMIN" ? (
           <Dropdown trigger={
             <div className="topbarIconsContainer">
               <NotificationsNoneIcon />

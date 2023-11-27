@@ -29,3 +29,7 @@ export const apiUpdateUser = async (id, useinfo) => {
   return await axios.put('/user/update/' + id, useinfo);
 }
 
+export const apiUpdateRoleUser = async (id, useinfo) => {
+  return await axios.put('/user/change-role/' + id, useinfo);
+}
+

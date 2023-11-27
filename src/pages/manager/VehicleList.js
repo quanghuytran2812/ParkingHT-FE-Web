@@ -15,7 +15,7 @@ const VehicleList = () => {
     const [dataDetail, setdataDetail] = useState({});
     const listVehicle = useSelector((state) => state.vehicle.list);
     const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.vehicle);
+    const { loading } = useSelector((state) => state.vehicle);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredvehicle, setFilteredvehicle] = useState([]);
     const { token } = useSelector(
@@ -33,10 +33,7 @@ const VehicleList = () => {
 
     useEffect(() => {
         fetchData();
-        if (error) {
-            toast.error(`${error}`);
-        }
-    }, [fetchData, error]);
+    }, [fetchData]);
 
     const handleSearch = _.debounce((term) => {
         if (term) {

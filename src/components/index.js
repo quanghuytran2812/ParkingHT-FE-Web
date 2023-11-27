@@ -18,4 +18,5 @@ export { default as ModalDetailsParkingSlot } from "./Modal/ModalDetailsParkingS
 export { default as ModalDetailsReport } from "./Modal/ModalDetailsReport"
 export { default as ModalDetailsFeedback } from "./Modal/ModalDetailsFeedback"
 export { default as ModalDetailsUser } from "./Modal/ModalDetailsUser"
+export { default as ModalDetailsBooking } from "./Modal/ModalDetailsBooking"
 export { default as Select } from "./inputs/Select"

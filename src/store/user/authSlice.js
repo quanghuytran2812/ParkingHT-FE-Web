@@ -31,7 +31,7 @@ const authSlice = createSlice({
           if (action.payload?.statusCode === 200) {
             const userInfo = jwtDecode(action.payload.data.token);
 
-            if (userInfo.role === "Admin" || userInfo.role === "Manager") {
+            if (userInfo.role === "ADMIN" || userInfo.role === "MANAGER") {
               state.isAuthenticated = true;
               state.token = action.payload.data.token;
               toast.success(`Đăng nhập thành công! Chào mừng bạn đến với ParkingHT.`);

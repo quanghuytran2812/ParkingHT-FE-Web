@@ -1,13 +1,38 @@
 import "assets/css/modalCommon.css"
 import Select from "components/inputs/Select";
-import { memo } from "react";
+import { memo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateRoleUser } from "store/user/userSlide";
 import { roleUserData } from "ultils/contants";
 import icons from "ultils/icons"
 
-const ModalEditUser = ({ open, onClose, dataUserEdit }) => {
+const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
+    const dispatch = useDispatch();
     const { CloseIcon } = icons;
+    const [role,setRole] = useState(dataUserEdit.role)
 
     if (!open) return null;
+
+    const handleRoleChange = (value) => {
+        setRole(value);
+    };
+
+    const handleEditRole = async (e) => {
+        e.preventDefault();
+
+        let updateRoleU = {
+            userId: dataUserEdit.userId,
+            role: role
+        }
+        dispatch(updateRoleUser(updateRoleU))
+        .then((result) => {
+            onClose();
+            handleTableU()
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+    };
 
     return (
         <div onClick={onClose} className='ModalCommonoverlay'>
@@ -17,7 +42,7 @@ const ModalEditUser = ({ open, onClose, dataUserEdit }) => {
                 }}
                 className='ModalCommonmodalContainer'
             >
-                <div className="ModalCommonForm">
+                <form onSubmit={handleEditRole} className="ModalCommonForm">
                     <p className='closeBtn' onClick={onClose}>
                         <CloseIcon />
                     </p>
@@ -26,11 +51,11 @@ const ModalEditUser = ({ open, onClose, dataUserEdit }) => {
                         <Select
                             itemValue={dataUserEdit.role}
                             options={roleUserData}
-                            // onChange={handleStatusChange}
+                            onChange={handleRoleChange}
                         />
                         <button className="resetpasswordbtn">Cập nhập</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )

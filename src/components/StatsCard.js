@@ -14,7 +14,7 @@ const StatsCard = () => {
     const tokenInfo = jwtDecode(token)
     
     useEffect(() => {
-        if (tokenInfo.role === "Admin") {
+        if (tokenInfo.role === "ADMIN") {
             dispatch(fetchDashboard())
         }
     },[dispatch,tokenInfo.role])
