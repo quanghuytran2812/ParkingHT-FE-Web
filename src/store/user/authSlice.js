@@ -27,29 +27,22 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false
-        try {
-          if (action.payload?.statusCode === 200) {
-            const userInfo = jwtDecode(action.payload.data.token);
+        if (action.payload?.statusCode === 200) {
+          const userInfo = jwtDecode(action.payload.data.token);
 
-            if (userInfo.role === "ADMIN" || userInfo.role === "MANAGER") {
-              state.isAuthenticated = true;
-              state.token = action.payload.data.token;
-              toast.success(`Đăng nhập thành công! Chào mừng bạn đến với ParkingHT.`);
-            } else {
-              toast.error('Bạn không được phép truy cập trang này!');
-            }
+          if (userInfo.role === "ADMIN" || userInfo.role === "MANAGER") {
+            state.isAuthenticated = true;
+            state.token = action.payload.data.token;
+            toast.success(`Đăng nhập thành công! Chào mừng bạn đến với ParkingHT.`);
           } else {
-            toast.error(`${action.payload.message}`);
+            toast.error('Bạn không được phép truy cập trang này!');
           }
-        } catch (err) {
-          if (!err?.response) {
-            toast.error('No Server Response');
-          } else {
-            toast.error(err);
-          }
+        } else {
+          toast.error(`${action.payload.message}`);
         }
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(login.rejected, (state, action) => {
+        toast.error(action.error.message);
         state.isLoading = false
         state.token = null
         state.isAuthenticated = false

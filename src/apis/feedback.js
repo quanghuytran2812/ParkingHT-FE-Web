@@ -5,6 +5,10 @@ export const apigetFeedback = async () => {
   return await axios.get('/feedback/get-all');
 }
 
+export const apiUpdateFeedback = async (feedback) => {
+  return await axios.put('/feedback/update'+feedback, {});
+}
+
 export const apiCountFeedbackUnread = async (token) => {
   return await axios.get('/feedback/get-count-unread/0',
     {

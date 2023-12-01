@@ -33,7 +33,8 @@ const ReportList = () => {
   const handleSearch = _.debounce((term) => {
     if (term) {
       const filtered = listReport.filter((item) =>
-        item.vehiclePlateNumber.toLowerCase().includes(term.toLowerCase())
+        item.vehiclePlateNumber.toLowerCase().includes(term.toLowerCase()) ||  
+        item.content.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredReport(filtered);
     } else {

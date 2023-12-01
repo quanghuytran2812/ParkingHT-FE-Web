@@ -36,16 +36,16 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.booking_Id}</p>
                                 <p>{dataInfo.user.fullName}</p>
-                                <p>{moment(dataInfo.start_Date).format('DD/MM/YYYY, h:mm:ss')}</p>
-                                <p>{moment(dataInfo.end_Date).format('DD/MM/YYYY, h:mm:ss')}</p>
-                                <p>{moment(dataInfo.create_Date).format('DD/MM/YYYY, h:mm:ss')}</p>
+                                <p>{moment(dataInfo.start_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
+                                <p>{moment(dataInfo.end_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
+                                <p>{moment(dataInfo.create_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.booking_Status === "ONGOING"
                                     ? 'ĐANG ĐẶT CHỖ' : dataInfo.booking_Status === "COMPLETED"
                                     ? 'HOÀN THÀNH' : dataInfo.booking_Status === "CANCELED"
                                     ? 'ĐÃ HỦY' : ''
                                 }</p>
                                 <p><CurrencyFormat num={dataInfo.booking_Total} /></p>
-                                <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss')}</p>
+                                <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>
                         </div>
                     </div>

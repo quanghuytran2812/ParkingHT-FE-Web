@@ -4,6 +4,7 @@ const path = {
     LOGIN: '/',
     HOME: '/',
     VERIFY: 'verifycode',
+    VERIFYPHONE: 'verifyphone',
     RESETPASSWORD: 'resetpassword',
     USERPROFILE: 'userprofile',
 

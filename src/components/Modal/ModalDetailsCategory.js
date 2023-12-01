@@ -29,7 +29,7 @@ const ModalDetailsCategory = ({ open, onClose, dataInfo }) => {
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.vehicleCategoryName}</p>
-                                <p>{dataInfo.delFlag ? "Inactive" : "Active"}</p>
+                                <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>
                         </div>

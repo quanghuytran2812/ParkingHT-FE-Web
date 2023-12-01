@@ -40,10 +40,10 @@ const ModalDetailsReport = ({ open, onClose, dataInfo }) => {
                                 <p>{moment(dataInfo.createDate).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{ dataInfo.processingDate !== null
                                     ? moment(dataInfo.processingDate).format('DD/MM/YYYY, h:mm:ss A')
-                                    : 'Not yet processed'
+                                    : 'Chưa được xử lý'
                                 }</p>
-                                <p>{dataInfo.processingStatus === 1 ? "Completed" : "Processing"}</p>
-                                <p>{dataInfo.delFlag ? "Inactive" : "Active"}</p>
+                                <p>{dataInfo.processingStatus === 1 ? "Đã xử lý" : "Đang xử lý"}</p>
+                                <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.content}</p>
                             </div>

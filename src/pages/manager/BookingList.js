@@ -33,7 +33,8 @@ const BookingList = () => {
   const handleSearch = _.debounce((term) => {
     if (term) {
       const filtered = listBooking.filter((item) =>
-        item.booking_Id.toLowerCase().includes(term.toLowerCase())
+        item.booking_Id.toLowerCase().includes(term.toLowerCase()) ||
+        item.user.fullName.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredvehicle(filtered);
     } else {
@@ -85,26 +86,26 @@ const BookingList = () => {
     },
     {
       field: 'booking_Status', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
-          return (
-              <>
-                  {params.row.booking_Status === 'ONGOING' ? (
-                      <span className="tableStatusText TextAvailable">ĐANG ĐẶT CHỖ</span>
-                  ) : params.row.booking_Status === 'COMPLETED' ? (
-                      <span className="tableStatusText TextComplete">HOÀN THÀNH</span>
-                  ) : params.row.booking_Status === 'CANCELED' ? (
-                      <span className="tableStatusText TextOccupied">ĐÃ HỦY</span>
-                  ) : null}
-              </>
-          );
+        return (
+          <>
+            {params.row.booking_Status === 'ONGOING' ? (
+              <span className="tableStatusText TextAvailable">ĐANG ĐẶT CHỖ</span>
+            ) : params.row.booking_Status === 'COMPLETED' ? (
+              <span className="tableStatusText TextComplete">HOÀN THÀNH</span>
+            ) : params.row.booking_Status === 'CANCELED' ? (
+              <span className="tableStatusText TextOccupied">ĐÃ HỦY</span>
+            ) : null}
+          </>
+        );
       }
-  },
+    },
     {
       field: 'booking_Total', headerName: 'TỔNG TIỀN', width: 150, renderCell: (params) => {
-          return (
-              <CurrencyFormat num={params.row.booking_Total} />
-          )
+        return (
+          <CurrencyFormat num={params.row.booking_Total} />
+        )
       }
-  },
+    },
     {
       field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
         return (
@@ -147,14 +148,20 @@ const BookingList = () => {
           </div>
         </div>
         <DataGrid
-          rows={data.map((item, index) => ({ ...item, id: index + 1 }))
-            .sort((a, b) => a.delFlag - b.delFlag)}
+          rows={data
+            .map((item, index) => ({ ...item, id: index + 1 }))
+            .sort((a, b) => {
+              // If delFlag is the same, sort by create_Date in descending order (latest first)
+              if (a.create_Date > b.create_Date) return -1;
+              if (a.create_Date < b.create_Date) return 1;
+              return 0;
+            })}
           columns={columns}
           autoHeight
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 6 },
-            }
+            },
           }}
         />
       </div>

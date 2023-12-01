@@ -19,7 +19,17 @@ const UserList = () => {
   const getAllUsers = async () => {
     let res = (await apiGetUser()) ?? {};
     if (res && res.data) {
-      const tableData = res.data.map((item, index) => ({ ...item, id: index + 1 })).sort((a, b) => a.delFlag - b.delFlag);
+      const tableData = res.data
+        .sort((a, b) => {
+          // Sort by delFlag in ascending order
+          if (a.delFlag > b.delFlag) return 1;
+          if (a.delFlag < b.delFlag) return -1;
+          // If delFlag is the same, sort by createdDate in descending order (latest first)
+          if (a.createdDate > b.createdDate) return -1;
+          if (a.createdDate < b.createdDate) return 1;
+          return 0;
+        })
+        .map((item, index) => ({ ...item, id: index + 1 }));
       setlistUser(tableData);
     }
   }
@@ -67,7 +77,9 @@ const UserList = () => {
       clonelistUser = clonelistUser.filter(item =>
         item.role.roleName.toLowerCase().includes(term.toLowerCase()) ||
         item.userId.toLowerCase().includes(term.toLowerCase()) ||
-        item.fullName.toLowerCase().includes(term.toLowerCase())
+        item.fullName.toLowerCase().includes(term.toLowerCase()) ||
+        item.phoneNumber.toLowerCase().includes(term.toLowerCase()) ||
+        item.email.toLowerCase().includes(term.toLowerCase())
       );
       setlistUser(clonelistUser);
     } else {
@@ -85,8 +97,8 @@ const UserList = () => {
         )
       }
     },
-    { field: 'phoneNumber', headerName: 'SỐ ĐIỆN THOẠI', width: 120 },
-    { field: 'role', headerName: 'VAI TRÒ', width: 150 },
+    { field: 'phoneNumber', headerName: 'SỐ ĐIỆN THOẠI', width: 150 },
+    { field: 'role', headerName: 'VAI TRÒ', width: 100 },
     {
       field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
         return (

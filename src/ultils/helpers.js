@@ -35,10 +35,36 @@ export const validate = (payload, setInvalidFields) => {
                     setInvalidFields(prev => [...prev, { name: arr[0], mes: 'Mật khẩu không tương ứng!' }]);
                 }
                 break;
+            case 'birthday':
+                const age = getAge(arr[1]);
+
+                if (age < 18 || age > 60) {
+                    invalids++;
+                    setInvalidFields(prev => [...prev, { name: arr[0], mes: 'Tuổi không hợp lệ!' }]);
+                }
+                break;
+            case 'email':
+                const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+                if (!emailRegex.test(arr[1])) {
+                    invalids++;
+                    setInvalidFields(prev => [...prev, { name: arr[0], mes: 'Email không hợp lệ!' }]);
+                }
+                break;
             default:
                 break;
         }
     }
 
     return invalids;
+}
+
+function getAge(birthDateString) {
+    var today = new Date();
+    var birthDate = new Date(birthDateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }

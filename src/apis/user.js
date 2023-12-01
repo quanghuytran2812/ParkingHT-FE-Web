@@ -2,7 +2,12 @@ import axios from "customize-axios";
 import { authHeader } from "ultils/AuthHeader";
 
 export const apiLogin = async (credentials) => {
-  return await axios.post('/auth/generateToken', credentials);
+  try {
+    const response = await axios.post('/auth/generateToken', credentials);
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
 }
 
 export const apiGetUserById = async (userid, token) => {

@@ -86,7 +86,7 @@ const Login = () => {
               setInvalidFields={setInvalidFields}
             />
             <div className="forgotPass">
-              <a href={path.VERIFY}>Quên mật khẩu?</a>
+              <a href={path.VERIFYPHONE}>Quên mật khẩu?</a>
             </div>
             <div className="signIn">
               <button type='submit'>Đăng nhập</button>

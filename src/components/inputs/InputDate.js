@@ -1,19 +1,21 @@
 import "assets/css/inputField.css"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const InputField = ({ value, className, classNameInput, nameKey, type, placeholder,
+const InputDate = ({ value, className, classNameInput, nameKey, dateFormat, placeholder,
     invalidFields, setInvalidFields, onChange, label, readOnlyInput }) => {
     return (
         <div className='inputFieldDiv'>
             <div className={className}>
                 {label && (
                     <label>{label}</label>
-                )}               
-                <input
-                    type={type || 'text'}
+                )}
+                <DatePicker
                     className={classNameInput}
-                    value={value}
+                    selected={value}
+                    dateFormat={dateFormat}
+                    placeholderText={placeholder}
                     onChange={onChange}
-                    placeholder={placeholder}
                     onFocus={() => setInvalidFields([])}
                     readOnly={readOnlyInput}
                 />
@@ -25,4 +27,4 @@ const InputField = ({ value, className, classNameInput, nameKey, type, placehold
     )
 }
 
-export default InputField
+export default InputDate

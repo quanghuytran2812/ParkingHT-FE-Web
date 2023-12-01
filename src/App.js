@@ -1,7 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from "react-router-dom";
-import { Login, Dashboard, Verify, ResetPassword } from './pages/public';
+import { Login, Dashboard, Verify, ResetPassword, VerifyPhone } from './pages/public';
 import path from './ultils/path';
 
 
@@ -12,6 +12,7 @@ function App() {
         <Route path={path.LOGIN} element={<Login />} />   
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path={path.VERIFY} element={<Verify />} />
+        <Route path={path.VERIFYPHONE} element={<VerifyPhone />} />
         <Route path={path.RESETPASSWORD} element={<ResetPassword />} />
       </Routes>
       <ToastContainer

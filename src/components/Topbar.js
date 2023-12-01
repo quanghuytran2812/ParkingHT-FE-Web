@@ -27,7 +27,7 @@ export default function Topbar() {
   const handleLogout = () => {
     dispatch(logout());
     navigate(`${path.LOGIN}`);
-    toast.success("Logout sucessful!");
+    toast.success("Bạn đã đăng xuất thành công!");
   }
 
   useEffect(() => {

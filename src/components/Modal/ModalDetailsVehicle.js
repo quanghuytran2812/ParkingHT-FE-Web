@@ -35,7 +35,7 @@ const ModalDetailsVehicle = ({ open, onClose, dataInfo }) => {
                                 <p>{dataInfo.vehicleName}</p>
                                 <p>{dataInfo.plateNumber}</p>
                                 <p>{dataInfo.numberOfFouls}</p>
-                                <p>{dataInfo.delFlag ? "Inactive" : "Active"}</p>
+                                <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>
                         </div>

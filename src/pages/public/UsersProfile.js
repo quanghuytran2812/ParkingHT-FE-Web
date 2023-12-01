@@ -7,13 +7,17 @@ import { jwtDecode } from "jwt-decode";
 import { apiUpdateUser } from "apis";
 import { toast } from "react-toastify";
 import { fetchGetUserById } from "store/user/userSlide";
+import InputField from "components/inputs/InputField";
+import { validate } from "ultils/helpers";
+import InputDate from "components/inputs/InputDate";
 
 const UsersProfile = () => {
     const [openModal, setOpenModal] = useState(false);
+    const [invalidFields, setInvalidFields] = useState([]);
     const dispatch = useDispatch();
     const userinfo = useSelector((state) => state.user.current);
     const { token } = useSelector((state) => state.auth)
-    const userInfo = jwtDecode(token);
+    const rolePemission = jwtDecode(token);
 
 
     const fetchData = useCallback(() => {
@@ -27,37 +31,55 @@ const UsersProfile = () => {
         fetchData();
     }, [fetchData]);
 
+    const [payload, setPayload] = useState({
+        fullName: '',
+        birthday: '',
+        email: ''
+    })
+
+    useEffect(() => {
+        if (userinfo !== null) {
+            setPayload({
+                fullName: userinfo?.fullName,
+                birthday: userinfo?.birthday,
+                email: userinfo?.email,
+            });
+        }
+    }, [userinfo]);
+
     const handleUpdateUser = async (e) => {
         e.preventDefault();
-      
-        const birthdayValue = e.target.elements.birthday.value;
-        const formattedBirthday = moment(birthdayValue, "DD/MM/YYYY").format("YYYY-MM-DD");
-      
-        if (!moment(formattedBirthday, "YYYY-MM-DD", true).isValid()) {
-          toast.error("Định dạng ngày sinh nhật không hợp lệ");
-          return;
+        const invalids = validate(payload, setInvalidFields)
+        if (invalids === 0) {
+            const birthdayValue = payload?.birthday;
+            const formattedBirthday = moment(birthdayValue).format("YYYY-MM-DD");
+
+            if (!moment(formattedBirthday, "YYYY-MM-DD", true).isValid()) {
+                toast.error("Định dạng ngày sinh nhật không hợp lệ");
+                return;
+            }
+
+            const updatedUser = {
+                userId: userinfo.userId,
+                fullName: payload.fullName,
+                birthday: formattedBirthday,
+                email: payload.email,
+            };
+
+            try {
+                const res = await apiUpdateUser(userinfo.userId, updatedUser);
+                if (res.statusCode === 200) {
+                    fetchData();
+                    toast.success("Update user successfully!");
+                } else {
+                    toast.error(`${res.message}`);
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error("An error occurred while updating the user.");
+            }
         }
-      
-        const updatedUser = {
-          userId: userinfo.userId,
-          fullName: e.target.elements.fullName.value,
-          birthday: formattedBirthday,
-          email: e.target.elements.email.value,
-        };
-      
-        try {
-          const res = await apiUpdateUser(userinfo.userId, updatedUser);
-          if (res.statusCode === 200) {
-            fetchData();
-            toast.success("Update user successfully!");
-          } else {
-            toast.error(`${res.message}`);
-          }
-        } catch (error) {
-          console.error(error);
-          toast.error("An error occurred while updating the user.");
-        }
-      };
+    };
 
     return (
         <>
@@ -75,7 +97,7 @@ const UsersProfile = () => {
                                         <li><span>B</span> {moment(userinfo?.birthday).format("DD/MM/YYYY")}</li>
                                     </ul>
                                 </div>
-                                {userInfo.role !== "ADMIN" ? (
+                                {rolePemission.role !== "ADMIN" ? (
                                     <button onClick={() => setOpenModal(true)}>Đổi mật khẩu</button>
                                 ) : ''}
                             </div>
@@ -91,15 +113,18 @@ const UsersProfile = () => {
                         <span className="userProfileUpdateTitle">Cập nhập thông tin</span>
                         <form onSubmit={handleUpdateUser} className="userProfileUpdateForm">
                             <div className="userProfileUpdateLeft">
-                                <div className="userProfileUpdateItem">
-                                    <label>Tên</label>
-                                    <input
-                                        type="text"
-                                        defaultValue={userinfo?.fullName}
-                                        className="userProfileUpdateInput"
-                                        name="fullName"
-                                    />
-                                </div>
+                                <InputField
+                                    nameKey='fullName'
+                                    className="userProfileUpdateItem"
+                                    classNameInput='userProfileUpdateInput'
+                                    label="Tên"
+                                    value={payload?.fullName}
+                                    onChange={(e) => setPayload(prev => ({ ...prev, fullName: e.target.value }))}
+                                    placeholder="Nhập tên của bạn"
+                                    invalidFields={invalidFields}
+                                    setInvalidFields={setInvalidFields}
+                                    readOnlyInput={rolePemission.role === "ADMIN" ? true : false}
+                                />
                                 <div className="userProfileUpdateItem">
                                     <label>Số điện thoại</label>
                                     <input
@@ -107,26 +132,37 @@ const UsersProfile = () => {
                                         defaultValue={userinfo?.phoneNumber}
                                         className="userProfileUpdateInput"
                                         name="phoneNumber"
+                                        readOnly
                                     />
                                 </div>
-                                <div className="userProfileUpdateItem">
-                                    <label>E-mail</label>
-                                    <input
-                                        type="text"
-                                        defaultValue={userinfo?.email}
-                                        className="userProfileUpdateInput"
-                                        name="email"
-                                    />
-                                </div>
-                                <div className="userProfileUpdateItem">
-                                    <label>Ngày sinh</label>
-                                    <input
-                                        type="text"
-                                        defaultValue={moment(userinfo?.birthday).format("DD/MM/YYYY")}
-                                        className="userProfileUpdateInput"
-                                        name="birthday"
-                                    />
-                                </div>
+                                <InputField
+                                    nameKey='email'
+                                    className="userProfileUpdateItem"
+                                    classNameInput='userProfileUpdateInput'
+                                    label="E-mail"
+                                    value={payload?.email}
+                                    onChange={(e) => setPayload(prev => ({ ...prev, email: e.target.value }))}
+                                    placeholder="Nhập E-mail"
+                                    invalidFields={invalidFields}
+                                    setInvalidFields={setInvalidFields}
+                                    readOnlyInput={rolePemission.role === "ADMIN" ? true : false}
+                                />
+                                <InputDate
+                                    nameKey='birthday'
+                                    className="userProfileUpdateItem"
+                                    classNameInput='userProfileUpdateInput'
+                                    label="Ngày sinh"
+                                    dateFormat="dd/MM/yyyy"
+                                    value={payload.birthday ? new Date(payload.birthday) : null}
+                                    onChange={(date) => {
+                                        const formattedDate = date ? moment(date).format("YYYY-MM-DD") : "";
+                                        setPayload(prev => ({ ...prev, birthday: formattedDate }));
+                                    }}
+                                    placeholder="Nhập ngày sinh"
+                                    invalidFields={invalidFields}
+                                    setInvalidFields={setInvalidFields}
+                                    readOnlyInput={rolePemission.role === "ADMIN" ? true : false}
+                                />
                             </div>
                             <div className="userProfileUpdateRight">
                                 <div className="userProfileUpdateUpload">
@@ -137,7 +173,7 @@ const UsersProfile = () => {
                                     />
                                     <input type="file" id="file" className="userProfileUpdateInputFile" />
                                 </div>
-                                {userInfo.role !== "ADMIN" && (
+                                {rolePemission.role !== "ADMIN" && (
                                     <button type="submit" className="userProfileUpdateButton">
                                         Cập nhập
                                     </button>

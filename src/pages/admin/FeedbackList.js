@@ -71,12 +71,23 @@ const FeedbackList = () => {
       }
     },
     {
-      field: 'isFeedback', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
+      field: 'isRead', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
+        return (
+          <>
+            {params.row.isRead === 1 ? (
+              <span className="tableStatusText">ĐÃ XEM</span>
+            ) : <span className="tableStatusText TextSecond">CHƯA XEM</span>}
+          </>
+        );
+      }
+    },
+    {
+      field: 'isFeedback', headerName: 'PHẢN HỒI', width: 150, renderCell: (params) => {
         return (
           <>
             {params.row.isFeedback === 1 ? (
-              <span className="tableStatusText">LÀM</span>
-            ) : <span className="tableStatusText TextSecond">CHƯA LÀM</span>}
+              <span className="tableStatusText">PHẢN HỒI</span>
+            ) : <span className="tableStatusText TextSecond">CHƯA</span>}
           </>
         );
       }
@@ -123,14 +134,23 @@ const FeedbackList = () => {
           </div>
         </div>
         <DataGrid
-          rows={data.map((item, index) => ({ ...item, id: index + 1 }))
-            .sort((a, b) => a.isFeedback - b.isFeedback)}
+          rows={data
+            .map((item, index) => ({ ...item, id: index + 1 }))
+            .sort((a, b) => {
+              // Sort by isFeedback in ascending order
+              if (a.isFeedback > b.isFeedback) return 1;
+              if (a.isFeedback < b.isFeedback) return -1;
+              // If isFeedback is the same, sort by createdDate in descending order (latest first)
+              if (a.createDate > b.createDate) return -1;
+              if (a.createDate < b.createDate) return 1;
+              return 0;
+            })}
           columns={columns}
           autoHeight
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 6 },
-            }
+            },
           }}
         />
       </div>
