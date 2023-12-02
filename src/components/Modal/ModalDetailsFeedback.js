@@ -4,14 +4,7 @@ import "assets/css/modalCommon.css"
 import moment from 'moment';
 
 const ModalDetailsFeedback = ({ open, onClose, dataInfo }) => {
-    // const dispatch = useDispatch();
     const { CloseIcon } = icons;
-
-    // useEffect(() => {
-    //     if (open && dataInfo.isRead === 0) {
-    //         dispatch(updateFeedback(dataInfo.feedBackId))
-    //     }
-    // }, [open, dispatch, dataInfo]);
 
     if (!open) return null;
     return (

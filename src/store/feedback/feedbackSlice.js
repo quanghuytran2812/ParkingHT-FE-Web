@@ -6,10 +6,6 @@ export const fetchFeedback = createAsyncThunk('feedback/fetchFeedback', async ()
     const response = await feedbackService.apigetFeedback();
     return response.data;
 });
-// Update a feedback
-export const updateFeedback = createAsyncThunk('feedback/updateFeedback', async (data) => {
-    return await feedbackService.apiUpdateFeedback(data);
-});
 // Fetch all Feedback Unread
 export const fetchFeedbackUnread = createAsyncThunk('feedback/fetchFeedbackUnread', async (feedback, thunkAPI) => {
     try {

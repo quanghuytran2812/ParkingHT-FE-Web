@@ -71,17 +71,6 @@ const FeedbackList = () => {
       }
     },
     {
-      field: 'isRead', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
-        return (
-          <>
-            {params.row.isRead === 1 ? (
-              <span className="tableStatusText">ĐÃ XEM</span>
-            ) : <span className="tableStatusText TextSecond">CHƯA XEM</span>}
-          </>
-        );
-      }
-    },
-    {
       field: 'isFeedback', headerName: 'PHẢN HỒI', width: 150, renderCell: (params) => {
         return (
           <>
