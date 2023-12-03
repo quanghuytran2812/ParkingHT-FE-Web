@@ -1,10 +1,24 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import icons from 'ultils/icons';
 import "assets/css/modalCommon.css"
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { updateFeedback } from 'store/feedback/feedbackSlice';
 
-const ModalDetailsFeedback = ({ open, onClose, dataInfo }) => {
+const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) => {
+    const dispatch = useDispatch();
     const { CloseIcon } = icons;
+
+    useEffect(() => {
+        if(open){
+            dispatch(updateFeedback({
+                feedbackId: dataInfo.report.reportId,
+                content: dataInfo.content,
+                rankStar: dataInfo.rankStar
+            }))
+            handleTableUpdate()
+        }
+    },[dispatch, dataInfo, open, handleTableUpdate])
 
     if (!open) return null;
     return (

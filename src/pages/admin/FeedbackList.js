@@ -56,6 +56,10 @@ const FeedbackList = () => {
     setOpenModalDetail(true);
   }
 
+  const handleTableUpdate = () => {
+    fetchData();
+  }
+
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
     { field: 'rankStar', headerName: 'XẾP HẠNG SAO', width: 150 },
@@ -68,6 +72,17 @@ const FeedbackList = () => {
             }
           </span>
         )
+      }
+    },
+    {
+      field: 'isRead', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
+        return (
+          <>
+            {params.row.isRead === 1 ? (
+              <span className="tableStatusText">ĐÃ XEM</span>
+            ) : <span className="tableStatusText TextSecond">CHƯA</span>}
+          </>
+        );
       }
     },
     {
@@ -147,6 +162,7 @@ const FeedbackList = () => {
         open={openModalDetail}
         onClose={() => setOpenModalDetail(false)}
         dataInfo={dataDetail}
+        handleTableUpdate={handleTableUpdate}
       />
     </>
   )

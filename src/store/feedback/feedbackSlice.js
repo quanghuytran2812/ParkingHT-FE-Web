@@ -28,6 +28,12 @@ export const fetchCountFeedbackUnread = createAsyncThunk('feedback/fetchCountFee
     }
 });
 
+// Update a feedback
+export const updateFeedback = createAsyncThunk('feedback/updateFeedback', async (data) => {
+    const response = await feedbackService.apiUpdateFeedback(data.feedbackId, {content: data.content, rankStar: data.rankStar});
+    return response.data;
+});
+
 const feedbackSlice = createSlice({
     name: 'feedback',
     initialState: {

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteVehicle, fetchVehicle } from 'store/vehicle/vehicleSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Loader, ModalDetailsVehicle } from 'components';
+import { ModalDetailsVehicle } from 'components';
 import { jwtDecode } from 'jwt-decode';
 
 const VehicleList = () => {
@@ -15,7 +15,6 @@ const VehicleList = () => {
     const [dataDetail, setdataDetail] = useState({});
     const listVehicle = useSelector((state) => state.vehicle.list);
     const dispatch = useDispatch();
-    const { loading } = useSelector((state) => state.vehicle);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredvehicle, setFilteredvehicle] = useState([]);
     const { token } = useSelector(
@@ -133,7 +132,6 @@ const VehicleList = () => {
     const data = searchTerm ? filteredvehicle : listVehicle;
     return (
         <>
-            {loading && <Loader />}
             <div className="tableList">
                 <h2 className="tableListTitle">Quản lý xe</h2>
                 <div className="tableListBoxContainer">

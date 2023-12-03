@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import icons from 'ultils/icons'
 import _ from "lodash"
 import { fetchReport } from 'store/report/reportSlice';
-import { Loader, ModalDetailsReport, ModalEditReport } from 'components';
+import { ModalDetailsReport, ModalEditReport } from 'components';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 
@@ -12,7 +12,6 @@ const ReportList = () => {
   const dispatch = useDispatch();
   const listReport = useSelector((state) => state.report.list);
   const [openModalDetail, setOpenModalDetail] = useState(false);
-  const { loading } = useSelector((state) => state.report);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredReport, setFilteredReport] = useState([]);
   const [dataReportEdit, setdataReportEdit] = useState({});
@@ -137,7 +136,6 @@ const ReportList = () => {
 
   return (
     <>
-      {loading && <Loader />}
       <div className="tableList">
         <h2 className="tableListTitle">Quản lý đánh giá</h2>
         <div className="tableListBoxContainer">

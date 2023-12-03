@@ -94,10 +94,11 @@
 
 .sidebarItemText.openText {
     margin-left: 0.75rem;
+    display: block;
 }
 
 .sidebarItemText.closeText {
-    width: 0;
+    display: none;
 }
 
 .sidebarBottomIcon {
@@ -138,6 +139,8 @@
     transform: translateX(-0.75rem);
     transition-property: all;
     transition-duration: 250ms;
+    z-index: 999;
+    width: max-content;
 }
 
 .sidebarItemLink:hover .sidebarItemTextHide {
