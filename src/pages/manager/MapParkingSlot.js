@@ -7,12 +7,13 @@ import {
 import "assets/css/diagramParkingSlot.css";
 import icons from 'ultils/icons';
 import { fetchCategories } from 'store/category/categorySlice';
+import { Loader } from 'components';
 
 const MapParkingSlot = () => {
   const { KeyboardDoubleArrowLeftIcon, KeyboardDoubleArrowRightIcon,
     KeyboardDoubleArrowUpIcon, KeyboardDoubleArrowDownIcon } = icons
   const dispatch = useDispatch();
-  const { listAreaByCategory, listPSbyArea } = useSelector((state) => state.parkingslot);
+  const { listAreaByCategory, listPSbyArea, loading } = useSelector((state) => state.parkingslot);
   const listCategory = useSelector((state) => state.category.list);
 
   const handleScrollLeft = () => {
@@ -62,10 +63,10 @@ const MapParkingSlot = () => {
   }, [listCategory, dispatch]);
 
   useEffect(() => {
-    if(listAreaByCategory.length > 0){
+    if (listAreaByCategory.length > 0) {
       dispatch(fetchParkingslotByArea(listAreaByCategory[0].parking_Area));
     }
-  },[listAreaByCategory, dispatch])
+  }, [listAreaByCategory, dispatch])
 
   const handleCategoryClick = (selectedCategory) => {
     dispatch(fetchParkingslotAreaByCategory(selectedCategory));
@@ -82,15 +83,15 @@ const MapParkingSlot = () => {
   const SlotParking = ({ item }) => {
     return (
       <div className='viewParking'>
-        {item.parking_Slot_Status === 'BUSY' ? (
+        {item.booking_Status === 'COMPLETED' ? (
           <div className='imageAuto'>
             <img
               src={require("../../assets/images/carup.png")}
               style={{ width: 84, height: 40 }}
-              alt={item.name}
+              alt={item.parking_slot_name}
             />
             <div className='imageOverlay'>
-              <span className='imageText'>{item.name}</span>
+              <span className='imageText'>{item.parking_slot_name}</span>
             </div>
           </div>
         ) : (
@@ -106,7 +107,7 @@ const MapParkingSlot = () => {
                 color: '#000',
               }}
             >
-              {item.name}
+              {item.parking_slot_name}
             </span>
           </button>
         )}
@@ -116,11 +117,12 @@ const MapParkingSlot = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <div className='containerDiagramP'>
         <div className='wrapperCategory'>
           <div className='listCategory'>
             {listCategory.map((category, index) => (
-              <div 
+              <div
                 className='itemCategory'
                 key={index}
                 onClick={() => handleCategoryClick(category.vehicleCategoryId)}>

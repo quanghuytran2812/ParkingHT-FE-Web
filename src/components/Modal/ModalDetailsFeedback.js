@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import icons from 'ultils/icons';
 import "assets/css/modalCommon.css"
 import moment from 'moment';
@@ -9,16 +9,15 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) =>
     const dispatch = useDispatch();
     const { CloseIcon } = icons;
 
-    useEffect(() => {
-        if(open){
-            dispatch(updateFeedback({
-                feedbackId: dataInfo.report.reportId,
-                content: dataInfo.content,
-                rankStar: dataInfo.rankStar
-            }))
-            handleTableUpdate()
-        }
-    },[dispatch, dataInfo, open, handleTableUpdate])
+    const handleCloseModal = () => {
+        dispatch(updateFeedback({
+            feedbackId: dataInfo.report.reportId,
+            content: dataInfo.content,
+            rankStar: dataInfo.rankStar
+        }))
+        onClose()
+        handleTableUpdate()
+    }
 
     if (!open) return null;
     return (
@@ -30,7 +29,7 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) =>
                 className="ModalCommonmodalContainer"
             >
                 <div className="ModalCommonForm">
-                    <p className="closeBtn" onClick={onClose}>
+                    <p className="closeBtn" onClick={handleCloseModal}>
                         <CloseIcon />
                     </p>
                     <div className="resetpasswordForm">

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import icons from 'ultils/icons'
 import _ from "lodash"
 import { fetchReport } from 'store/report/reportSlice';
-import { ModalDetailsReport, ModalEditReport } from 'components';
+import { Loader, ModalDetailsReport, ModalEditReport } from 'components';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
 
@@ -11,6 +11,7 @@ const ReportList = () => {
   const { EditOutlinedIcon, ContentPasteSearchIcon } = icons
   const dispatch = useDispatch();
   const listReport = useSelector((state) => state.report.list);
+  const { loading } = useSelector((state) => state.report);
   const [openModalDetail, setOpenModalDetail] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredReport, setFilteredReport] = useState([]);
@@ -32,7 +33,7 @@ const ReportList = () => {
   const handleSearch = _.debounce((term) => {
     if (term) {
       const filtered = listReport.filter((item) =>
-        item.vehiclePlateNumber.toLowerCase().includes(term.toLowerCase()) ||  
+        item.vehiclePlateNumber.toLowerCase().includes(term.toLowerCase()) ||
         item.content.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredReport(filtered);
@@ -63,16 +64,18 @@ const ReportList = () => {
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'vehiclePlateNumber', headerName: 'BIỂN SỐ XE', width: 150, renderCell: (params) => {
-      return (
-        <span>
-          {
-            params.row.vehiclePlateNumber !== "" && params.row.vehiclePlateNumber.length > 0
-            ? params.row.vehiclePlateNumber : "Không có biển số"
-          }
-        </span>
-      )
-    }},
+    {
+      field: 'vehiclePlateNumber', headerName: 'BIỂN SỐ XE', width: 150, renderCell: (params) => {
+        return (
+          <span>
+            {
+              params.row.vehiclePlateNumber !== "" && params.row.vehiclePlateNumber.length > 0
+                ? params.row.vehiclePlateNumber : "Không có biển số"
+            }
+          </span>
+        )
+      }
+    },
     {
       field: 'createDate', headerName: 'NGÀY TẠO', width: 150, renderCell: (params) => {
         return (
@@ -136,6 +139,7 @@ const ReportList = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <div className="tableList">
         <h2 className="tableListTitle">Quản lý đánh giá</h2>
         <div className="tableListBoxContainer">

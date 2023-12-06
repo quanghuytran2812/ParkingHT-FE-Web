@@ -37,8 +37,8 @@ const authSlice = createSlice({
           } else {
             toast.error('Bạn không được phép truy cập trang này!');
           }
-        } else {
-          toast.error(`${action.payload.message}`);
+        }else{
+          toast.error(`${action.payload?.message}`);
         }
       })
       .addCase(login.rejected, (state, action) => {

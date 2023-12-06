@@ -7,16 +7,18 @@ import { apiDeleteUser, apiGetUser } from "apis";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { ModalDetailsUser, ModalEditUser } from "components";
+import { Loader, ModalDetailsUser, ModalEditUser } from "components";
 
 const UserList = () => {
   const { EditOutlinedIcon, DeleteOutlineIcon, ContentPasteSearchIcon } = icons
   const [openModalDetail, setOpenModalDetail] = useState(false);
+  const [isloading, setIsloading] = useState(false)
   const [listUser, setlistUser] = useState([]);
   const [dataEditUser, setdataEditUser] = useState({});
   const [openModal, setOpenModal] = useState(false);
 
   const getAllUsers = async () => {
+    setIsloading(true)
     let res = (await apiGetUser()) ?? {};
     if (res && res.data) {
       const tableData = res.data
@@ -32,6 +34,7 @@ const UserList = () => {
         .map((item, index) => ({ ...item, id: index + 1 }));
       setlistUser(tableData);
     }
+    setIsloading(false)
   }
 
   useEffect(() => {
@@ -60,11 +63,13 @@ const UserList = () => {
       confirmButtonColor: '#02aab0'
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setIsloading(true)
         const res = await apiDeleteUser(uid);
         if (res.statusCode === 200) {
           getAllUsers();
           toast.success("Người dùng này được tắt hoạt động thành công!");
         } else toast.error(res.message);
+        setIsloading(false)
       }
     })
 
@@ -135,6 +140,7 @@ const UserList = () => {
 
   return (
     <>
+      {isloading && <Loader />}
       <div className="tableList">
         <h2 className="tableListTitle">Quản lý người dùng</h2>
         <div className="tableListBoxContainer">

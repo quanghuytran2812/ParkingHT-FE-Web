@@ -74,11 +74,6 @@ export const statusReportData = [
     { code: 1, value: 'Completed' }
 ]
 
-export const statusParkingSlotData = [
-    { code: 'AVAILABLE', value: 'AVAILABLE' },
-    { code: 'BUSY', value: 'BUSY' }
-]
-
 export const roleUserData = [
     { code: 'MANAGER', value: 'MANAGER' },
     { code: 'DRIVER', value: 'DRIVER' }

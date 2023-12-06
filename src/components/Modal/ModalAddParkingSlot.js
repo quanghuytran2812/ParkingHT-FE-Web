@@ -1,5 +1,6 @@
 import { apiAddParkingSlot } from "apis";
 import "assets/css/modalCommon.css"
+import Loader from "components/Loader";
 import InputField from "components/inputs/InputField";
 import SelectCategory from "components/inputs/SelectCategory";
 import { memo, useEffect, useState } from "react";
@@ -14,6 +15,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
     const [invalidFields, setInvalidFields] = useState([]);
     const dispatch = useDispatch();
     const { list } = useSelector((state) => state.category);
+    const [isloading, setIsloading] = useState(false)
     const [parkingSlot, setparkingSlot] = useState({
         area: '',
         name: '',
@@ -44,12 +46,14 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
         const invalids = validate(parkingSlot, setInvalidFields)
         if (invalids === 0) {
             try {
+                setIsloading(true)
                 const res = await apiAddParkingSlot(parkingSlot);
                 if (res.statusCode === 200) {
                     handleReset();
                     onClose();
                     handleUpdateTable();
                     toast.success("Chỗ đậu xe được tạo mới thành công!");
+                    setIsloading(false)
                 }
             } catch (err) {
                 // Handle error
@@ -64,65 +68,69 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                 }
                 console.clear();
             }
+            setIsloading(false)
         }
     };
 
 
 
     return (
-        <div onClick={onClose} className='ModalCommonoverlay'>
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                className='ModalCommonmodalContainer'
-            >
-                <form onSubmit={handleAddParkingSlot} className="ModalCommonForm">
-                    <p className='closeBtn' onClick={onClose}>
-                        <CloseIcon />
-                    </p>
-                    <div className="resetpasswordForm">
-                        <p className="tableformHeading">TẠO CHỖ ĐẬU XE</p>
-                        <InputField
-                            nameKey='area'
-                            className='inputGroup'
-                            classNameInput='resetpasswordinput'
-                            value={parkingSlot.area}
-                            onChange={(e) => setparkingSlot(prev => ({ ...prev, area: e.target.value }))}
-                            placeholder="Area //Ex: Đường số 1"
-                            invalidFields={invalidFields}
-                            setInvalidFields={setInvalidFields}
-                        />
-                        <InputField
-                            nameKey='name'
-                            className='inputGroup'
-                            classNameInput='resetpasswordinput'
-                            value={parkingSlot.name}
-                            onChange={(e) => setparkingSlot(prev => ({ ...prev, name: e.target.value }))}
-                            placeholder="Name //Ex: 101"
-                            invalidFields={invalidFields}
-                            setInvalidFields={setInvalidFields}
-                        />
-                        <InputField
-                            type='number'
-                            nameKey='pricePerHour'
-                            className='inputGroup'
-                            classNameInput='resetpasswordinput'
-                            value={parkingSlot.pricePerHour}
-                            onChange={(e) => setparkingSlot(prev => ({ ...prev, pricePerHour: e.target.value }))}
-                            placeholder="Price Per Hour //Ex: 14000"
-                            invalidFields={invalidFields}
-                            setInvalidFields={setInvalidFields}
-                        />
-                        <SelectCategory
-                            options={list}
-                            onChange={(e) => setparkingSlot(prev => ({ ...prev, vehicleCategory: e.target.value }))}
-                        />
-                        <button type="submit" className="resetpasswordbtn">Lưu thay đổi</button>
-                    </div>
-                </form>
+        <>
+            {isloading && <Loader />}
+            <div onClick={onClose} className='ModalCommonoverlay'>
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    className='ModalCommonmodalContainer'
+                >
+                    <form onSubmit={handleAddParkingSlot} className="ModalCommonForm">
+                        <p className='closeBtn' onClick={onClose}>
+                            <CloseIcon />
+                        </p>
+                        <div className="resetpasswordForm">
+                            <p className="tableformHeading">TẠO CHỖ ĐẬU XE</p>
+                            <InputField
+                                nameKey='area'
+                                className='inputGroup'
+                                classNameInput='resetpasswordinput'
+                                value={parkingSlot.area}
+                                onChange={(e) => setparkingSlot(prev => ({ ...prev, area: e.target.value }))}
+                                placeholder="Area //Ex: Đường số 1"
+                                invalidFields={invalidFields}
+                                setInvalidFields={setInvalidFields}
+                            />
+                            <InputField
+                                nameKey='name'
+                                className='inputGroup'
+                                classNameInput='resetpasswordinput'
+                                value={parkingSlot.name}
+                                onChange={(e) => setparkingSlot(prev => ({ ...prev, name: e.target.value }))}
+                                placeholder="Name //Ex: 101"
+                                invalidFields={invalidFields}
+                                setInvalidFields={setInvalidFields}
+                            />
+                            <InputField
+                                type='number'
+                                nameKey='pricePerHour'
+                                className='inputGroup'
+                                classNameInput='resetpasswordinput'
+                                value={parkingSlot.pricePerHour}
+                                onChange={(e) => setparkingSlot(prev => ({ ...prev, pricePerHour: e.target.value }))}
+                                placeholder="Price Per Hour //Ex: 14000"
+                                invalidFields={invalidFields}
+                                setInvalidFields={setInvalidFields}
+                            />
+                            <SelectCategory
+                                options={list}
+                                onChange={(e) => setparkingSlot(prev => ({ ...prev, vehicleCategory: e.target.value }))}
+                            />
+                            <button type="submit" className="resetpasswordbtn">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

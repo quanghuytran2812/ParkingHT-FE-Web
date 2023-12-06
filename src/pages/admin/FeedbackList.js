@@ -4,7 +4,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { fetchFeedback } from 'store/feedback/feedbackSlice';
 import icons from 'ultils/icons';
 
@@ -14,7 +13,7 @@ const FeedbackList = () => {
   const [openModalDetail, setOpenModalDetail] = useState(false);
   const [dataDetail, setdataDetail] = useState({});
   const listFeedback = useSelector((state) => state.feedback.list);
-  const { loading, error } = useSelector((state) => state.report);
+  const { loading } = useSelector((state) => state.feedback);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredFeedback, setFilteredFeedback] = useState([]);
 
@@ -28,10 +27,7 @@ const FeedbackList = () => {
 
   useEffect(() => {
     fetchData();
-    if (error) {
-      toast.error(`${error}`);
-    }
-  }, [fetchData, error]);
+  }, [fetchData]);
 
   const handleSearch = _.debounce((term) => {
     if (term) {

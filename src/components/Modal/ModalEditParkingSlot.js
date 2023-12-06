@@ -1,18 +1,17 @@
 import { apiEditParkingSlot } from "apis";
 import "assets/css/modalCommon.css";
-import Select from "components/inputs/Select";
+import Loader from "components/Loader";
 import { memo, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { statusParkingSlotData } from "ultils/contants";
 import icons from "ultils/icons";
 
 const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlotEdit }) => {
     const { CloseIcon } = icons;
+    const [isloading, setIsloading] = useState(false)
     const [parkingSlot, setParkingSlot] = useState({
         parkingSlotId: "",
         area: "",
         pricePerHour: "",
-        parking_Slot_Status: "",
         vehicleCategory: ""
     });
 
@@ -22,29 +21,23 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                 parkingSlotId: dataParkingSlotEdit.parkingSlotId,
                 area: dataParkingSlotEdit.area,
                 pricePerHour: dataParkingSlotEdit.pricePerHour,
-                parking_Slot_Status: dataParkingSlotEdit.parking_Slot_Status,
                 vehicleCategory: dataParkingSlotEdit.vehicleCategory.vehicleCategoryId
             });
         }
     }, [open, dataParkingSlotEdit]);
 
-    const handleStatusChange = (value) => {
-        setParkingSlot(prevState => ({
-            ...prevState,
-            parking_Slot_Status: value
-        }));
-    };
-
     const handleEditParkingSlot = async (e) => {
         e.preventDefault();
 
         try {
+            setIsloading(true)
             const res = await apiEditParkingSlot(parkingSlot);
 
             if (res?.statusCode === 200) {
                 onClose();
                 handleUpdateTable();
                 toast.success(`Chỗ đậu xe được cập nhập thành công!`);
+                setIsloading(false)
             }
         } catch (err) {
             // Handle error
@@ -59,45 +52,44 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
             }
             console.clear();
         }
+        setIsloading(false)
     };
     if (!open) return null;
     return (
-        <div onClick={onClose} className="ModalCommonoverlay">
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                className="ModalCommonmodalContainer"
-            >
-                <form onSubmit={handleEditParkingSlot} className="ModalCommonForm">
-                    <p className="closeBtn" onClick={onClose}>
-                        <CloseIcon />
-                    </p>
-                    <div className="resetpasswordForm">
-                        <p className="tableformHeading">Cập nhập chỗ đậu xe</p>
-                        <Select
-                            itemValue={dataParkingSlotEdit.parking_Slot_Status}
-                            options={statusParkingSlotData}
-                            onChange={handleStatusChange}
-                        />
-                        <div style={{ marginBottom: '20px' }}>
-                            <div className="inputGroup">
-                                <input
-                                    className="resetpasswordinput"
-                                    placeholder="Price Per Hour //Ex: 14000"
-                                    value={parkingSlot.pricePerHour}
-                                    onChange={(e) => setParkingSlot((prev) => ({ ...prev, pricePerHour: e.target.value }))}
-                                    type="number"
-                                />
+        <>
+            {isloading && <Loader />}
+            <div onClick={onClose} className="ModalCommonoverlay">
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    className="ModalCommonmodalContainer"
+                >
+                    <form onSubmit={handleEditParkingSlot} className="ModalCommonForm">
+                        <p className="closeBtn" onClick={onClose}>
+                            <CloseIcon />
+                        </p>
+                        <div className="resetpasswordForm">
+                            <p className="tableformHeading">Cập nhập chỗ đậu xe</p>
+                            <div style={{ marginBottom: '20px' }}>
+                                <div className="inputGroup">
+                                    <input
+                                        className="resetpasswordinput"
+                                        placeholder="Price Per Hour //Ex: 14000"
+                                        value={parkingSlot.pricePerHour}
+                                        onChange={(e) => setParkingSlot((prev) => ({ ...prev, pricePerHour: e.target.value }))}
+                                        type="number"
+                                    />
+                                </div>
                             </div>
+                            <button type="submit" className="resetpasswordbtn">
+                                Lưu thay đổi
+                            </button>
                         </div>
-                        <button type="submit" className="resetpasswordbtn">
-                            Lưu thay đổi
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

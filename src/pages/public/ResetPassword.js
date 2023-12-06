@@ -1,8 +1,10 @@
 import "assets/css/resetPassword.css";
 import InputFieldPass from "components/inputs/inputFieldPass";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
+import { apiResetP } from "store/otp/otpSlice";
 import { validate } from "ultils/helpers";
 import icons from "ultils/icons"
 import path from "ultils/path"
@@ -10,9 +12,11 @@ import path from "ultils/path"
 const ResetPassword = () => {
   const { LockResetIcon } = icons;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [invalidFields, setInvalidFields] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
+  const urlResetP = useSelector((state) => state.otp.urlResetPass);
 
   const [payload, setPayload] = useState({
     password: '',
@@ -30,8 +34,20 @@ const ResetPassword = () => {
   function resetPass() {
     const invalids = validate(payload, setInvalidFields)
     if (invalids === 0) {
-      navigate(path.LOGIN);
-      toast.success("Reset password successfully!");
+      const urlbasic = new URL(urlResetP);
+      const phoneNumber = urlbasic.searchParams.get("phoneNumber");
+      dispatch(apiResetP({ phone: phoneNumber, confirmPassword: payload.confirmPassword }))
+        .then((result) => {
+          if (result.payload?.statusCode === 200) {
+            navigate(path.LOGIN);
+            toast.success(`Đặt lại mật khẩu thành công!`);
+          }else{
+            toast.error(`${result.payload.message}`)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        });
     }
   }
   return (

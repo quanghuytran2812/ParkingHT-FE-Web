@@ -17,10 +17,18 @@ export const apiEditParkingSlot = async (parkingslot) => {
 }
 
 export const apiParkingSlotAreaByCategory = async (category) => {
-    return await axios.get('/parking-slot/get-by-vehicle-category/'+category);
+    try {
+        return await axios.post('/parking-slot/get-by-vehicle-category',{vehicleCategoryId: category});
+    } catch (error) {
+        throw error.response.data;
+    }
 }
 
 export const apiParkingSlotByArea = async (area) => {
-    return await axios.get('/parking-slot/get-by-area/'+area);
+    try {
+        return await axios.post('/parking-slot/get-by-area', {area: area});;
+    } catch (error) {
+        throw error.response.data;
+    }
 }
 

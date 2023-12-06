@@ -14,7 +14,7 @@ const BookingList = () => {
   const [dataDetail, setdataDetail] = useState({});
   const listBooking = useSelector((state) => state.booking.list);
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.vehicle);
+  const { loading } = useSelector((state) => state.booking);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredvehicle, setFilteredvehicle] = useState([]);
 

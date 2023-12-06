@@ -1,7 +1,8 @@
 import "assets/css/modalCommon.css"
+import Loader from "components/Loader";
 import Select from "components/inputs/Select";
 import { memo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateRoleUser } from "store/user/userSlide";
 import { roleUserData } from "ultils/contants";
 import icons from "ultils/icons"
@@ -9,7 +10,8 @@ import icons from "ultils/icons"
 const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
     const dispatch = useDispatch();
     const { CloseIcon } = icons;
-    const [role,setRole] = useState(dataUserEdit.role)
+    const [role, setRole] = useState(dataUserEdit.role)
+    const { loading } = useSelector((state) => state.user);
 
     if (!open) return null;
 
@@ -25,39 +27,42 @@ const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
             role: role
         }
         dispatch(updateRoleUser(updateRoleU))
-        .then((result) => {
-            onClose();
-            handleTableU()
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+            .then((result) => {
+                onClose();
+                handleTableU()
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     };
 
     return (
-        <div onClick={onClose} className='ModalCommonoverlay'>
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                className='ModalCommonmodalContainer'
-            >
-                <form onSubmit={handleEditRole} className="ModalCommonForm">
-                    <p className='closeBtn' onClick={onClose}>
-                        <CloseIcon />
-                    </p>
-                    <div className="resetpasswordForm">
-                        <p className="resetpasswordHeading">Cập nhập người dùng</p>
-                        <Select
-                            itemValue={dataUserEdit.role}
-                            options={roleUserData}
-                            onChange={handleRoleChange}
-                        />
-                        <button className="resetpasswordbtn">Cập nhập</button>
-                    </div>
-                </form>
+        <>
+            {loading && <Loader />}
+            <div onClick={onClose} className='ModalCommonoverlay'>
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    className='ModalCommonmodalContainer'
+                >
+                    <form onSubmit={handleEditRole} className="ModalCommonForm">
+                        <p className='closeBtn' onClick={onClose}>
+                            <CloseIcon />
+                        </p>
+                        <div className="resetpasswordForm">
+                            <p className="resetpasswordHeading">Cập nhập người dùng</p>
+                            <Select
+                                itemValue={dataUserEdit.role}
+                                options={roleUserData}
+                                onChange={handleRoleChange}
+                            />
+                            <button className="resetpasswordbtn">Cập nhập</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

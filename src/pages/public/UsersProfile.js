@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import "assets/css/userProfile.css"
-import { ModalChangePass } from "components";
+import { Loader, ModalChangePass } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { jwtDecode } from "jwt-decode";
@@ -15,6 +15,7 @@ const UsersProfile = () => {
     const [openModal, setOpenModal] = useState(false);
     const [invalidFields, setInvalidFields] = useState([]);
     const dispatch = useDispatch();
+    const [isloading, setIsloading] = useState(false)
     const userinfo = useSelector((state) => state.user.current);
     const { token } = useSelector((state) => state.auth)
     const rolePemission = jwtDecode(token);
@@ -67,22 +68,27 @@ const UsersProfile = () => {
             };
 
             try {
+                setIsloading(true)
                 const res = await apiUpdateUser(userinfo.userId, updatedUser);
                 if (res.statusCode === 200) {
                     fetchData();
                     toast.success("Update user successfully!");
+                    setIsloading(false)
                 } else {
                     toast.error(`${res.message}`);
+                    setIsloading(false)
                 }
             } catch (error) {
                 console.error(error);
                 toast.error("An error occurred while updating the user.");
             }
+            setIsloading(false)
         }
     };
 
     return (
         <>
+            {isloading && <Loader />}
             <div className="userProfile">
                 <h2 className="editUserTitle">Thông tin của tôi</h2>
                 <div className="userProfileContainer">

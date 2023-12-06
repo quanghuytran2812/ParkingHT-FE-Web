@@ -1,21 +1,36 @@
 import "assets/css/verify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
-import { toast } from 'react-toastify';
 import icons from "ultils/icons";
 import path from "ultils/path";
+import InputField from "components/inputs/InputField";
+import { validate } from "ultils/helpers";
+import { useDispatch } from "react-redux";
+import { apiSendOtpByPh } from "store/otp/otpSlice";
 
 const VerifyPhone = () => {
     const { PhoneIcon } = icons;
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ph, setPh] = useState("");
-
+    const [invalidFields, setInvalidFields] = useState([]);
+    const [payload, setPayload] = useState({
+        phoneNumber: ''
+    })
 
     const sendOTPSMS = async () => {
-        navigate("/" + path.VERIFY);
-        toast.success("OTP sent successfully!");
+        const invalids = validate(payload, setInvalidFields)
+        if (invalids === 0) {
+            const destPhoneNumber = payload.phoneNumber
+            dispatch(apiSendOtpByPh(destPhoneNumber))
+                .then((result) => {
+                    if (result.payload?.status === "DELIVERED") {
+                        navigate("/" + path.VERIFY);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
     }
 
     return (
@@ -25,23 +40,24 @@ const VerifyPhone = () => {
                     <Link to={path.LOGIN} className="verifybackLink">⇦ Back</Link>
                 </div>
                 <div className="verifyForm">
-                        <p className="verifyHeading">XÁC MINH SỐ ĐIỆN THOẠI CỦA BẠN</p>
-                        <PhoneIcon className="verifycheck" sx={{ fontSize: 60 }} />
-                        <div className="verifybox">
-                            <PhoneInput
-                                country={"vn"}
-                                value={ph}
-                                onChange={setPh}
-                                disableDropdown={true}
-                            />
-                        </div>
-                        <div id="recaptcha"></div>
-                        <button
-                            onClick={sendOTPSMS}
-                            className="verifybtn1"
-                        >
-                            Gửi mã qua SMS
-                        </button>
+                    <p className="verifyHeading">XÁC MINH SỐ ĐIỆN THOẠI CỦA BẠN</p>
+                    <PhoneIcon className="verifycheck" sx={{ fontSize: 60 }} />
+                    <InputField
+                        nameKey='phoneNumber'
+                        className='verifyboxGroup'
+                        type='number'
+                        value={payload.phoneNumber}
+                        onChange={(e) => setPayload(prev => ({ ...prev, phoneNumber: e.target.value }))}
+                        placeholder="Nhập số điện thoại"
+                        invalidFields={invalidFields}
+                        setInvalidFields={setInvalidFields}
+                    />
+                    <button
+                        onClick={sendOTPSMS}
+                        className="verifybtn1"
+                    >
+                        Gửi mã qua SMS
+                    </button>
                 </div>
             </div>
         </>

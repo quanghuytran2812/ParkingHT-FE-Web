@@ -6,7 +6,7 @@ import { apiDeleteParkingSlot, apiParkingSlot } from 'apis';
 import CurrencyFormat from 'ultils/regex';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-import { ModalAddParkingSlot, ModalDetailsParkingSlot, ModalEditParkingSlot } from 'components';
+import { Loader, ModalAddParkingSlot, ModalDetailsParkingSlot, ModalEditParkingSlot } from 'components';
 
 const ParkingSlot = () => {
     const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon, ContentPasteSearchIcon } = icons
@@ -15,13 +15,16 @@ const ParkingSlot = () => {
     const [openModal, setOpenModal] = useState(false);
     const [dataParkingSlotEdit, setdataParkingSlotEdit] = useState({});
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [isloading, setIsloading] = useState(false)
 
     const getAllParkingSlot = async () => {
+        setIsloading(true)
         let res = (await apiParkingSlot()) ?? {};
         if (res && res.data) {
             const tableData = res.data?.map((item, index) => ({ ...item, id: index + 1 })).sort((a, b) => a.delFlag - b.delFlag);
             setlistParkingSlot(tableData);
         }
+        setIsloading(false)
     }
 
     const handleSearch = debounce((e) => {
@@ -58,11 +61,13 @@ const ParkingSlot = () => {
             confirmButtonColor: '#02aab0'
         }).then(async (result) => {
             if (result.isConfirmed) {
+                setIsloading(true)
                 const res = await apiDeleteParkingSlot(psid);
                 if (res.statusCode === 200) {
                     getAllParkingSlot();
                     toast.success("Chỗ đậu xe được tắt hoạt động thành công!");
                 } else toast.error(res.message);
+                setIsloading(false)
             }
         })
     }
@@ -81,19 +86,6 @@ const ParkingSlot = () => {
                 return (
                     <CurrencyFormat num={params.row.pricePerHour} />
                 )
-            }
-        },
-        {
-            field: 'parking_Slot_Status', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
-                return (
-                    <>
-                        {params.row.parking_Slot_Status === 'AVAILABLE' ? (
-                            <span className="tableStatusText TextAvailable">có sẵn</span>
-                        ) : params.row.parking_Slot_Status === 'BUSY' ? (
-                            <span className="tableStatusText TextOccupied">bận</span>
-                        ) : null}
-                    </>
-                );
             }
         },
         {
@@ -117,16 +109,11 @@ const ParkingSlot = () => {
                             <div>
                                 <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                             </div>
-                        ) : params.row.parking_Slot_Status === 'AVAILABLE'? (
+                        ) : (
                             <div>
                                 <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
                                 <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                                 <span onClick={() => handleDeleteParkingSlot(params.row.parkingSlotId)}><DeleteOutlineIcon className="tableListDelete" /></span>
-                            </div>
-                        ): (
-                            <div>
-                                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
-                                <span onClick={() => handleEditParkingSlot(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                             </div>
                         )}
                     </>
@@ -138,6 +125,7 @@ const ParkingSlot = () => {
 
     return (
         <>
+            {isloading && <Loader />}
             <div className="tableList">
                 <h2 className="tableListTitle">Quản lý chỗ đỗ xe</h2>
                 <div className="tableListBoxContainer">
@@ -183,7 +171,7 @@ const ParkingSlot = () => {
                 dataParkingSlotEdit={dataParkingSlotEdit}
                 handleUpdateTable={handleUpdateTable}
             />
-            <ModalDetailsParkingSlot 
+            <ModalDetailsParkingSlot
                 open={openModalDetail}
                 onClose={() => setOpenModalDetail(false)}
                 dataInfo={dataParkingSlotEdit}

@@ -3,7 +3,7 @@ import { Suspense, useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import icons from 'ultils/icons'
 import _ from "lodash"
-import { ModalAddCategory, ModalDetailsCategory, ModalEditCategory } from 'components';
+import { Loader, ModalAddCategory, ModalDetailsCategory, ModalEditCategory } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories, deleteCategory } from 'store/category/categorySlice';
 import { toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 const CategoryList = () => {
     const { AddIcon, EditOutlinedIcon, DeleteOutlineIcon, ContentPasteSearchIcon } = icons
     const listCategory = useSelector((state) => state.category.list);
+    const { loading } = useSelector((state) => state.category);
     const [dataCategoryEdit, setdataCategoryEdit] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
@@ -121,6 +122,7 @@ const CategoryList = () => {
     const data = searchTerm ? filteredCategories : listCategory;
     return (
         <>
+            {loading && <Loader />}
             <div className="tableList">
                 <h2 className="tableListTitle">Quản lý loại xe</h2>
                 <div className="tableListBoxContainer">

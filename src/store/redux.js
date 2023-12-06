@@ -19,6 +19,7 @@ import parkingslotSlice from './parkingslot/parkingslotSlice';
 import userSlide from './user/userSlide';
 import dashboardSlice from './dashboard/dashboardSlice';
 import bookingSlice from './booking/bookingSlice';
+import otpSlice from './otp/otpSlice';
 
 
 const commonConfig = {
@@ -41,7 +42,8 @@ export const redux = configureStore({
     parkingslot: parkingslotSlice,
     user: userSlide,
     dashboard: dashboardSlice,
-    booking: bookingSlice
+    booking: bookingSlice,
+    otp: otpSlice
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {

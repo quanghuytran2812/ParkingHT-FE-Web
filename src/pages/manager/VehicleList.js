@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteVehicle, fetchVehicle } from 'store/vehicle/vehicleSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { ModalDetailsVehicle } from 'components';
+import { Loader, ModalDetailsVehicle } from 'components';
 import { jwtDecode } from 'jwt-decode';
 
 const VehicleList = () => {
@@ -14,6 +14,7 @@ const VehicleList = () => {
     const [openModalDetail, setOpenModalDetail] = useState(false);
     const [dataDetail, setdataDetail] = useState({});
     const listVehicle = useSelector((state) => state.vehicle.list);
+    const { loading } = useSelector((state) => state.vehicle);
     const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredvehicle, setFilteredvehicle] = useState([]);
@@ -61,15 +62,15 @@ const VehicleList = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 dispatch(deleteVehicle(uid))
-                .then((res) => {
-                    if (res.meta.requestStatus === 'fulfilled') {
-                        fetchData()
-                        toast.success("Xe được tắt hoạt động thành công!");
-                    }
-                })
-                .catch((error) => {
-                    toast.error(error);
-                });
+                    .then((res) => {
+                        if (res.meta.requestStatus === 'fulfilled') {
+                            fetchData()
+                            toast.success("Xe được tắt hoạt động thành công!");
+                        }
+                    })
+                    .catch((error) => {
+                        toast.error(error);
+                    });
             }
         });
     };
@@ -132,6 +133,7 @@ const VehicleList = () => {
     const data = searchTerm ? filteredvehicle : listVehicle;
     return (
         <>
+            {loading && <Loader />}
             <div className="tableList">
                 <h2 className="tableListTitle">Quản lý xe</h2>
                 <div className="tableListBoxContainer">
@@ -157,7 +159,7 @@ const VehicleList = () => {
                 </div>
                 <DataGrid
                     rows={data.map((item, index) => ({ ...item, id: index + 1 }))
-                            .sort((a, b) => a.delFlag - b.delFlag)}
+                        .sort((a, b) => a.delFlag - b.delFlag)}
                     columns={columns}
                     autoHeight
                     initialState={{
@@ -167,7 +169,7 @@ const VehicleList = () => {
                     }}
                 />
             </div>
-            <ModalDetailsVehicle 
+            <ModalDetailsVehicle
                 open={openModalDetail}
                 onClose={() => setOpenModalDetail(false)}
                 dataInfo={dataDetail}

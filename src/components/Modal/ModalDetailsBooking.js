@@ -31,6 +31,8 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                                 <p>Ngày tạo: </p>
                                 <p>Trạng thái: </p>
                                 <p>Tổng tiền: </p>
+                                <p>Khi vào: </p>
+                                <p>Khi ra: </p>
                                 <p>Cập nhật thời gian: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
@@ -45,6 +47,8 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                                     ? 'ĐÃ HỦY' : ''
                                 }</p>
                                 <p><CurrencyFormat num={dataInfo.booking_Total} /></p>
+                                <p>{dataInfo.checkin_Time === null ? "Chưa kiểm tra" : moment(dataInfo.checkin_Time).format('DD/MM/YYYY, h:mm:ss A')}</p>
+                                <p>{dataInfo.checkout_Time === null ? "Chưa kiểm tra" : moment(dataInfo.checkout_Time).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>
                         </div>

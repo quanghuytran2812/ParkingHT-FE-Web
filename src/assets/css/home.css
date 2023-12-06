@@ -17,6 +17,7 @@
 .homeContainer{
     display: flex;
     width: 100%;
+    flex-direction: row;
 }
 
 .homeMain{
@@ -29,6 +30,5 @@
 .homeAside{
     display: flex;
     flex-direction: column;
-    width: 24rem;
     /* border: 1px solid red; */
 }

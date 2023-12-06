@@ -2,20 +2,35 @@ import "assets/css/verify.css";
 import { Link, useNavigate } from "react-router-dom";
 import OTPInput from "otp-input-react";
 import { useState } from "react";
-import 'react-phone-input-2/lib/style.css';
-import { toast } from 'react-toastify';
 import icons from "ultils/icons";
 import path from "ultils/path";
+import { apivalidateOtpResetP } from "store/otp/otpSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Verify = () => {
     const { GppGoodIcon } = icons;
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [OTP, setOTP] = useState("");
 
     const onOTPVerify = (e) => {
         e.preventDefault();
-        navigate("/" + path.RESETPASSWORD);
-        toast.success("OTP verification successful. Reset password.");
+
+        if (OTP.trim() === "") {
+            toast.error("Please enter the OTP.")
+            return;
+        }
+
+        dispatch(apivalidateOtpResetP(OTP))
+            .then((result) => {
+                if (result.payload?.statusCode === 200) {
+                    navigate("/" + path.RESETPASSWORD);
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     return (
