@@ -57,7 +57,7 @@ const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
                                 options={roleUserData}
                                 onChange={handleRoleChange}
                             />
-                            <button className="resetpasswordbtn">Cập nhật</button>
+                            <button className="resetpasswordbtn">Lưu thay đổi</button>
                         </div>
                     </form>
                 </div>
