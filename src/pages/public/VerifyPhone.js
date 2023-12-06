@@ -5,14 +5,16 @@ import icons from "ultils/icons";
 import path from "ultils/path";
 import InputField from "components/inputs/InputField";
 import { validate } from "ultils/helpers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiSendOtpByPh } from "store/otp/otpSlice";
+import { Loader } from "components";
 
 const VerifyPhone = () => {
     const { PhoneIcon } = icons;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [invalidFields, setInvalidFields] = useState([]);
+    const { isLoading } = useSelector((state) => state.otp);
     const [payload, setPayload] = useState({
         phoneNumber: ''
     })
@@ -35,6 +37,7 @@ const VerifyPhone = () => {
 
     return (
         <>
+            {isLoading && <Loader />}
             <div className="verify">
                 <div className="verifyback">
                     <Link to={path.LOGIN} className="verifybackLink">⇦ Back</Link>

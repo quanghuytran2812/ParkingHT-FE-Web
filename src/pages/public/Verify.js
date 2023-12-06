@@ -5,14 +5,16 @@ import { useState } from "react";
 import icons from "ultils/icons";
 import path from "ultils/path";
 import { apivalidateOtpResetP } from "store/otp/otpSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Loader } from "components";
 
 const Verify = () => {
     const { GppGoodIcon } = icons;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [OTP, setOTP] = useState("");
+    const { isLoading } = useSelector((state) => state.otp);
 
     const onOTPVerify = (e) => {
         e.preventDefault();
@@ -35,6 +37,7 @@ const Verify = () => {
 
     return (
         <>
+            {isLoading && <Loader />}
             <div className="verify">
                 <div className="verifyback">
                     <Link to="/verifyphone" className="verifybackLink">⇦ Back</Link>
