@@ -26,7 +26,7 @@ export const apiParkingSlotAreaByCategory = async (category) => {
 
 export const apiParkingSlotByArea = async (area) => {
     try {
-        return await axios.post('/parking-slot/get-by-area', {area: area});;
+        return await axios.post('/parking-slot/get-by-area', {area: area});
     } catch (error) {
         throw error.response.data;
     }
