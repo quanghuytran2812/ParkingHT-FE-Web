@@ -109,7 +109,7 @@ const VehicleList = () => {
             field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
                 return (
                     <>
-                        {userInfo.role === 'Manager' || params.row.delFlag === true ? (
+                        {userInfo.role === 'MANAGER' || params.row.delFlag === true ? (
                             <div>
                                 <span onClick={() => handleDetails(params.row)}>
                                     <ContentPasteSearchIcon className='tableListDetail' />
