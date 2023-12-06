@@ -36,7 +36,7 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
             if (res?.statusCode === 200) {
                 onClose();
                 handleUpdateTable();
-                toast.success(`Chỗ đậu xe được cập nhập thành công!`);
+                toast.success(`Chỗ đậu xe được cập nhật thành công!`);
                 setIsloading(false)
             }
         } catch (err) {
@@ -48,7 +48,7 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
             } else if (err.response?.status === 401) {
                 toast.error('Không được phép!');
             } else {
-                toast.error("Chỗ đậu xe được cập nhập thất bại!")
+                toast.error("Chỗ đậu xe được cập nhật thất bại!")
             }
             console.clear();
         }
@@ -70,7 +70,7 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                             <CloseIcon />
                         </p>
                         <div className="resetpasswordForm">
-                            <p className="tableformHeading">Cập nhập chỗ đậu xe</p>
+                            <p className="tableformHeading">Cập nhật chỗ đậu xe</p>
                             <div style={{ marginBottom: '20px' }}>
                                 <div className="inputGroup">
                                     <input

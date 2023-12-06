@@ -181,7 +181,7 @@ const UsersProfile = () => {
                                 </div>
                                 {rolePemission.role !== "ADMIN" && (
                                     <button type="submit" className="userProfileUpdateButton">
-                                        Cập nhập
+                                        Cập nhật
                                     </button>
                                 )}
                             </div>

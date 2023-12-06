@@ -60,7 +60,7 @@ const ModalEditCategory = ({ open, onClose, handleUpdateTable, dataCategoryEdit 
                             <CloseIcon />
                         </p>
                         <div className="resetpasswordForm">
-                            <p className="tableformHeading">Cập nhập loại xe</p>
+                            <p className="tableformHeading">Cập nhật loại xe</p>
                             <InputField
                                 nameKey='vehicleCategoryName'
                                 className='inputGroup'
