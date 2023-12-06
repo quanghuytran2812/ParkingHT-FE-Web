@@ -116,7 +116,7 @@ const UsersProfile = () => {
                     </div>
 
                     <div className="userProfileUpdate">
-                        <span className="userProfileUpdateTitle">Cập nhập thông tin</span>
+                        <span className="userProfileUpdateTitle">Cập nhật thông tin</span>
                         <form onSubmit={handleUpdateUser} className="userProfileUpdateForm">
                             <div className="userProfileUpdateLeft">
                                 <InputField
