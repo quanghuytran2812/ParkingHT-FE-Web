@@ -50,10 +50,6 @@ const Login = () => {
     <>
       {isLoading && <Loader />}
       <div className="login">
-        <div className="loginBoxImg">
-          <div className="loginBoxImg1"></div>
-          <div className="loginBoxImg2"></div>
-        </div>
         <form onSubmit={handleLogin} className="formLoginBox">
           <div className="loginBox">
             <div className="loginlogoTitle">

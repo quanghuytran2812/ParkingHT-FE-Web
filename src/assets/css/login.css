@@ -1,40 +1,9 @@
 .login{
     margin: 0;
     min-height: 100vh;
+    background: linear-gradient(to right, #0b8793,#ffffff);
 }
 
-.loginBoxImg{
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    height: 100vh;
-}
-
-.loginBoxImg1{
-    background-image: 
-        linear-gradient(
-            to right, #b1443033, #1d1d2733
-        ),
-        url('https://baogiaothong.mediacdn.vn/upload/images/2023-2/article_img/2023-04-26/img-bgt-2021-1-2--1682483667-width1280height720.jpg');
-    background-size: contain;
-    width: 100%;
-    height: 100%;
-    border-radius: 0 50px 0 0;
-    margin-right: 10px;
-}
-
-.loginBoxImg2{
-    background-image: 
-        linear-gradient(
-            to right, #11151b33, #6f584a33
-        ),
-        url('https://image.plo.vn/1200x630/Uploaded/2023/drkxrdbkxq/2015_02_22/ben_xe_da_nangplovn_VYBE.jpg.webp');
-    background-size: contain;
-    width: 100%;
-    height: 100%;
-    border-radius: 50px 0 0 0;
-    margin-left: 10px;
-}
 .formLoginBox{
     position: absolute;
     left:50%;
@@ -53,7 +22,7 @@
     padding: 50px 30px;
     border-radius: 5px;
     position: relative;
-    box-shadow: 0 50px 150px #555;
+    box-shadow: 0 50px 200px #555;
 }
 .loginBox::before{
     content: '';
@@ -142,6 +111,8 @@
     border-radius: 10px;
     border: none;
     color: #fff;
+    font-weight: 600;
+    letter-spacing: 2px;
     text-transform: uppercase;
     box-shadow: 0 6px 10px #02aab0;
     transition: 0.5s;

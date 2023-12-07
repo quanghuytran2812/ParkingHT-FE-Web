@@ -1,7 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from "react-router-dom";
-import { Login, Dashboard, Verify, ResetPassword, VerifyPhone } from './pages/public';
+import { Login, Dashboard, Verify, ResetPassword, VerifyPhone, PaymentSuccess, PaymentFail } from './pages/public';
 import path from './ultils/path';
 
 
@@ -14,6 +14,8 @@ function App() {
         <Route path={path.VERIFY} element={<Verify />} />
         <Route path={path.VERIFYPHONE} element={<VerifyPhone />} />
         <Route path={path.RESETPASSWORD} element={<ResetPassword />} />
+        <Route path={path.PAYMENTSUCCESS} element={<PaymentSuccess />} />
+        <Route path={path.PAYMENTFAIL} element={<PaymentFail />} />
       </Routes>
       <ToastContainer
         position="top-right"

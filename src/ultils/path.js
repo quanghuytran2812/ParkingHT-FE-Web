@@ -7,6 +7,8 @@ const path = {
     VERIFYPHONE: 'verifyphone',
     RESETPASSWORD: 'resetpassword',
     USERPROFILE: 'userprofile',
+    PAYMENTSUCCESS: 'paymentsuccess',
+    PAYMENTFAIL: 'paymentfail',
 
     // Manager
     CATEGORY: 'vehiclecategory',
