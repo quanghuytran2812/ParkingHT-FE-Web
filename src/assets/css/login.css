@@ -13,10 +13,10 @@
 .loginBoxImg1{
     background-image: 
         linear-gradient(
-            to right, #b1443033, #1387a033, #1d1d2733
+            to right, #b1443033, #1d1d2733
         ),
-        url('https://www.jdmbuysell.com/wp-content/uploads/2023/02/IgniteMarketing_jdm_car_meetup_at_an_underground_parking_garage_f68fd05a-b304-4018-bc2c-60142fb0808f.png');
-    background-size: cover;
+        url('https://baogiaothong.mediacdn.vn/upload/images/2023-2/article_img/2023-04-26/img-bgt-2021-1-2--1682483667-width1280height720.jpg');
+    background-size: contain;
     width: 100%;
     height: 100%;
     border-radius: 0 50px 0 0;
@@ -26,10 +26,10 @@
 .loginBoxImg2{
     background-image: 
         linear-gradient(
-            to right, #11151b33, #e9bd0233, #6f584a33
+            to right, #11151b33, #6f584a33
         ),
-        url('https://i.pinimg.com/originals/57/e7/37/57e737d7c033eca3ab22ab0fe2329fad.png');
-    background-size: cover;
+        url('https://image.plo.vn/1200x630/Uploaded/2023/drkxrdbkxq/2015_02_22/ben_xe_da_nangplovn_VYBE.jpg.webp');
+    background-size: contain;
     width: 100%;
     height: 100%;
     border-radius: 50px 0 0 0;
@@ -46,13 +46,23 @@
     align-items: center;
     height: 100vh;
 }
-.loginBox{
-    background: hsl(0 0% 100% / 0.1);
-    backdrop-filter: blur(5rem);
-    width: 320px; /*620px */
+.loginBox {
+    width: 340px;
+    backdrop-filter: blur(2rem);
+    background-color: rgba(0,0,0,0.5);
     padding: 50px 30px;
-    box-shadow: 0 50px 150px #5553;
-    border-radius: 30px;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 50px 150px #555;
+}
+.loginBox::before{
+    content: '';
+    position: absolute;
+    background-color: rgba(0,0,0,0.30);
+    inset: 0;
+    transform: rotate(-6deg);
+    border-radius: 5px;
+    z-index: -1;
 }
 
 .loginBox .loginlogoTitle{
@@ -62,12 +72,13 @@
 }
 
 .loginBox .loginlogoTitle img{
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
 }
 
 .loginBox .loginlogoTitle p{
     font-weight: bold;
+    font-style: italic;
     color: #02aab0;
 }
 
@@ -132,7 +143,7 @@
     border: none;
     color: #fff;
     text-transform: uppercase;
-    box-shadow: 0 10px 20px #02aab0;
+    box-shadow: 0 6px 10px #02aab0;
     transition: 0.5s;
     cursor: pointer;
 }

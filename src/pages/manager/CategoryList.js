@@ -85,9 +85,9 @@ const CategoryList = () => {
 
     const columns = [
         { field: 'id', headerName: '#', width: 90 },
-        { field: 'vehicleCategoryName', headerName: 'LOẠI XE', width: 250 },
+        { field: 'vehicleCategoryName', headerName: 'SỐ CHỖ', width: 200 },
         {
-            field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
+            field: 'delFlag', headerName: 'TRẠNG THÁI', width: 200, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag ? (
@@ -100,7 +100,7 @@ const CategoryList = () => {
             }
         },
         {
-            field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
+            field: 'action', headerName: 'CHỈNH SỬA', width: 100, renderCell: (params) => {
                 return (
                     <>
                         {params.row.delFlag === true ? (

@@ -1,5 +1,5 @@
 import "assets/css/home.css"
-import { CircleChart, LineChartStatistical, Loader, Retroclock, StatsCard } from "components";
+import { CircleChart, LineChartStatistical, Loader, StatsCard } from "components";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -19,7 +19,6 @@ const Home = () => {
           </main>
           <aside className="homeAside">
             <CircleChart />
-            <Retroclock />
           </aside>
         </div>
       </div>

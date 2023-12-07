@@ -110,7 +110,7 @@ const UsersProfile = () => {
                         </div>
                         <div className="userProfileCircle">
                             <div className="userProfileImgBx">
-                                <img src="https://demoda.vn/wp-content/uploads/2022/09/hinh-anh-avatar-anime-nam-dep.jpg" alt="" />
+                                <img src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2018/06/ben-xe-da-nang-vntrip.jpg" alt="" />
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@ const UsersProfile = () => {
                                 <div className="userProfileUpdateUpload">
                                     <img
                                         className="userProfileUpdateImg"
-                                        src="https://demoda.vn/wp-content/uploads/2022/09/hinh-anh-avatar-anime-nam-dep.jpg"
+                                        src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2018/06/ben-xe-da-nang-vntrip.jpg"
                                         alt=""
                                     />
                                     <input type="file" id="file" className="userProfileUpdateInputFile" />

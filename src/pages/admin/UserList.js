@@ -94,15 +94,15 @@ const UserList = () => {
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'fullName', headerName: 'TÊN', width: 150 },
+    { field: 'fullName', headerName: 'TÊN TÀI KHOẢN', width: 150 },
     {
-      field: 'birthday', headerName: 'SINH NHẬT', width: 180, renderCell: (params) => {
+      field: 'birthday', headerName: 'NGÀY SINH', width: 180, renderCell: (params) => {
         return (
           <span>{moment(params.row.birthday).format("DD/MM/YYYY")}</span>
         )
       }
     },
-    { field: 'phoneNumber', headerName: 'SỐ ĐIỆN THOẠI', width: 150 },
+    { field: 'phoneNumber', headerName: 'ĐIỆN THOẠI', width: 150 },
     { field: 'role', headerName: 'VAI TRÒ', width: 100 },
     {
       field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
@@ -118,7 +118,7 @@ const UserList = () => {
       }
     },
     {
-      field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'CHỈNH SỬA', width: 100, renderCell: (params) => {
         return (
           <>
             {params.row.role === 'ADMIN'

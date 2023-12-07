@@ -111,7 +111,7 @@ const ReportList = () => {
       }
     },
     {
-      field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'CHỈNH SỬA', width: 100, renderCell: (params) => {
         return (
           <>
             {params.row.processingStatus === 1 ? (

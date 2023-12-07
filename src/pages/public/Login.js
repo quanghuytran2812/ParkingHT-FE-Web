@@ -27,7 +27,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const invalids = validate(payload, setInvalidFields)
-    if(invalids === 0){
+    if (invalids === 0) {
       dispatch(login(payload))
     }
   };
@@ -61,8 +61,8 @@ const Login = () => {
               <p>arkingHT</p>
             </div>
             <div className="loginDes">
-              <p>Chào mừng</p>
-              <span>Chào mừng bạn đã trở lại!</span>
+              <p>Đăng nhập</p>
+              <span>Vui lòng đăng nhập để sử dụng nền tảng</span>
             </div>
             <InputField
               nameKey='phoneNumber'
@@ -74,7 +74,7 @@ const Login = () => {
               invalidFields={invalidFields}
               setInvalidFields={setInvalidFields}
             />
-            <InputFieldPass 
+            <InputFieldPass
               nameKey='password'
               className='group'
               showPassword={showPassword}

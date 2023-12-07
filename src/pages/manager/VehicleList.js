@@ -82,7 +82,7 @@ const VehicleList = () => {
 
     const columns = [
         { field: 'id', headerName: '#', width: 20 },
-        { field: 'vehicleName', headerName: 'TÊN XE', width: 200 },
+        { field: 'plateNumber', headerName: 'BIỂN SỐ XE', width: 150 },
         {
             field: 'user', headerName: 'NGƯỜI DÙNG', width: 200, renderCell: (params) => {
                 return (
@@ -90,8 +90,7 @@ const VehicleList = () => {
                 )
             }
         },
-        { field: 'plateNumber', headerName: 'BIỂN SỐ XE', width: 150 },
-        { field: 'numberOfFouls', headerName: 'SỐ LẦN VI PHẠM', width: 150, align: 'center' },
+        { field: 'numberOfFouls', headerName: 'SỐ LẦN VI PHẠM', width: 140, align: 'Left' },
         {
             field: 'delFlag', headerName: 'TRẠNG THÁI', width: 150, renderCell: (params) => {
                 return (
@@ -106,7 +105,7 @@ const VehicleList = () => {
             }
         },
         {
-            field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
+            field: 'action', headerName: 'CHỈNH SỬA', width: 180, renderCell: (params) => {
                 return (
                     <>
                         {userInfo.role === 'MANAGER' || params.row.delFlag === true ? (

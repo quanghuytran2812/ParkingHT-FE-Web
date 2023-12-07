@@ -93,7 +93,7 @@ const FeedbackList = () => {
       }
     },
     {
-      field: 'action', headerName: 'HÀNH VI', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'CHI TIẾT', width: 100, renderCell: (params) => {
         return (
           <>
             <div>

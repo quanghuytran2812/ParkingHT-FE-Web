@@ -59,7 +59,7 @@ export default function Topbar() {
         {tokenInfo.role === "MANAGER" ? (
           <Dropdown trigger={
             <div className="topbarIconsContainer">
-              <NotificationsNoneIcon />
+              <NotificationsNoneIcon/>
               {countUnread === 0 ? '' : <span className="topIconBadge">{countUnread}</span>}
             </div>}>
             {countUnread === 0 ? '' : <h6 className='topRightNotifications'>Thông báo</h6>}
@@ -91,9 +91,9 @@ export default function Topbar() {
             ))}
           </Dropdown>
         ) : ''}
-        <Dropdown trigger={<img className="topAvatar" src="https://hdwallpaperim.com/wp-content/uploads/2017/08/22/103013-blue_hair-anime-748x421.jpg" alt="avatar" />}>
+        <Dropdown trigger={<img className="topAvatar" src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2018/06/ben-xe-da-nang-vntrip.jpg" alt="avatar" />}>
           <DropdownItem>
-            <img className="topRightInfoImg" src="https://hdwallpaperim.com/wp-content/uploads/2017/08/22/103013-blue_hair-anime-748x421.jpg" alt="avatar" />
+            <img className="topRightInfoImg" src={require('assets/images/Logo.png')} alt="avatar" />
             <div className="topRightInfoUser">
               <p className="topRightInfoUserName">{current?.fullName}</p>
               <span className="topRightInfoEmail">Chào mừng trở lại!</span>
