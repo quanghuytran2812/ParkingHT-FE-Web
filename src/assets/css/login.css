@@ -82,6 +82,10 @@
     padding: 20px;
     color: #fff;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
 .loginBox .group .iconEye{
     color: #777;
     cursor: pointer;

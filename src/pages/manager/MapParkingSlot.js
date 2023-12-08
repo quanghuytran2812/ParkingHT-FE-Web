@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchParkingslotAreaByCategory,
@@ -7,12 +7,13 @@ import {
 import "assets/css/diagramParkingSlot.css";
 import icons from 'ultils/icons';
 import { fetchCategories } from 'store/category/categorySlice';
-import { Loader } from 'components';
+import { Loader, ModalInfoCarBook } from 'components';
 
 const MapParkingSlot = () => {
   const { KeyboardDoubleArrowLeftIcon, KeyboardDoubleArrowRightIcon,
     KeyboardDoubleArrowUpIcon, KeyboardDoubleArrowDownIcon } = icons
   const dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState(false);
   const { listAreaByCategory, listPSbyArea, loading } = useSelector((state) => state.parkingslot);
   const listCategory = useSelector((state) => state.category.list);
 
@@ -90,7 +91,7 @@ const MapParkingSlot = () => {
               style={{ width: 84, height: 40 }}
               alt={item.parking_slot_name}
             />
-            <div className='imageOverlay'>
+            <div className='imageOverlay' onClick={() => setOpenModal(true)}>
               <span className='imageText'>{item.parking_slot_name}</span>
             </div>
           </div>
@@ -190,6 +191,10 @@ const MapParkingSlot = () => {
           </div>
         </div>
       </div>
+      <ModalInfoCarBook
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </>
   );
 };
