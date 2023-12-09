@@ -14,6 +14,7 @@ const MapParkingSlot = () => {
     KeyboardDoubleArrowUpIcon, KeyboardDoubleArrowDownIcon } = icons
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
+  const [dataDetail, setDataDetail] = useState("");
   const { listAreaByCategory, listPSbyArea, loading } = useSelector((state) => state.parkingslot);
   const listCategory = useSelector((state) => state.category.listCategoryD);
 
@@ -74,8 +75,12 @@ const MapParkingSlot = () => {
   };
 
   const handleAreaClick = (selectedArea) => {
-    console.log(selectedArea)
     dispatch(fetchParkingslotByArea(selectedArea));
+  }
+
+  const handleDetailInfoCar = (data) => {
+    setOpenModal(true)
+    setDataDetail(data)
   }
 
   const data = listPSbyArea.map((item, index) => ({ ...item, id: index + 1 })).sort((a, b) => a.name - b.name);
@@ -85,15 +90,15 @@ const MapParkingSlot = () => {
   const SlotParking = ({ item }) => {
     return (
       <div className='viewParking'>
-        {item.booking_Status === 'COMPLETED' ? (
+        {item.status === 1 ? (
           <div className='imageAuto'>
             <img
               src={require("../../assets/images/carup.png")}
               style={{ width: 84, height: 40 }}
-              alt={item.parking_slot_name}
+              alt={item.name}
             />
-            <div className='imageOverlay' onClick={() => setOpenModal(true)}>
-              <span className='imageText'>{item.parking_slot_name}</span>
+            <div className='imageOverlay' onClick={() => handleDetailInfoCar(item.bookingId)}>
+              <span className='imageText'>{item.name}</span>
             </div>
           </div>
         ) : (
@@ -109,7 +114,7 @@ const MapParkingSlot = () => {
                 color: '#000',
               }}
             >
-              {item.parking_slot_name}
+              {item.name}
             </span>
           </button>
         )}
@@ -195,6 +200,7 @@ const MapParkingSlot = () => {
       <ModalInfoCarBook
         open={openModal}
         onClose={() => setOpenModal(false)}
+        dataInfo={dataDetail}
       />
     </>
   );

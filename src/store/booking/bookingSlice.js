@@ -11,10 +11,22 @@ export const fetchBooking = createAsyncThunk('booking/fetchBooking', async () =>
     }
 });
 
+// Fetch booking by id
+export const fetchBookingById = createAsyncThunk('booking/fetchBookingById', async (id, thunkAPI) => {
+    try {
+        const tokenData = thunkAPI.getState().auth.token;
+        const response = await bookingService.apiGetBookingById(id, tokenData);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+});
+
 const bookingSlice = createSlice({
     name: 'booking',
     initialState: {
         list: [],
+        getbooking: null,
         loading: false,
     },
     reducers: {},
@@ -30,7 +42,18 @@ const bookingSlice = createSlice({
             })
             .addCase(fetchBooking.rejected, (state, action) => {
                 state.loading = false;
-            })  
+            })
+            // Fetch booking by id
+            .addCase(fetchBookingById.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchBookingById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.getbooking = action.payload;
+            })
+            .addCase(fetchBookingById.rejected, (state, action) => {
+                state.loading = false;
+            })
     },
 });
 
