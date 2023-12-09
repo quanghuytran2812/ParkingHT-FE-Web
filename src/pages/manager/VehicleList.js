@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteVehicle, fetchVehicle } from 'store/vehicle/vehicleSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Loader, ModalDetailsVehicle } from 'components';
+import { Loader, ModalDetailsVehicle, ModalEditVehicle } from 'components';
 import { jwtDecode } from 'jwt-decode';
 
 const VehicleList = () => {
-    const { DeleteOutlineIcon, ContentPasteSearchIcon } = icons
+    const { DeleteOutlineIcon, ContentPasteSearchIcon, EditOutlinedIcon } = icons
     const [openModalDetail, setOpenModalDetail] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
     const [dataDetail, setdataDetail] = useState({});
+    const [dataEdit, setdataEdit] = useState({});
     const listVehicle = useSelector((state) => state.vehicle.list);
     const { loading } = useSelector((state) => state.vehicle);
     const dispatch = useDispatch();
@@ -80,9 +82,25 @@ const VehicleList = () => {
         setOpenModalDetail(true);
     }
 
+    const handleEditVehicle = (data) => {
+        setdataEdit(data);
+        setOpenModalEdit(true);
+    }
+
+    const handleUpdateTable = () => {
+        fetchData();
+    };
+
     const columns = [
         { field: 'id', headerName: '#', width: 20 },
         { field: 'plateNumber', headerName: 'BIỂN SỐ XE', width: 150 },
+        {
+            field: 'categoryName', headerName: 'SỐ CHỖ', width: 90, renderCell: (params) => {
+                return (
+                    <span>{params.row.vehicleCategory.vehicleCategoryName}</span>
+                )
+            }
+        },
         {
             field: 'user', headerName: 'NGƯỜI DÙNG', width: 200, renderCell: (params) => {
                 return (
@@ -112,6 +130,9 @@ const VehicleList = () => {
                             <div>
                                 <span onClick={() => handleDetails(params.row)}>
                                     <ContentPasteSearchIcon className='tableListDetail' />
+                                </span>
+                                <span onClick={() => handleEditVehicle(params.row)}>
+                                    <EditOutlinedIcon className="tableListEdit" />
                                 </span>
                             </div>
                         ) : (
@@ -172,6 +193,12 @@ const VehicleList = () => {
                 open={openModalDetail}
                 onClose={() => setOpenModalDetail(false)}
                 dataInfo={dataDetail}
+            />
+            <ModalEditVehicle
+                open={openModalEdit}
+                onClose={() => setOpenModalEdit(false)}
+                dataVehicleEdit={dataEdit}
+                handleUpdateTable={handleUpdateTable}
             />
         </>
     )

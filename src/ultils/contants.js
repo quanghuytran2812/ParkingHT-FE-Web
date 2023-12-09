@@ -74,6 +74,11 @@ export const statusReportData = [
     { code: 1, value: 'Completed' }
 ]
 
+export const statusData = [
+    { code: false, value: 'Hoạt động' },
+    { code: true, value: 'Không hoạt động' }
+]
+
 export const roleUserData = [
     { code: 'MANAGER', value: 'MANAGER' },
     { code: 'DRIVER', value: 'DRIVER' }

@@ -25,7 +25,8 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
                                 <p>Mã đặt chỗ: </p>
-                                <p>Người đặt: </p>
+                                <p>Biển số xe: </p>
+                                <p>Điện thoại: </p>
                                 <p>Ngày bắt đầu: </p>
                                 <p>Ngày kết thúc: </p>
                                 <p>Ngày tạo: </p>
@@ -37,7 +38,8 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                             </div>
                             <div className='tableRight col-sm-8'>
                                 <p>{dataInfo.booking_Id}</p>
-                                <p>{dataInfo.user.fullName}</p>
+                                <p>{dataInfo.vehicle.plateNumber}</p>
+                                <p>{dataInfo.vehicle.user.phoneNumber}</p>
                                 <p>{moment(dataInfo.start_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{moment(dataInfo.end_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{moment(dataInfo.create_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>

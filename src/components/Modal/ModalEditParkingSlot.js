@@ -1,27 +1,28 @@
 import { apiEditParkingSlot } from "apis";
 import "assets/css/modalCommon.css";
 import Loader from "components/Loader";
+import Select from "components/inputs/Select";
 import { memo, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { statusData } from "ultils/contants";
 import icons from "ultils/icons";
 
 const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlotEdit }) => {
     const { CloseIcon } = icons;
     const [isloading, setIsloading] = useState(false)
+    const [status, setStatus] = useState(dataParkingSlotEdit.delFlag);
     const [parkingSlot, setParkingSlot] = useState({
-        parkingSlotId: "",
-        area: "",
         pricePerHour: "",
-        vehicleCategory: ""
     });
+
+    const handleStatusChange = (value) => {
+        setStatus(value);
+    };
 
     useEffect(() => {
         if (open) {
             setParkingSlot({
-                parkingSlotId: dataParkingSlotEdit.parkingSlotId,
-                area: dataParkingSlotEdit.area,
-                pricePerHour: dataParkingSlotEdit.pricePerHour,
-                vehicleCategory: dataParkingSlotEdit.vehicleCategory.vehicleCategoryId
+                pricePerHour: dataParkingSlotEdit.pricePerHour
             });
         }
     }, [open, dataParkingSlotEdit]);
@@ -30,8 +31,16 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
         e.preventDefault();
 
         try {
+            const updateParkingS = {
+                parkingSlotId: dataParkingSlotEdit.parkingSlotId,
+                area: dataParkingSlotEdit.area,
+                name: dataParkingSlotEdit.name,
+                pricePerHour: parkingSlot.pricePerHour || dataParkingSlotEdit.pricePerHour,
+                vehicleCategory: dataParkingSlotEdit.categoryName,
+                delFlag: status || dataParkingSlotEdit.delFlag
+            }
             setIsloading(true)
-            const res = await apiEditParkingSlot(parkingSlot);
+            const res = await apiEditParkingSlot(updateParkingS);
 
             if (res?.statusCode === 200) {
                 onClose();
@@ -71,17 +80,28 @@ const ModalEditParkingSlot = ({ open, onClose, handleUpdateTable, dataParkingSlo
                         </p>
                         <div className="resetpasswordForm">
                             <p className="tableformHeading">Cập nhật chỗ đậu xe</p>
-                            <div style={{ marginBottom: '20px' }}>
-                                <div className="inputGroup">
-                                    <input
-                                        className="resetpasswordinput"
-                                        placeholder="Price Per Hour //Ex: 14000"
-                                        value={parkingSlot.pricePerHour}
-                                        onChange={(e) => setParkingSlot((prev) => ({ ...prev, pricePerHour: e.target.value }))}
-                                        type="number"
+
+                            {
+                                dataParkingSlotEdit.delFlag === false ? (
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <div className="inputGroup">
+                                            <input
+                                                className="resetpasswordinput"
+                                                placeholder="Price Per Hour //Ex: 14000"
+                                                value={parkingSlot.pricePerHour}
+                                                onChange={(e) => setParkingSlot((prev) => ({ ...prev, pricePerHour: e.target.value }))}
+                                                type="number"
+                                            />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <Select
+                                        itemValue={dataParkingSlotEdit.delFlag}
+                                        options={statusData}
+                                        onChange={handleStatusChange}
                                     />
-                                </div>
-                            </div>
+                                )
+                            }
                             <button type="submit" className="resetpasswordbtn">
                                 Lưu thay đổi
                             </button>

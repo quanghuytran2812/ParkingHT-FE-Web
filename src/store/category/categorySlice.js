@@ -13,6 +13,16 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
     }
 });
 
+// Fetch all category by delete
+export const fetchAllCategoriesD = createAsyncThunk('category/fetchAllCategoriesD', async () => {
+    try {
+        const res = await categoryService.apiAllCategory();
+        return res.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+});
+
 // Delete a category
 export const deleteCategory = createAsyncThunk('category/deleteCategory', async (categoryId) => {
     return await categoryService.apiDeleteCategoryVehicle(categoryId);
@@ -32,7 +42,8 @@ const categorySlice = createSlice({
     name: 'category',
     initialState: {
         list: [],
-        loading: false,
+        listCategoryD: [],
+        loading: false
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -46,6 +57,17 @@ const categorySlice = createSlice({
                 state.list = action.payload;
             })
             .addCase(fetchCategories.rejected, (state, action) => {
+                state.loading = false;
+            })
+            // Fetch categories by delete
+            .addCase(fetchAllCategoriesD.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchAllCategoriesD.fulfilled, (state, action) => {
+                state.loading = false;
+                state.listCategoryD = action.payload;
+            })
+            .addCase(fetchAllCategoriesD.rejected, (state, action) => {
                 state.loading = false;
             })
             // Delete category
@@ -74,9 +96,9 @@ const categorySlice = createSlice({
             .addCase(createCategory.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(createCategory.fulfilled, (state) => {       
+            .addCase(createCategory.fulfilled, (state) => {
                 state.loading = false;
-                toast.success("Loại xe được tạo mới thành công!");            
+                toast.success("Loại xe được tạo mới thành công!");
             })
             .addCase(createCategory.rejected, (state) => {
                 state.loading = false;

@@ -30,7 +30,7 @@ export const fetchCountFeedbackUnread = createAsyncThunk('feedback/fetchCountFee
 
 // Update a feedback
 export const updateFeedback = createAsyncThunk('feedback/updateFeedback', async (data) => {
-    const response = await feedbackService.apiUpdateFeedback(data.feedbackId, {content: data.content, rankStar: data.rankStar});
+    const response = await feedbackService.apiUpdateFeedback(data.feedbackId, { content: data.content, rankStar: data.rankStar });
     return response.data;
 });
 
@@ -45,7 +45,7 @@ const feedbackSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Fetch report
+            // Fetch feedback
             .addCase(fetchFeedback.pending, (state) => {
                 state.loading = true;
             })
@@ -70,6 +70,24 @@ const feedbackSlice = createSlice({
                 state.listUnreadF = action.payload;
             })
             .addCase(fetchFeedbackUnread.rejected, (state) => {
+                state.loading = false;
+            })
+            // Update feddback
+            .addCase(updateFeedback.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateFeedback.fulfilled, (state, action) => {
+                state.loading = false;
+                const updatedFeedback = action.payload;
+                state.list = state.list.map((feedback) =>
+                    feedback.feedBackId === updatedFeedback.feedBackId
+                        ? updatedFeedback
+                        : feedback
+                );
+                state.countUnreadF = state.list.filter((feedback) => !feedback.isRead).length;
+                state.listUnreadF = state.list.filter((feedback) => !feedback.isRead);
+            })
+            .addCase(updateFeedback.rejected, (state, action) => {
                 state.loading = false;
             })
     },

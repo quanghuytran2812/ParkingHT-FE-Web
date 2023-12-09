@@ -6,7 +6,7 @@ import {
 } from 'store/parkingslot/parkingslotSlice';
 import "assets/css/diagramParkingSlot.css";
 import icons from 'ultils/icons';
-import { fetchCategories } from 'store/category/categorySlice';
+import { fetchAllCategoriesD } from 'store/category/categorySlice';
 import { Loader, ModalInfoCarBook } from 'components';
 
 const MapParkingSlot = () => {
@@ -15,7 +15,7 @@ const MapParkingSlot = () => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const { listAreaByCategory, listPSbyArea, loading } = useSelector((state) => state.parkingslot);
-  const listCategory = useSelector((state) => state.category.list);
+  const listCategory = useSelector((state) => state.category.listCategoryD);
 
   const handleScrollLeft = () => {
     const container = document.querySelector(".containerArea");
@@ -54,7 +54,7 @@ const MapParkingSlot = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchAllCategoriesD());
   }, [dispatch]);
 
   useEffect(() => {
@@ -74,6 +74,7 @@ const MapParkingSlot = () => {
   };
 
   const handleAreaClick = (selectedArea) => {
+    console.log(selectedArea)
     dispatch(fetchParkingslotByArea(selectedArea));
   }
 

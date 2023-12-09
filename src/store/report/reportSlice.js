@@ -70,6 +70,8 @@ const reportSlice = createSlice({
                         ? updatedReport
                         : report
                 );
+                state.countUnread = state.list.filter((report) => !report.isRead).length;
+                state.listUnread = state.list.filter((report) => !report.isRead);
                 toast.success("Báo cáo được cập nhật thành công!");
             })
             .addCase(updateReport.rejected, (state, action) => {

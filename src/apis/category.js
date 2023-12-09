@@ -8,6 +8,10 @@ export const apiCategoryVehicle = async (token) => {
         });
 }
 
+export const apiAllCategory = async () => {
+    return await axios.get('/vehicle-category/getAllCategoryD');
+}
+
 export const apiDeleteCategoryVehicle = async (cid) => {
     return await axios.put('/vehicle-category/delete/' + cid, {});
 }

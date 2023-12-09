@@ -26,6 +26,7 @@ const authSlice = createSlice({
         state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.isLoading = false
         if (action.payload?.statusCode === 200) {
           const userInfo = jwtDecode(action.payload.data.token);

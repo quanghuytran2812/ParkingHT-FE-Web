@@ -26,25 +26,33 @@ const ModalDetailsReport = ({ open, onClose, dataInfo }) => {
                                 {dataInfo.vehiclePlateNumber !== "" && dataInfo.vehiclePlateNumber.length > 0
                                     ? <p>Biển số xe: </p> : ''
                                 }
+                                <p>Tài khoản: </p>
+                                <p>Điện thoại: </p>
                                 <p>Ngày tạo: </p>
                                 <p>Ngày xử lý: </p>
                                 <p>Trạng thái xử lý: </p>
-                                <p>Trạng thái hoạt động: </p>
                                 <p>Cập nhật thời gian: </p>
+                                {dataInfo.managerId === null ? "" : 
+                                    <p>ManagerID: </p>
+                                }                          
                                 <p>Nội dung: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
                                 {dataInfo.vehiclePlateNumber !== "" && dataInfo.vehiclePlateNumber.length > 0
                                     ? <p>{dataInfo.vehiclePlateNumber}</p> : ''
                                 }
+                                <p>{dataInfo.user.fullName}</p>
+                                <p>{dataInfo.user.phoneNumber}</p>
                                 <p>{moment(dataInfo.createDate).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{ dataInfo.processingDate !== null
                                     ? moment(dataInfo.processingDate).format('DD/MM/YYYY, h:mm:ss A')
                                     : 'Chưa được xử lý'
                                 }</p>
                                 <p>{dataInfo.processingStatus === 1 ? "Đã xử lý" : "Đang xử lý"}</p>
-                                <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
+                                {dataInfo.managerId === null ? "" : 
+                                    <p>{dataInfo.managerId}</p>
+                                }
                                 <p>{dataInfo.content}</p>
                             </div>
                         </div>

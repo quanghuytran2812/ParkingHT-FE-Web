@@ -106,6 +106,7 @@ const CategoryList = () => {
                         {params.row.delFlag === true ? (
                             <div>
                                 <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
+                                <span onClick={() => handleEditCategory(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
                             </div>
                         ) : (
                             <div>

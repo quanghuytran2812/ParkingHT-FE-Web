@@ -23,7 +23,7 @@ const ModalDetailsCategory = ({ open, onClose, dataInfo }) => {
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Tên loại xe: </p>
+                                <p>Số chỗ: </p>
                                 <p>Trạng thái: </p>
                                 <p>Cập nhật thời gian: </p>
                             </div>

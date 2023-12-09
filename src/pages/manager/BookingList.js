@@ -56,9 +56,9 @@ const BookingList = () => {
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
     {
-      field: 'user', headerName: 'NGƯỜI DÙNG', width: 200, renderCell: (params) => {
+      field: 'user', headerName: 'BIỂN SỐ XE', width: 150, renderCell: (params) => {
         return (
-          <span>{params.row.user.fullName}</span>
+          <span>{params.row.vehicle.plateNumber}</span>
         )
       }
     },

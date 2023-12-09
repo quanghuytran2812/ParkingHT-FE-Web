@@ -7,3 +7,7 @@ export const apiVehicle = async () => {
 export const apiDeleteVehicle = async (vid) => {
     return await axios.put('/vehicle/delete/' + vid, {});
 }
+
+export const apiEditVehicle = async (vid) => {
+    return await axios.put('/vehicle/updateVehicle', vid);
+}

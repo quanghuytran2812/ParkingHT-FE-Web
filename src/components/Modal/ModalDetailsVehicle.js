@@ -23,17 +23,19 @@ const ModalDetailsVehicle = ({ open, onClose, dataInfo }) => {
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Chủ phương tiện: </p>
-                                <p>Tên xe: </p>
                                 <p>Biển số xe: </p>
+                                <p>Chủ phương tiện: </p>
+                                <p>Điện thoại: </p>
+                                <p>Số chỗ: </p>
                                 <p>Số lần vi phạm: </p>
                                 <p>Trạng thái: </p>
                                 <p>Cập nhật thời gian: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
-                                <p>{dataInfo.user.fullName}</p>
-                                <p>{dataInfo.vehicleName}</p>
                                 <p>{dataInfo.plateNumber}</p>
+                                <p>{dataInfo.user.fullName}</p>
+                                <p>{dataInfo.user.phoneNumber}</p>
+                                <p>{dataInfo.vehicleCategory.vehicleCategoryName}</p>
                                 <p>{dataInfo.numberOfFouls}</p>
                                 <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>

@@ -9,8 +9,13 @@ export const fetchVehicle = createAsyncThunk('vehicle/fetchVehicle', async () =>
 });
 
 // Delete a vehicle
-export const deleteVehicle = createAsyncThunk('category/deleteVehicle', async (vehicleId) => {
+export const deleteVehicle = createAsyncThunk('vehicle/deleteVehicle', async (vehicleId) => {
     return await vehicleService.apiDeleteVehicle(vehicleId);
+});
+
+// Update a vehicle
+export const updateVehicle = createAsyncThunk('vehicle/updateVehicle', async (data) => {
+    return await vehicleService.apiEditVehicle(data);
 });
 
 const vehicleSlice = createSlice({
@@ -37,12 +42,24 @@ const vehicleSlice = createSlice({
             .addCase(deleteVehicle.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(deleteVehicle.fulfilled, (state,action) => {
+            .addCase(deleteVehicle.fulfilled, (state, action) => {
                 state.loading = false;
             })
-            .addCase(deleteVehicle.rejected, (state,action) => {
+            .addCase(deleteVehicle.rejected, (state, action) => {
                 state.loading = false;
                 toast.error("Không tìm thấy xe này!")
+            })
+            // Update vehicle
+            .addCase(updateVehicle.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateVehicle.fulfilled, (state, action) => {
+                state.loading = false;
+                toast.success("Xe được cập nhật thành công!");
+            })
+            .addCase(updateVehicle.rejected, (state, action) => {
+                state.loading = false;
+                toast.error(action.error.message);
             })
     },
 });

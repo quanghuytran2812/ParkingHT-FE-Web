@@ -96,7 +96,7 @@ const UserList = () => {
     { field: 'id', headerName: '#', width: 20 },
     { field: 'fullName', headerName: 'TÊN TÀI KHOẢN', width: 150 },
     {
-      field: 'birthday', headerName: 'NGÀY SINH', width: 180, renderCell: (params) => {
+      field: 'birthday', headerName: 'NGÀY SINH', width: 150, renderCell: (params) => {
         return (
           <span>{moment(params.row.birthday).format("DD/MM/YYYY")}</span>
         )
@@ -118,22 +118,30 @@ const UserList = () => {
       }
     },
     {
-      field: 'action', headerName: 'CHỈNH SỬA', width: 100, renderCell: (params) => {
+      field: 'action', headerName: 'CHỈNH SỬA', width: 200, renderCell: (params) => {
+        const isAdmin = params.row.role === 'ADMIN';
+        const isDelFlagFalse = params.row.delFlag === true;
+
         return (
           <>
-            {params.row.role === 'ADMIN'
-              || params.row.delFlag === true ? (
-              <div>
-                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
-              </div>) : (
-              <div>
-                <span onClick={() => handleDetails(params.row)}><ContentPasteSearchIcon className='tableListDetail' /></span>
-                <span onClick={() => handleEditUser(params.row)}><EditOutlinedIcon className="tableListEdit" /></span>
-                <span onClick={() => handleDeleteUser(params.row.userId)}><DeleteOutlineIcon className="tableListDelete" /></span>
-              </div>
-            )}
+            <span onClick={() => handleDetails(params.row)}>
+              <ContentPasteSearchIcon className='tableListDetail' />
+            </span>
+
+            {
+              !isAdmin && (
+                <span onClick={() => handleEditUser(params.row)}>
+                  <EditOutlinedIcon className="tableListEdit" />
+                </span>
+              )
+            }
+            {!isAdmin && (isDelFlagFalse || (
+              <span onClick={() => handleDeleteUser(params.row.userId)}>
+                <DeleteOutlineIcon className="tableListDelete" />
+              </span>
+            ))}
           </>
-        )
+        );
       }
     }
   ];
@@ -170,7 +178,7 @@ const UserList = () => {
           autoHeight
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 6 },
             }
           }}
         />

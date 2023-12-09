@@ -58,7 +58,7 @@ const FeedbackList = () => {
 
   const columns = [
     { field: 'id', headerName: '#', width: 20 },
-    { field: 'rankStar', headerName: 'XẾP HẠNG SAO', width: 150 },
+    { field: 'rankStar', headerName: 'ĐÁNH GIÁ SAO', width: 150 },
     {
       field: 'createDate', headerName: 'NGÀY TẠO', width: 150, renderCell: (params) => {
         return (

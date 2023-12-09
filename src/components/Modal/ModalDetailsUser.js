@@ -41,7 +41,7 @@ const ModalDetailsUser = ({ open, onClose, dataInfo }) => {
                                 <p>{moment(dataInfo.createdDate).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.role}</p>
                                 <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
-                                <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
+                                <p>{dataInfo.updateTime == null ? "Chưa chỉnh sửa" : moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.lastLogin === null ? "Chưa đăng nhập" : moment(dataInfo.lastLogin).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>
                         </div>

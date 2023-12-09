@@ -16,7 +16,6 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) =>
             rankStar: dataInfo.rankStar
         }))
         onClose()
-        handleTableUpdate()
     }
 
     if (!open) return null;
@@ -37,16 +36,20 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) =>
 
                         <div className='tableDetail'>
                             <div className='tableLeft col-sm-4'>
-                                <p>Xếp hạng sao: </p>
+                                <p>Tài khoản: </p>
+                                <p>Điện thoại: </p>
+                                <p>Đánh giá sao: </p>
                                 <p>Ngày tạo: </p>
                                 <p>Trạng thái: </p>
                                 <p>Nội dung: </p>
                             </div>
                             <div className='tableRight col-sm-8'>
-                                <p>{dataInfo.rankStar}</p>                             
+                                <p>{dataInfo.report.user.fullName}</p>
+                                <p>{dataInfo.report.user.phoneNumber}</p>
+                                <p>{dataInfo.rankStar}</p>
                                 <p>{moment(dataInfo.createDate).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.isFeedback === 1 ? "Phản hồi" : "Chưa"}</p>
-                                <p>{dataInfo.content !== null ? dataInfo.content : 'Không có ý kiến'}</p> 
+                                <p>{dataInfo.content !== null ? dataInfo.content : 'Không có ý kiến'}</p>
                             </div>
                         </div>
                     </div>

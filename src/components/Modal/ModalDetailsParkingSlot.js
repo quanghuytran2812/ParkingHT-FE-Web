@@ -27,7 +27,7 @@ const ModalDetailsParkingSlot = ({ open, onClose, dataInfo }) => {
                                 <p>Khu vực: </p>
                                 <p>Tên ô: </p>
                                 <p>Giá mỗi giờ: </p>
-                                <p>Tên loại xe: </p>
+                                <p>Số chỗ: </p>
                                 <p>Trạng thái hoạt động: </p>
                                 <p>Cập nhật thời gian: </p>
                             </div>
@@ -35,7 +35,7 @@ const ModalDetailsParkingSlot = ({ open, onClose, dataInfo }) => {
                                 <p>{dataInfo.area}</p>
                                 <p>{dataInfo.name}</p>
                                 <p><CurrencyFormat num={dataInfo.pricePerHour} /></p>
-                                <p>{dataInfo.vehicleCategory.vehicleCategoryName}</p>
+                                <p>{dataInfo.categoryName}</p>
                                 <p>{dataInfo.delFlag ? "Không hoạt động" : "Hoạt động"}</p>
                                 <p>{moment(dataInfo.updateTime).format('DD/MM/YYYY, h:mm:ss A')}</p>
                             </div>

@@ -4,12 +4,13 @@ import Select from "components/inputs/Select";
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRoleUser } from "store/user/userSlide";
-import { roleUserData } from "ultils/contants";
+import { roleUserData, statusData } from "ultils/contants";
 import icons from "ultils/icons"
 
 const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
     const dispatch = useDispatch();
     const { CloseIcon } = icons;
+    const [status, setStatus] = useState(dataUserEdit.delFlag);
     const [role, setRole] = useState(dataUserEdit.role)
     const { loading } = useSelector((state) => state.user);
 
@@ -19,12 +20,17 @@ const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
         setRole(value);
     };
 
+    const handleStatusChange = (value) => {
+        setStatus(value);
+    };
+
     const handleEditRole = async (e) => {
         e.preventDefault();
 
-        let updateRoleU = {
+        const updateRoleU = {
             userId: dataUserEdit.userId,
-            role: role
+            role: role || dataUserEdit.role,
+            delFlag: status || dataUserEdit.delFlag
         }
         dispatch(updateRoleUser(updateRoleU))
             .then((result) => {
@@ -52,11 +58,21 @@ const ModalEditUser = ({ open, onClose, dataUserEdit, handleTableU }) => {
                         </p>
                         <div className="resetpasswordForm">
                             <p className="resetpasswordHeading">Cập nhật người dùng</p>
-                            <Select
-                                itemValue={dataUserEdit.role}
-                                options={roleUserData}
-                                onChange={handleRoleChange}
-                            />
+                            {
+                                dataUserEdit.delFlag === false ? (
+                                    <Select
+                                        itemValue={dataUserEdit.role}
+                                        options={roleUserData}
+                                        onChange={handleRoleChange}
+                                    />
+                                ) : (
+                                    <Select
+                                        itemValue={dataUserEdit.delFlag}
+                                        options={statusData}
+                                        onChange={handleStatusChange}
+                                    />
+                                )
+                            }
                             <button className="resetpasswordbtn">Lưu thay đổi</button>
                         </div>
                     </form>
