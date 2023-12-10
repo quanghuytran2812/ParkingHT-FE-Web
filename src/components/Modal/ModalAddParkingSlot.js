@@ -6,7 +6,7 @@ import SelectCategory from "components/inputs/SelectCategory";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { fetchCategories } from "store/category/categorySlice";
+import { fetchAllCategoriesD } from "store/category/categorySlice";
 import { validate } from "ultils/helpers";
 import icons from "ultils/icons"
 
@@ -14,7 +14,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
     const { CloseIcon } = icons;
     const [invalidFields, setInvalidFields] = useState([]);
     const dispatch = useDispatch();
-    const { list } = useSelector((state) => state.category);
+    const { listCategoryD } = useSelector((state) => state.category);
     const [isloading, setIsloading] = useState(false)
     const [parkingSlot, setparkingSlot] = useState({
         area: '',
@@ -24,7 +24,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
     })
 
     useEffect(() => {
-        dispatch(fetchCategories());
+        dispatch(fetchAllCategoriesD());
     }, [dispatch]);
     if (!open) return null;
 
@@ -38,7 +38,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
     }
 
     if (parkingSlot.vehicleCategory === "" || !parkingSlot.vehicleCategory.length > 0) {
-        setparkingSlot(prev => ({ ...prev, vehicleCategory: list[0].vehicleCategoryId }))
+        setparkingSlot(prev => ({ ...prev, vehicleCategory: listCategoryD[0].vehicleCategoryId }))
     }
 
     const handleAddParkingSlot = async (e) => {
@@ -122,7 +122,7 @@ const ModalAddParkingSlot = ({ open, onClose, handleUpdateTable }) => {
                                 setInvalidFields={setInvalidFields}
                             />
                             <SelectCategory
-                                options={list}
+                                options={listCategoryD}
                                 onChange={(e) => setparkingSlot(prev => ({ ...prev, vehicleCategory: e.target.value }))}
                             />
                             <button type="submit" className="resetpasswordbtn">Lưu thay đổi</button>

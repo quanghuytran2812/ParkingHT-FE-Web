@@ -124,27 +124,25 @@ const VehicleList = () => {
         },
         {
             field: 'action', headerName: 'CHỈNH SỬA', width: 180, renderCell: (params) => {
+                const isAdmin = userInfo.role === 'ADMIN';
+                const isDelFlagFalse = params.row.delFlag === true;
                 return (
                     <>
-                        {userInfo.role === 'MANAGER' || params.row.delFlag === true ? (
-                            <div>
-                                <span onClick={() => handleDetails(params.row)}>
-                                    <ContentPasteSearchIcon className='tableListDetail' />
-                                </span>
+                        <span onClick={() => handleDetails(params.row)}>
+                            <ContentPasteSearchIcon className='tableListDetail' />
+                        </span>
+
+                        {
+                            isAdmin && (!isDelFlagFalse || (
                                 <span onClick={() => handleEditVehicle(params.row)}>
                                     <EditOutlinedIcon className="tableListEdit" />
                                 </span>
-                            </div>
-                        ) : (
-                            <div>
-                                <span onClick={() => handleDetails(params.row)}>
-                                    <ContentPasteSearchIcon className='tableListDetail' />
-                                </span>
-                                <span onClick={() => handleDeleteVehicle(params.row.vehicleId)}>
-                                    <DeleteOutlineIcon className="tableListDelete" />
-                                </span>
-                            </div>
-                        )}
+                        ))}
+                        {isAdmin && (isDelFlagFalse || (
+                            <span onClick={() => handleDeleteVehicle(params.row.vehicleId)}>
+                                <DeleteOutlineIcon className="tableListDelete" />
+                            </span>
+                        ))}
                     </>
                 )
             }
