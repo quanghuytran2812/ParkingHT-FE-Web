@@ -36,6 +36,7 @@ const ResetPassword = () => {
   function resetPass() {
     const invalids = validate(payload, setInvalidFields)
     if (invalids === 0) {
+      console.log(urlResetP)
       const urlbasic = new URL(urlResetP);
       const phoneNumber = urlbasic.searchParams.get("phoneNumber");
       dispatch(apiResetP({ phone: phoneNumber, confirmPassword: payload.confirmPassword }))
