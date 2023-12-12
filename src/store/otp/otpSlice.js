@@ -7,7 +7,7 @@ export const apiSendOtpByPh = createAsyncThunk('otp/apiSendOtpByPh', async (dest
 })
 
 export const apivalidateOtpResetP = createAsyncThunk('otp/apivalidateOtpResetP', async (otp) => {
-  return await otpService.apivalidateOtpResetPass(otp)
+  return await otpService.apivalidateOtpResetPass(otp.otp,otp.phone)
 })
 
 export const apiResetP = createAsyncThunk('otp/apiResetP', async (data) => {
@@ -16,7 +16,8 @@ export const apiResetP = createAsyncThunk('otp/apiResetP', async (data) => {
 
 const initialState = {
   isLoading: false,
-  urlResetPass: ''
+  urlResetPass: '',
+  phoneN: ''
 };
 
 const otpSlice = createSlice({
@@ -32,7 +33,9 @@ const otpSlice = createSlice({
       .addCase(apiSendOtpByPh.fulfilled, (state, action) => {
         state.isLoading = false
         if (action.payload.code === "200") {
-          toast.success(`Bạn đã gửi OTP thành công!`);
+          state.phoneN = action.payload.phoneNumber
+          // toast.success(`Bạn đã gửi OTP thành công!`);
+          toast.success(`${action.payload.message}`);
         }else{
           toast.error(`${action.payload.message}`);
         }

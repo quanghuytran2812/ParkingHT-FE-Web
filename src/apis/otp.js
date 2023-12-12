@@ -9,9 +9,10 @@ export const apiSendOtpByPhone = async (destPhoneNumber) => {
     }
 }
 
-export const apivalidateOtpResetPass = async (otp) => {
+export const apivalidateOtpResetPass = async (otp, phoneNumber) => {
   const otpData = {
     otp: otp,
+    phoneNumber: phoneNumber
   };
 
   try {

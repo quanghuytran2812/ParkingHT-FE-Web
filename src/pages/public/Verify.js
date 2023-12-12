@@ -14,7 +14,7 @@ const Verify = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [OTP, setOTP] = useState("");
-    const { isLoading } = useSelector((state) => state.otp);
+    const { isLoading, phoneN } = useSelector((state) => state.otp);
 
     const onOTPVerify = (e) => {
         e.preventDefault();
@@ -24,7 +24,7 @@ const Verify = () => {
             return;
         }
 
-        dispatch(apivalidateOtpResetP(OTP))
+        dispatch(apivalidateOtpResetP({otp: OTP, phone: phoneN}))
             .then((result) => {
                 if (result.payload?.statusCode === 200) {
                     navigate("/" + path.RESETPASSWORD);
