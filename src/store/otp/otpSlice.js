@@ -34,8 +34,8 @@ const otpSlice = createSlice({
         state.isLoading = false
         if (action.payload.code === "200") {
           state.phoneN = action.payload.phoneNumber
-          // toast.success(`Bạn đã gửi OTP thành công!`);
-          toast.success(`${action.payload.message}`);
+          toast.success(`Bạn đã gửi OTP thành công!`);
+          console.log(action.payload.message)
         }else{
           toast.error(`${action.payload.message}`);
         }
