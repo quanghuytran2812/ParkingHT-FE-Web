@@ -148,7 +148,7 @@ const ParkingSlot = () => {
                             </svg>
                         </span>
                     </div>
-                    <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>Create</span></button>
+                    <button type="button" onClick={() => setOpenModal(true)}><AddIcon className="tableCreateIcon" /><span>TẠO MỚI</span></button>
                 </div>
                 <DataGrid
                     rows={listParkingSlot}
