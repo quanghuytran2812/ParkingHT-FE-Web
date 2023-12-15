@@ -25,7 +25,7 @@ export const validate = (payload, setInvalidFields) => {
                             '- Chứa ít nhất một chữ thường.\n' +
                             '- Một chữ cái viết hoa.\n' +
                             '- Một chữ số.\n' +
-                            '- Một nhân vật đặc biệt.'
+                            '- Một ký tự đặc biệt.'
                     }])
                 }
                 break;

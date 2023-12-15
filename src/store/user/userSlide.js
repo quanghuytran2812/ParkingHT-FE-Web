@@ -61,7 +61,7 @@ const userSlice = createSlice({
             })
             .addCase(updateRoleUser.rejected, (state, action) => {
                 state.loading = false;
-                toast.error("Vai trò của người dùng cập nhật thất bại!")
+                toast.error(`${action.payload.message}`);
             })    
     },
 });

@@ -72,7 +72,7 @@ const UsersProfile = () => {
                 const res = await apiUpdateUser(userinfo.userId, updatedUser);
                 if (res.statusCode === 200) {
                     fetchData();
-                    toast.success("Update user successfully!");
+                    toast.success("Cập nhật người dùng thành công!");
                     setIsloading(false)
                 } else {
                     toast.error(`${res.message}`);

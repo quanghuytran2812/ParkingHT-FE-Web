@@ -60,7 +60,7 @@ const ModalChangePass = ({ open, onClose }) => {
                 if (res.statusCode === 200) {
                     handleReset();
                     onClose();
-                    toast.success('Password changed successfully!');
+                    toast.success('Đã đổi mật khẩu thành công!');
                     setIsloading(false)
                 } else {
                     toast.error(`${res.message}`)
