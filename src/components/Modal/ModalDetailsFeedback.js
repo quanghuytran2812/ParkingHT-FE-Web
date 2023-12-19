@@ -40,7 +40,9 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo }) => {
                                 <p>Điện thoại: </p>
                                 <p>Đánh giá sao: </p>
                                 <p>ReportID: </p>
-                                <p>ManagerID: </p>
+                                {dataInfo.report.managerId === null ? "" :
+                                    <p>ManagerID: </p>
+                                }
                                 <p>Ngày tạo: </p>
                                 <p>Trạng thái: </p>
                                 <p>Nội dung: </p>
@@ -50,7 +52,9 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo }) => {
                                 <p>{dataInfo.report.user.phoneNumber}</p>
                                 <p>{dataInfo.rankStar}</p>
                                 <p>{dataInfo.report.reportId}</p>
-                                <p>{dataInfo.report.managerId}</p>
+                                {dataInfo.report.managerId === null ? "" :
+                                    <p>{dataInfo.report.managerId}</p>
+                                }
                                 <p>{moment(dataInfo.createDate).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.isFeedback === 1 ? "Phản hồi" : "Chưa"}</p>
                                 <p>{dataInfo.content !== null ? dataInfo.content : 'Không có ý kiến'}</p>

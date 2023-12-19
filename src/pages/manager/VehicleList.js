@@ -41,7 +41,7 @@ const VehicleList = () => {
         if (term) {
             const filtered = listVehicle.filter((item) =>
                 item.plateNumber.toLowerCase().includes(term.toLowerCase()) ||
-                item.vehicleName.toLowerCase().includes(term.toLowerCase())
+                item.vehicleId.toLowerCase().includes(term.toLowerCase())
             );
             setFilteredvehicle(filtered);
         } else {

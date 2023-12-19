@@ -33,7 +33,8 @@ const ParkingSlot = () => {
             let clonelistParkingSlot = _.cloneDeep(listParkingSlot);
             clonelistParkingSlot = clonelistParkingSlot.filter(item =>
                 item.area.toLowerCase().includes(term.toLowerCase()) ||
-                item.name.toLowerCase().includes(term.toLowerCase())
+                item.name.toLowerCase().includes(term.toLowerCase()) ||
+                item.parkingSlotId.toLowerCase().includes(term.toLowerCase())
             );
             setlistParkingSlot(clonelistParkingSlot);
         } else {

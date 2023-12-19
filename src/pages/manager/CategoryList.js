@@ -35,6 +35,7 @@ const CategoryList = () => {
     const handleSearch = _.debounce((term) => {
         if (term) {
             const filtered = listCategory.filter((item) =>
+                item.vehicleCategoryId.toLowerCase().includes(term.toLowerCase()) ||
                 item.vehicleCategoryName.toLowerCase().includes(term.toLowerCase())
             );
             setFilteredCategories(filtered);
