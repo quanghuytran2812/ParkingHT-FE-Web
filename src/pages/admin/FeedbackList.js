@@ -32,8 +32,7 @@ const FeedbackList = () => {
   const handleSearch = _.debounce((term) => {
     if (term) {
       const filtered = listFeedback.filter((item) =>
-        item.feedBackId.toLowerCase().includes(term.toLowerCase()) ||
-        item.content.toLowerCase().includes(term.toLowerCase())
+        item.feedBackId.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredFeedback(filtered);
     } else {
@@ -50,10 +49,6 @@ const FeedbackList = () => {
   const handleDetails = (info) => {
     setdataDetail(info);
     setOpenModalDetail(true);
-  }
-
-  const handleTableUpdate = () => {
-    fetchData();
   }
 
   const columns = [
@@ -158,7 +153,6 @@ const FeedbackList = () => {
         open={openModalDetail}
         onClose={() => setOpenModalDetail(false)}
         dataInfo={dataDetail}
-        handleTableUpdate={handleTableUpdate}
       />
     </>
   )

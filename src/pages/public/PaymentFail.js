@@ -6,7 +6,7 @@ const PaymentFail = () => {
     <div className='paymentfail'>
       <img src={payment} alt='payment' className='paymentfailImage'/>
       <h2 className='paymentfailHeader'>Thanh toán thất bại!</h2>
-      <p className='paymentfailTitle'>Chỗ đỗ xe của bạn đã được đặt thành công.</p>
+      <p className='paymentfailTitle'>Chỗ đỗ xe của bạn đã được đặt thất bại.</p>
     </div>
   )
 }

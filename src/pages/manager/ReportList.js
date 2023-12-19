@@ -34,7 +34,7 @@ const ReportList = () => {
     if (term) {
       const filtered = listReport.filter((item) =>
         item.vehiclePlateNumber.toLowerCase().includes(term.toLowerCase()) ||
-        item.content.toLowerCase().includes(term.toLowerCase())
+        item.reportId.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredReport(filtered);
     } else {

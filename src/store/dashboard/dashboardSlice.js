@@ -29,9 +29,9 @@ const dashboardSlice = createSlice({
             })
             .addCase(fetchDashboard.fulfilled, (state, action) => {
                 state.loading = false;
-                state.listMonthlyPayment = action.payload.monthlyPayment;
-                state.numberTotalInDay = action.payload.totalInDay;
-                state.numberTotalRegister = action.payload.totalRegister;
+                state.listMonthlyPayment = action.payload.data.monthlyPayment;
+                state.numberTotalInDay = action.payload.data.totalInDay;
+                state.numberTotalRegister = action.payload.data.totalRegister;
             })
             .addCase(fetchDashboard.rejected, (state, action) => {
                 state.loading = false;

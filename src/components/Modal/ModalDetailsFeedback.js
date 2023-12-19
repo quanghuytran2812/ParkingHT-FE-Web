@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { updateFeedback } from 'store/feedback/feedbackSlice';
 
-const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) => {
+const ModalDetailsFeedback = ({ open, onClose, dataInfo }) => {
     const dispatch = useDispatch();
     const { CloseIcon } = icons;
 
@@ -39,6 +39,8 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) =>
                                 <p>Tài khoản: </p>
                                 <p>Điện thoại: </p>
                                 <p>Đánh giá sao: </p>
+                                <p>ReportID: </p>
+                                <p>ManagerID: </p>
                                 <p>Ngày tạo: </p>
                                 <p>Trạng thái: </p>
                                 <p>Nội dung: </p>
@@ -47,6 +49,8 @@ const ModalDetailsFeedback = ({ open, onClose, dataInfo, handleTableUpdate }) =>
                                 <p>{dataInfo.report.user.fullName}</p>
                                 <p>{dataInfo.report.user.phoneNumber}</p>
                                 <p>{dataInfo.rankStar}</p>
+                                <p>{dataInfo.report.reportId}</p>
+                                <p>{dataInfo.report.managerId}</p>
                                 <p>{moment(dataInfo.createDate).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 <p>{dataInfo.isFeedback === 1 ? "Phản hồi" : "Chưa"}</p>
                                 <p>{dataInfo.content !== null ? dataInfo.content : 'Không có ý kiến'}</p>
