@@ -11,3 +11,7 @@ export const apiGetBookingById = async (id, token) => {
         headers: authHeader(token),
     });
 }
+
+export const apiGetPaymentById = async (id) => {
+    return await axios.get('/api/getPaymentByID/'+id);
+}

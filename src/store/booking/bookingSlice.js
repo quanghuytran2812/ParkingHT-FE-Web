@@ -22,11 +22,22 @@ export const fetchBookingById = createAsyncThunk('booking/fetchBookingById', asy
     }
 });
 
+// Fetch payment by bookingid
+export const fetchPaymentById = createAsyncThunk('booking/fetchPaymentById', async (id) => {
+    try {
+        const response = await bookingService.apiGetPaymentById(id);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+});
+
 const bookingSlice = createSlice({
     name: 'booking',
     initialState: {
         list: [],
         getbooking: null,
+        getpayment: null,
         loading: false,
     },
     reducers: {},
@@ -52,6 +63,17 @@ const bookingSlice = createSlice({
                 state.getbooking = action.payload;
             })
             .addCase(fetchBookingById.rejected, (state, action) => {
+                state.loading = false;
+            })
+            // Fetch payment by id
+            .addCase(fetchPaymentById.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchPaymentById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.getpayment = action.payload;
+            })
+            .addCase(fetchPaymentById.rejected, (state, action) => {
                 state.loading = false;
             })
     },

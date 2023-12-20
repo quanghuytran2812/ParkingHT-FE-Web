@@ -83,3 +83,8 @@
 .tableRight p {
     margin: 0;
 }
+.tableRight .bookingIDText{
+    text-decoration: underline;
+    color: #02aab0;
+    cursor: pointer;
+}
