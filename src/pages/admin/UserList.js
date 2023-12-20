@@ -80,7 +80,6 @@ const UserList = () => {
     if (term) {
       let clonelistUser = _.cloneDeep(listUser);
       clonelistUser = clonelistUser.filter(item =>
-        item.role.roleName.toLowerCase().includes(term.toLowerCase()) ||
         item.userId.toLowerCase().includes(term.toLowerCase()) ||
         item.fullName.toLowerCase().includes(term.toLowerCase()) ||
         item.phoneNumber.toLowerCase().includes(term.toLowerCase()) ||

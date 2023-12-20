@@ -33,8 +33,7 @@ const BookingList = () => {
   const handleSearch = _.debounce((term) => {
     if (term) {
       const filtered = listBooking.filter((item) =>
-        item.booking_Id.toLowerCase().includes(term.toLowerCase()) ||
-        item.user.fullName.toLowerCase().includes(term.toLowerCase())
+        item.booking_Id.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredvehicle(filtered);
     } else {

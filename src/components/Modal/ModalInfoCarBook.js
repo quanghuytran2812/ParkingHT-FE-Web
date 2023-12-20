@@ -49,7 +49,7 @@ const ModalInfoCarBook = ({ open, onClose, dataInfo }) => {
                                     <p>{getbooking?.vehicle.plateNumber}</p>
                                     <p>{getbooking?.vehicle.user.fullName}</p>
                                     <p>{getbooking?.vehicle.user.phoneNumber}</p>
-                                    <p>{getbooking?.vehicle.vehicleCategory.vehicleCategoryName}</p>
+                                    <p>{getbooking?.vehicle.vehicleCategory.vehicleCategoryName} chỗ</p>
                                     <p>{moment(getbooking?.start_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                     <p>{moment(getbooking?.end_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                 </div>
