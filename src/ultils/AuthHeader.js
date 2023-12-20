@@ -7,7 +7,7 @@ const getAccessToken = () => {
   return accessToken;
 }
 
-export default function getTokenInfo() {
+const getTokenInfo = () => {
   const accessToken = getAccessToken();
   const tokenInfo = jwtDecode(accessToken);
   if (tokenInfo) {
@@ -22,4 +22,4 @@ export default function getTokenInfo() {
 
 const authHeader = token => ({Authorization: `Bearer ${token}`});
 
-export {authHeader, getAccessToken};
+export {authHeader, getAccessToken, getTokenInfo};
