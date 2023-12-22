@@ -4,9 +4,12 @@ import "assets/css/modalCommon.css"
 import moment from 'moment';
 import CurrencyFormat from 'ultils/regex';
 import ModalDetailsPayment from './ModalDetailsPayment';
+import ModalInfoParkingSlot from './ModalInfoParkingSlot';
 
 const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
     const [openModal, setOpenModal] = useState(false);
+    const [openModalParking, setOpenModalParking] = useState(false);
+    const [dataParking, setDataParking] = useState({});
     const [dataPayment, setdataPayment] = useState("");
     const { CloseIcon } = icons;
     if (!open) return null;
@@ -14,6 +17,10 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
     const handlePayment = () => {
         setdataPayment(dataInfo.booking_Id);
         setOpenModal(true);
+    }
+    const handleParkingSlot = (data) => {
+        setOpenModalParking(true)
+        setDataParking(data)
     }
     return (
         <>
@@ -36,6 +43,7 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                                     <p>Mã đặt chỗ: </p>
                                     <p>Biển số xe: </p>
                                     <p>Điện thoại: </p>
+                                    <p>Mã chỗ đỗ xe: </p>
                                     <p>Ngày bắt đầu: </p>
                                     <p>Ngày kết thúc: </p>
                                     <p>Ngày tạo: </p>
@@ -53,6 +61,11 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                                     )}
                                     <p>{dataInfo.vehicle.plateNumber}</p>
                                     <p>{dataInfo.vehicle.user.phoneNumber}</p>
+                                    {dataInfo.booking_Status === "COMPLETED" ? (
+                                        <p className='bookingIDText' onClick={() => handleParkingSlot(dataInfo)}>{dataInfo.parkingSlot.parkingSlotId}</p>
+                                    ) : (
+                                        <p>{dataInfo.parkingSlot.parkingSlotId}</p>
+                                    )}
                                     <p>{moment(dataInfo.start_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                     <p>{moment(dataInfo.end_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
                                     <p>{moment(dataInfo.create_Date).format('DD/MM/YYYY, h:mm:ss A')}</p>
@@ -75,6 +88,11 @@ const ModalDetailsBooking = ({ open, onClose, dataInfo }) => {
                 open={openModal}
                 onClose={() => setOpenModal(false)}
                 dataPayment={dataPayment}
+            />
+            <ModalInfoParkingSlot
+                open={openModalParking}
+                onClose={() => setOpenModalParking(false)}
+                dataInfoP={dataParking}
             />
         </>
     )

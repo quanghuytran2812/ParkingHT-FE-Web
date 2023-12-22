@@ -34,7 +34,7 @@ const ModalInfoCarBook = ({ open, onClose, dataInfo }) => {
                             <CloseIcon />
                         </p>
                         <div className="resetpasswordForm">
-                            <p className="tableformHeading hr">THÔNG TIN CHI TIẾT</p>
+                            <p className="tableformHeading hr">THÔNG TIN CHI TIẾT XE ĐỖ</p>
 
                             <div className='tableDetail'>
                                 <div className='tableLeft col-sm-4'>
