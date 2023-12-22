@@ -38,7 +38,7 @@ export const validate = (payload, setInvalidFields) => {
             case 'birthday':
                 const age = getAge(arr[1]);
 
-                if (age < 18 || age > 60) {
+                if (age < 18 || age > 55) {
                     invalids++;
                     setInvalidFields(prev => [...prev, { name: arr[0], mes: 'Tuổi không hợp lệ!' }]);
                 }
